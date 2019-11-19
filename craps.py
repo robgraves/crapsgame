@@ -6,7 +6,16 @@
 #				craps game.
 #
 
+import os
 import random
+import pickle
+
+##Testing save and load function	
+#users_dict = {"Dan":250, "Thomas":1500}
+#pickle.dump(users_dict, open("userdata.p","wb"))
+users_dict = {}
+if os.path.exists("userdata.p"):
+	users_dict = pickle.load(open("userdata.p","rb"))
 
 def dice():
 	print("Rolling the dice...")
@@ -42,19 +51,52 @@ def crapstable():
 	print("                           |  any    craps |    ")
 	print("                           +---------------+    ")
 
+
+def player():
+	choice = "0"
+	global bankroll
+	global users_dict
+	while choice not in ("1","2"):
+		print("Are you a new or returning player?")
+		print("1 - New Player")
+		print("2 - Returning Player")
+		choice = input()
+		if choice not in ("1","2"):
+			print("ERROR: Bad choice! Invalid entry!")
+	if choice == "1":
+		print("Please enter your name:")
+		username = input()
+		bankroll = 1000
+		return username		
+	if choice == "2":
+		print("Please enter your name:")
+		username = input()
+		saveduser = pickle.load(open("userdata.p","rb"))
+		bankroll = saveduser.get(username)
+	return username
+
+#Function to be used prior to quitting the game
+def save(users_dict):
+	pickle.dump(users_dict, open("userdata.p","wb"))
+
 ##I think this function is dead now, probably will delete
-def bet_pass(bankroll):
-	print("Enter a bet location: ")
-	print("1 - Pass Line (Bet with the shooter)")
-	print("2 - Don't Pass Line (Bet with the house)")
-	bet_location = input()
-	print("Enter a bet amount: ")
-	bet_amount = input()
-	
+#def bet_pass(bankroll):
+#	print("Enter a bet location: ")
+#	print("1 - Pass Line (Bet with the shooter)")
+#	print("2 - Don't Pass Line (Bet with the house)")
+#	bet_location = input()
+#	print("Enter a bet amount: ")
+#	bet_amount = input()
+
 
 #Script starts here
 intro()
-bankroll = 1000
+bankroll = 0
+username = player()
+print("Welcome " + username + "!!!")
+print("Your bankroll is: " + str(bankroll))
+users_dict[username] = bankroll
+save(users_dict)
 
 ##testing craps table output
 #print("Press any key to show the craps table.")
