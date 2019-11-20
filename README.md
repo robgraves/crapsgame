@@ -1,5 +1,13 @@
 # crapsgame
 Matthew Page
+
+
+11/15/2019 
+
+After a hiatus from working on this I am trying to structure this is some way that I don't end up with a mess of spaghetti code.  Need to plan out all the functions and program control flow that I'm going to need for this game to 
+function properly.
+
+
 07/15/2019
 
 This is just an experiment with me learning python again and trying to get back into coding after a hiatus.

@@ -13,6 +13,7 @@ import pickle
 ##Testing save and load function	
 #users_dict = {"Dan":250, "Thomas":1500}
 #pickle.dump(users_dict, open("userdata.p","wb"))
+
 users_dict = {}
 if os.path.exists("userdata.p"):
 	users_dict = pickle.load(open("userdata.p","rb"))
@@ -55,7 +56,7 @@ def crapstable():
 def player():
 	choice = "0"
 	global bankroll
-	global users_dict
+	#global users_dict
 	while choice not in ("1","2"):
 		print("Are you a new or returning player?")
 		print("1 - New Player")
@@ -77,6 +78,8 @@ def player():
 
 #Function to be used prior to quitting the game
 def save(users_dict):
+	global bankroll
+	users_dict[username] = bankroll
 	pickle.dump(users_dict, open("userdata.p","wb"))
 
 ##I think this function is dead now, probably will delete
@@ -95,7 +98,7 @@ bankroll = 0
 username = player()
 print("Welcome " + username + "!!!")
 print("Your bankroll is: " + str(bankroll))
-users_dict[username] = bankroll
+#users_dict[username] = bankroll
 save(users_dict)
 
 ##testing craps table output
