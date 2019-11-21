@@ -56,7 +56,6 @@ def crapstable():
 def player():
 	choice = "0"
 	global bankroll
-	#global users_dict
 	while choice not in ("1","2"):
 		print("Are you a new or returning player?")
 		print("1 - New Player")
@@ -98,7 +97,6 @@ bankroll = 0
 username = player()
 print("Welcome " + username + "!!!")
 print("Your bankroll is: " + str(bankroll))
-#users_dict[username] = bankroll
 save(users_dict)
 
 ##testing craps table output
@@ -110,19 +108,29 @@ save(users_dict)
 print("Your current bankroll is: " + str(bankroll))
 
 ##Get bet location
-print("Enter a bet location: ")
-print("1 - Pass Line (Bet with the shooter)")
-print("2 - Don't Pass Line (Bet with the house)")
-bet_location = 0
-while not int(bet_location) in range(1,3):
-	try:
-		bet_location = int(input())
-	except ValueError:
-		print("Error: Invalid entry.  Enter 1 or 2")
-	if bet_location > 2:
-		print("Error: Invalid entry.  Enter 1 or 2")
-		continue
-print("You chose " + str(bet_location))
+#print("Enter a bet location: ")
+#print("1 - Pass Line (Bet with the shooter)")
+#print("2 - Don't Pass Line (Bet with the house)")
+bet_location = "0"
+#while not int(bet_location) in range(1,3):
+while bet_location not in ("1","2"):
+	print("Enter a bet location: ")
+	print("1 - Pass Line (Bet with the shooter)")
+	print("2 - Don't Pass Line (Bet with the house)")
+	bet_location = input()
+	if bet_location in ("1","2"):
+		break
+	else:
+		print("Invalid entry!")
+	#try:
+	#	bet_location = int(input())
+	#except ValueError:
+	#	print("Error: Invalid entry.  Enter 1 or 2")
+	#if bet_location > 2:
+	#	print("Error: Invalid entry.  Enter 1 or 2")
+	#	continue
+print("You chose " + bet_location)
+bet_location = int(bet_location)
 
 #Get bet amount
 print("Enter a bet amount: ")
@@ -141,6 +149,7 @@ print("You chose " + str(bet_amount))
 
 bankroll = bankroll - bet_amount
 print("Your current bankroll is: " + str(bankroll))
+save(users_dict)
 
 ##Actual come-out roll
 iscomeout = True
