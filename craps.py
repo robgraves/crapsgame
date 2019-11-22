@@ -6,18 +6,24 @@
 #				craps game.
 #
 
+
+#Importing stuff
 import os
 import random
 import pickle
+
 
 ##Testing save and load function	
 #users_dict = {"Dan":250, "Thomas":1500}
 #pickle.dump(users_dict, open("userdata.p","wb"))
 
+
+#Initializing the user database and loading if it exists
 users_dict = {}
 if os.path.exists("userdata.p"):
 	users_dict = pickle.load(open("userdata.p","rb"))
 
+#Function that rolls two dice
 def dice():
 	print("Rolling the dice...")
 	die1 		= random.randint(1,6)
@@ -26,6 +32,8 @@ def dice():
 	print(str(die1) + " " + str(die2))
 	return diceresult
 
+
+#Function that displays Intro screen
 def intro():
 	print("Welcome to Matt's Craps Game!!!")
 	print("       .-------.    ______     ")
@@ -36,6 +44,8 @@ def intro():
 	print("     |     o |/   \ o/  o  /   ")
 	print("     '-------'     \/____o/    ")
 
+
+#Function that draws the craps table in ASCII art
 def crapstable():
 	print(" ___  ____________________                      ")
 	print("|  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
@@ -53,6 +63,7 @@ def crapstable():
 	print("                           +---------------+    ")
 
 
+#Function for creating or loading user and their bankroll
 def player():
 	choice = "0"
 	global bankroll
@@ -74,6 +85,7 @@ def player():
 		saveduser = pickle.load(open("userdata.p","rb"))
 		bankroll = saveduser.get(username)
 	return username
+
 
 #Function to be used prior to quitting the game
 def save(users_dict):
