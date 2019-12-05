@@ -93,15 +93,6 @@ def save(users_dict):
 	users_dict[username] = bankroll
 	pickle.dump(users_dict, open("userdata.p","wb"))
 
-##I think this function is dead now, probably will delete
-#def bet_pass(bankroll):
-#	print("Enter a bet location: ")
-#	print("1 - Pass Line (Bet with the shooter)")
-#	print("2 - Don't Pass Line (Bet with the house)")
-#	bet_location = input()
-#	print("Enter a bet amount: ")
-#	bet_amount = input()
-
 
 #Script starts here
 intro()
@@ -116,88 +107,85 @@ save(users_dict)
 #input()
 #crapstable()
 
-##Pre Come-Out roll bet
-print("Your current bankroll is: " + str(bankroll))
+#NEED TO CREATE MAIN GAME LOOP HERE
+quitflag = False
+while quitflag == False:
+	
+	##Pre Come-Out roll bet
+	print("Your current bankroll is: " + str(bankroll))
 
-##Get bet location
-#print("Enter a bet location: ")
-#print("1 - Pass Line (Bet with the shooter)")
-#print("2 - Don't Pass Line (Bet with the house)")
-bet_location = "0"
-#while not int(bet_location) in range(1,3):
-while bet_location not in ("1","2"):
-	print("Enter a bet location: ")
-	print("1 - Pass Line (Bet with the shooter)")
-	print("2 - Don't Pass Line (Bet with the house)")
-	bet_location = input()
-	if bet_location in ("1","2"):
+	##Get bet location
+	bet_location = "0"
+	while bet_location not in ("1","2","3"):
+		print("Enter a bet location: ")
+		print("1 - Pass Line (Bet with the shooter)")
+		print("2 - Don't Pass Line (Bet with the house)")
+		print("3 - Quit Game")
+		bet_location = input()
+		if bet_location in ("1","2","3"):
+			break
+		else:
+			print("Invalid entry!")
+	if bet_location == "3":
+		quitflag = True
 		break
-	else:
-		print("Invalid entry!")
-	#try:
-	#	bet_location = int(input())
-	#except ValueError:
-	#	print("Error: Invalid entry.  Enter 1 or 2")
-	#if bet_location > 2:
-	#	print("Error: Invalid entry.  Enter 1 or 2")
-	#	continue
-print("You chose " + bet_location)
-bet_location = int(bet_location)
+	print("You chose " + bet_location)
+	bet_location = int(bet_location)
 
-#Get bet amount
-print("Enter a bet amount: ")
-bet_amount = 0
-while not int(bet_amount) in range(1, bankroll+1):
-	if bet_amount > bankroll:
-		print("You do not have that much.")
-		print("Your current bankroll is: " + str(bankroll))
-		print("Enter a bet amount: ")
-	try:
-		bet_amount = int(input())
-	except ValueError:
-		print("Error: Invalid entry. Please enter a number.")
-		continue
-print("You chose " + str(bet_amount))
+	#Get bet amount
+	print("Enter a bet amount: ")
+	bet_amount = 0
+	while not int(bet_amount) in range(1, bankroll+1):
+		if bet_amount > bankroll:
+			print("You do not have that much.")
+			print("Your current bankroll is: " + str(bankroll))
+			print("Enter a bet amount: ")
+		try:
+			bet_amount = int(input())
+		except ValueError:
+			print("Error: Invalid entry. Please enter a number.")
+			continue
+	print("You chose " + str(bet_amount))
 
-bankroll = bankroll - bet_amount
-print("Your current bankroll is: " + str(bankroll))
-save(users_dict)
+	bankroll = bankroll - bet_amount
+	print("Your current bankroll is: " + str(bankroll))
+	save(users_dict)
 
-##Actual come-out roll
-iscomeout = True
-while iscomeout == True:
-	print("Press any key to roll.")
-	input()
-	result = dice()
-	#If 7 or 11 Pass bettors win, Don't Pass loses
-	if result == 7 or result == 11:
-		print("Shooter Wins!!!")
-		iscomeout = True
-	elif result == 2 or result == 3 or result == 12:
-		print("Shooter Craps Out!")
-		iscomeout = True
-	else:
-		point = result
-		print("The point is now " + str(result))
-		iscomeout = False
-
-	#If 2, 3, or 12 Pass bettors lose, Don't Pass wins
-	#Anything else becomes the point (4, 5, 6, 8, 9, 10)
-	#If point is established we change come-out roll state
-
-	#iscomeout = False
-	while iscomeout == False:
-		print("Press any key to roll again.")
+	##Actual come-out roll
+	iscomeout = True
+	while iscomeout == True:
+		print("Press any key to roll.")
 		input()
 		result = dice()
-		if result == point:
-			print("Shooter hits the point!!!")
-			print("Pass Line Wins!!!")
+		#If 7 or 11 Pass bettors win, Don't Pass loses
+		if result == 7 or result == 11:
+			print("Shooter Wins!!!")
 			iscomeout = True
-		elif result == 7:
-			print("Seven!!! Shooter loses!")
-			print("Pass Line loses.")
+		elif result == 2 or result == 3 or result == 12:
+			print("Shooter Craps Out!")
 			iscomeout = True
+		else:
+			point = result
+			print("The point is now " + str(result))
+			iscomeout = False
+
+		#If 2, 3, or 12 Pass bettors lose, Don't Pass wins
+		#Anything else becomes the point (4, 5, 6, 8, 9, 10)
+		#If point is established we change come-out roll state
+
+		#iscomeout = False
+		while iscomeout == False:
+			print("Press any key to roll again.")
+			input()
+			result = dice()
+			if result == point:
+				print("Shooter hits the point!!!")
+				print("Pass Line Wins!!!")
+				iscomeout = True
+			elif result == 7:
+				print("Seven!!! Shooter loses!")
+				print("Pass Line loses.")
+				iscomeout = True
 		else:
 			continue
 
