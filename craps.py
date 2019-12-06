@@ -152,6 +152,7 @@ while quitflag == False:
 	save(users_dict)
 
 	##Actual come-out roll
+	#NEED AN INNER LOOP HERE FOR EACH CRAPS HAND
 	iscomeout = True
 	while iscomeout == True:
 		print("Press any key to roll.")
@@ -160,6 +161,8 @@ while quitflag == False:
 		#If 7 or 11 Pass bettors win, Don't Pass loses
 		if result == 7 or result == 11:
 			print("Shooter Wins!!!")
+			bankroll = bankroll + (bet_amount * 2)
+			save(users_dict)
 			iscomeout = True
 		elif result == 2 or result == 3 or result == 12:
 			print("Shooter Craps Out!")
@@ -181,13 +184,16 @@ while quitflag == False:
 			if result == point:
 				print("Shooter hits the point!!!")
 				print("Pass Line Wins!!!")
+				bankroll = bankroll + (bet_amount * 2)
+				save(users_dict)
 				iscomeout = True
 			elif result == 7:
 				print("Seven!!! Shooter loses!")
 				print("Pass Line loses.")
 				iscomeout = True
-		else:
-			continue
+				break
+			else:
+				continue
 
 ##Random roll for no reason
 #print("Press any key to roll the dice.")
