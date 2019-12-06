@@ -164,13 +164,17 @@ while quitflag == False:
 			bankroll = bankroll + (bet_amount * 2)
 			save(users_dict)
 			iscomeout = True
+			break
 		elif result == 2 or result == 3 or result == 12:
 			print("Shooter Craps Out!")
+			save(users_dict)
 			iscomeout = True
+			break
 		else:
 			point = result
 			print("The point is now " + str(result))
 			iscomeout = False
+			save(users_dict)
 
 		#If 2, 3, or 12 Pass bettors lose, Don't Pass wins
 		#Anything else becomes the point (4, 5, 6, 8, 9, 10)
@@ -187,13 +191,14 @@ while quitflag == False:
 				bankroll = bankroll + (bet_amount * 2)
 				save(users_dict)
 				iscomeout = True
+				break
 			elif result == 7:
 				print("Seven!!! Shooter loses!")
 				print("Pass Line loses.")
 				iscomeout = True
 				break
-			else:
-				continue
+			#else:
+			#	continue
 
 ##Random roll for no reason
 #print("Press any key to roll the dice.")
