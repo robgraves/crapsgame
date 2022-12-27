@@ -190,7 +190,6 @@ while quitflag == False:
 		#Anything else becomes the point (4, 5, 6, 8, 9, 10)
 		#If point is established we change come-out roll state
 
-		#iscomeout = False
 		while iscomeout == False:
 			print("Press any key to roll again.")
 			input()
