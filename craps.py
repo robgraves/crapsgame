@@ -48,20 +48,21 @@ def intro():
 
 #Function that draws the craps table in ASCII art
 def crapstable():
-	print(" ___  ____________________                      ")
-	print("|  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
-	print("|P o||__|__|__|__|__|__|__| |any seven   4-1|   ")
-	print("|A n| ____________________  +===============+   ")
-	print("|S t||     C O M E        | |hard 4 | hard 6|   ")
-	print("|S p||____________________| |-------+-------|   ")
-	print("|L a| ____________________  |hard 10| hard 8|   ")
-	print("|I s||2  3 4  9  10 11  12| +===============+   ")
-	print("|N s||_______FIELD________| |two    |  three|   ")
-	print("|E  |_____________________  |-----HORN------|   ")
-	print("|       don't pass bar    | |eleven | twelve|   ")
-	print(" \_________PASS_LINE______| +===============+   ")
-	print("                           |  any    craps |    ")
-	print("                           +---------------+    ")
+	print(" __ ___  ____________________                      ")
+	print("|N |  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
+	print("|o |P o||__|__|__|__|__|__|__| |any seven   4-1|   ")
+	print("|  |A n| ____________________  +===============+   ")
+	print("|C |S t||     C O M E        | |hard 4 | hard 6|   ")
+	print("|a |S p||____________________| |-------+-------|   ")
+	print("|l |L a| ____________________  |hard 10| hard 8|   ")
+	print("|l |I s||2  3 4  9  10 11  12| +===============+   ")
+	print("|  |N s||_______FIELD________| |two    |  three|   ")
+	print("|B |E  |_____________________  |-----HORN------|   ")
+	print("|e |       don't pass bar    | |eleven | twelve|   ")
+	print("|t  \_________PASS_LINE______| +===============+   ")
+	print("|s                           | |  any    craps |   ")
+	print(" \________No Call Bets_______| |    7 to 1     |   ")
+	print("                               +---------------+   ")
 
 
 #Function for creating or loading user and their bankroll
