@@ -326,7 +326,7 @@ while quitflag == False:
 		#Anything else becomes the point (4, 5, 6, 8, 9, 10)
 		else:
 			point = result
-			print("The point is now " + str(result))
+			print("The point is now " + str(point))
 			#If point is established we change come-out roll state
 			iscomeout = False
 			save(users_dict)
@@ -336,6 +336,8 @@ while quitflag == False:
 
 		#Subsequent rolls if not a Come-Out roll
 		while iscomeout == False:
+			os.system("clear")
+			print("Your current bankroll is: " + str(bankroll))
 			if point == 4:
 				crapstable4()
 			elif point == 5:
@@ -348,9 +350,11 @@ while quitflag == False:
 				crapstable9()
 			elif point == 10:
 				crapstable10()
+			#print("The point is now " + str(point))
+			print("You rolled " + str(result))
 			print("Press any key to roll again.")
 			input()
-			os.system("clear")
+			#os.system("clear")
 			result = dice()
 			if result == point:
 				print("Shooter hits the point!!!")
