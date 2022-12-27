@@ -23,8 +23,13 @@ users_dict = {}
 if os.path.exists("userdata.p"):
 	users_dict = pickle.load(open("userdata.p","rb"))
 
+
 #Function that rolls two dice
 def dice():
+	if point == 0:
+		print("Point is not set.")
+	else:
+		print("Point is : ", point)
 	print("Rolling the dice...")
 	die1 		= random.randint(1,6)
 	die2 		= random.randint(1,6)
@@ -97,6 +102,8 @@ def save(users_dict):
 
 #Script starts here
 intro()
+global point
+point = 0
 bankroll = 0
 username = player()
 print("Welcome " + username + "!!!")
@@ -165,11 +172,13 @@ while quitflag == False:
 			bankroll = bankroll + (bet_amount * 2)
 			save(users_dict)
 			iscomeout = True
+			point = 0
 			break
 		elif result == 2 or result == 3 or result == 12:
 			print("Shooter Craps Out!")
 			save(users_dict)
 			iscomeout = True
+			point = 0
 			break
 		else:
 			point = result
@@ -192,12 +201,14 @@ while quitflag == False:
 				bankroll = bankroll + (bet_amount * 2)
 				save(users_dict)
 				iscomeout = True
+				point = 0
 				break
 			elif result == 7:
 				print("Seven!!! Shooter loses!")
 				print("Pass Line loses.")
 				save(users_dict)
 				iscomeout = True
+				point = 0
 				break
 			#else:
 			#	continue
