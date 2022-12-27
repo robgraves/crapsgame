@@ -30,6 +30,7 @@ def dice():
 	die2 		= random.randint(1,6)
 	diceresult 	= die1 + die2 	
 	print(str(die1) + " " + str(die2))
+	print("You rolled : ", diceresult)
 	return diceresult
 
 
@@ -195,10 +196,12 @@ while quitflag == False:
 			elif result == 7:
 				print("Seven!!! Shooter loses!")
 				print("Pass Line loses.")
+				save(users_dict)
 				iscomeout = True
 				break
 			#else:
 			#	continue
+		break
 
 ##Random roll for no reason
 #print("Press any key to roll the dice.")
