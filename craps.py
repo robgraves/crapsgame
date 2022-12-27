@@ -104,6 +104,7 @@ def save(users_dict):
 intro()
 global point
 point = 0
+global bankroll
 bankroll = 0
 username = player()
 print("Welcome " + username + "!!!")
@@ -169,13 +170,18 @@ while quitflag == False:
 		#If 7 or 11 Pass bettors win, Don't Pass loses
 		if result == 7 or result == 11:
 			print("Shooter Wins!!!")
-			bankroll = bankroll + (bet_amount * 2)
+			print("bet location is : ", bet_location)
+			if bet_location == 1:
+				bankroll = (bankroll + (bet_amount * 2))
 			save(users_dict)
 			iscomeout = True
 			point = 0
 			break
 		elif result == 2 or result == 3 or result == 12:
 			print("Shooter Craps Out!")
+			print("bet location is : ", bet_location)
+			if bet_location == 2:
+				bankroll = (bankroll + (bet_amount * 2))
 			save(users_dict)
 			iscomeout = True
 			point = 0
@@ -197,7 +203,9 @@ while quitflag == False:
 			if result == point:
 				print("Shooter hits the point!!!")
 				print("Pass Line Wins!!!")
-				bankroll = bankroll + (bet_amount * 2)
+				print("bet location is : ", bet_location)
+				if bet_location == 1:
+					bankroll = (bankroll + (bet_amount * 2))
 				save(users_dict)
 				iscomeout = True
 				point = 0
@@ -205,6 +213,9 @@ while quitflag == False:
 			elif result == 7:
 				print("Seven!!! Shooter loses!")
 				print("Pass Line loses.")
+				print("bet location is : ", bet_location)
+				if bet_location == 2:
+					bankroll = (bankroll + (bet_amount * 2))
 				save(users_dict)
 				iscomeout = True
 				point = 0
