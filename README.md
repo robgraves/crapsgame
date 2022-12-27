@@ -1,6 +1,9 @@
 # crapsgame
 Matthew Page
 
+12/26/2023
+Toying with this command line craps game again hoping to make it functional.
+
 
 11/15/2019 
 
