@@ -65,6 +65,117 @@ def crapstable():
 	print("                               +---------------+   ")
 
 
+#Function that draws the craps table in ASCII art
+def crapstable4():
+	print(" __ ___  ____________________                      ")
+	print("|N |  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
+	print("|o |P o||__|ON|__|__|__|__|__| |any seven   4-1|   ")
+	print("|  |A n| ____________________  +===============+   ")
+	print("|C |S t||     C O M E        | |hard 4 | hard 6|   ")
+	print("|a |S p||____________________| |-------+-------|   ")
+	print("|l |L a| ____________________  |hard 10| hard 8|   ")
+	print("|l |I s||2  3 4  9  10 11  12| +===============+   ")
+	print("|  |N s||_______FIELD________| |two    |  three|   ")
+	print("|B |E  |_____________________  |-----HORN------|   ")
+	print("|e |       don't pass bar    | |eleven | twelve|   ")
+	print("|t  \_________PASS_LINE______| +===============+   ")
+	print("|s                           | |  any    craps |   ")
+	print(" \________No Call Bets_______| |    7 to 1     |   ")
+	print("                               +---------------+   ")
+
+#Function that draws the craps table in ASCII art
+def crapstable5():
+	print(" __ ___  ____________________                      ")
+	print("|N |  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
+	print("|o |P o||__|__|ON|__|__|__|__| |any seven   4-1|   ")
+	print("|  |A n| ____________________  +===============+   ")
+	print("|C |S t||     C O M E        | |hard 4 | hard 6|   ")
+	print("|a |S p||____________________| |-------+-------|   ")
+	print("|l |L a| ____________________  |hard 10| hard 8|   ")
+	print("|l |I s||2  3 4  9  10 11  12| +===============+   ")
+	print("|  |N s||_______FIELD________| |two    |  three|   ")
+	print("|B |E  |_____________________  |-----HORN------|   ")
+	print("|e |       don't pass bar    | |eleven | twelve|   ")
+	print("|t  \_________PASS_LINE______| +===============+   ")
+	print("|s                           | |  any    craps |   ")
+	print(" \________No Call Bets_______| |    7 to 1     |   ")
+	print("                               +---------------+   ")
+
+#Function that draws the craps table in ASCII art
+def crapstable6():
+	print(" __ ___  ____________________                      ")
+	print("|N |  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
+	print("|o |P o||__|__|__|ON|__|__|__| |any seven   4-1|   ")
+	print("|  |A n| ____________________  +===============+   ")
+	print("|C |S t||     C O M E        | |hard 4 | hard 6|   ")
+	print("|a |S p||____________________| |-------+-------|   ")
+	print("|l |L a| ____________________  |hard 10| hard 8|   ")
+	print("|l |I s||2  3 4  9  10 11  12| +===============+   ")
+	print("|  |N s||_______FIELD________| |two    |  three|   ")
+	print("|B |E  |_____________________  |-----HORN------|   ")
+	print("|e |       don't pass bar    | |eleven | twelve|   ")
+	print("|t  \_________PASS_LINE______| +===============+   ")
+	print("|s                           | |  any    craps |   ")
+	print(" \________No Call Bets_______| |    7 to 1     |   ")
+	print("                               +---------------+   ")
+
+
+#Function that draws the craps table in ASCII art
+def crapstable8():
+	print(" __ ___  ____________________                      ")
+	print("|N |  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
+	print("|o |P o||__|__|__|__|ON|__|__| |any seven   4-1|   ")
+	print("|  |A n| ____________________  +===============+   ")
+	print("|C |S t||     C O M E        | |hard 4 | hard 6|   ")
+	print("|a |S p||____________________| |-------+-------|   ")
+	print("|l |L a| ____________________  |hard 10| hard 8|   ")
+	print("|l |I s||2  3 4  9  10 11  12| +===============+   ")
+	print("|  |N s||_______FIELD________| |two    |  three|   ")
+	print("|B |E  |_____________________  |-----HORN------|   ")
+	print("|e |       don't pass bar    | |eleven | twelve|   ")
+	print("|t  \_________PASS_LINE______| +===============+   ")
+	print("|s                           | |  any    craps |   ")
+	print(" \________No Call Bets_______| |    7 to 1     |   ")
+	print("                               +---------------+   ")
+
+
+#Function that draws the craps table in ASCII art
+def crapstable9():
+	print(" __ ___  ____________________                      ")
+	print("|N |  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
+	print("|o |P o||__|__|__|__|__|ON|__| |any seven   4-1|   ")
+	print("|  |A n| ____________________  +===============+   ")
+	print("|C |S t||     C O M E        | |hard 4 | hard 6|   ")
+	print("|a |S p||____________________| |-------+-------|   ")
+	print("|l |L a| ____________________  |hard 10| hard 8|   ")
+	print("|l |I s||2  3 4  9  10 11  12| +===============+   ")
+	print("|  |N s||_______FIELD________| |two    |  three|   ")
+	print("|B |E  |_____________________  |-----HORN------|   ")
+	print("|e |       don't pass bar    | |eleven | twelve|   ")
+	print("|t  \_________PASS_LINE______| +===============+   ")
+	print("|s                           | |  any    craps |   ")
+	print(" \________No Call Bets_______| |    7 to 1     |   ")
+	print("                               +---------------+   ")
+
+
+#Function that draws the craps table in ASCII art
+def crapstable10():
+	print(" __ ___  ____________________                      ")
+	print("|N |  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
+	print("|o |P o||__|__|__|__|__|__|ON| |any seven   4-1|   ")
+	print("|  |A n| ____________________  +===============+   ")
+	print("|C |S t||     C O M E        | |hard 4 | hard 6|   ")
+	print("|a |S p||____________________| |-------+-------|   ")
+	print("|l |L a| ____________________  |hard 10| hard 8|   ")
+	print("|l |I s||2  3 4  9  10 11  12| +===============+   ")
+	print("|  |N s||_______FIELD________| |two    |  three|   ")
+	print("|B |E  |_____________________  |-----HORN------|   ")
+	print("|e |       don't pass bar    | |eleven | twelve|   ")
+	print("|t  \_________PASS_LINE______| +===============+   ")
+	print("|s                           | |  any    craps |   ")
+	print(" \________No Call Bets_______| |    7 to 1     |   ")
+	print("                               +---------------+   ")
+
 #Function for creating or loading user and their bankroll
 def player():
 	choice = "0"
@@ -125,19 +236,20 @@ username = player()
 print("Welcome " + username + "!!!")
 print("Your bankroll is: " + str(bankroll))
 save(users_dict)
+os.system("clear")
 
 
 #Main Game Loop
 quitflag = False
 while quitflag == False:
 	
-	##Pre Come-Out roll bet
+	#Pre Come-Out roll bet
 	print("Your current bankroll is: " + str(bankroll))
 
-	##Get bet location
+	#Get bet location
 	bet_location = "0"
-	print("Press any key to show the craps table.")
-	input()
+	#print("Press any key to show the craps table.")
+	#input()
 	crapstable()
 	if bankroll == 0:
 		quitflag = gameover()
@@ -174,12 +286,16 @@ while quitflag == False:
 	print("You chose " + str(bet_amount))
 
 	bankroll = bankroll - bet_amount
+	os.system("clear")
 	print("Your current bankroll is: " + str(bankroll))
 	save(users_dict)
+	#crapstable()
+	#input()
 
 	#The Come-Out roll
 	iscomeout = True
 	while iscomeout == True:
+		crapstable()
 		print("Press any key to roll.")
 		input()
 		result = dice()
@@ -192,6 +308,8 @@ while quitflag == False:
 			save(users_dict)
 			iscomeout = True
 			point = 0
+			input()
+			os.system("clear")
 			break
 		#If 2, 3, or 12 Pass bettors lose, Don't Pass wins
 		elif result == 2 or result == 3 or result == 12:
@@ -202,6 +320,8 @@ while quitflag == False:
 			save(users_dict)
 			iscomeout = True
 			point = 0
+			input()
+			os.system("clear")
 			break
 		#Anything else becomes the point (4, 5, 6, 8, 9, 10)
 		else:
@@ -210,11 +330,27 @@ while quitflag == False:
 			#If point is established we change come-out roll state
 			iscomeout = False
 			save(users_dict)
+			#print("Press any key to show the craps table.")
+			input()
+			os.system("clear")
 
 		#Subsequent rolls if not a Come-Out roll
 		while iscomeout == False:
+			if point == 4:
+				crapstable4()
+			elif point == 5:
+				crapstable5()
+			elif point == 6:
+				crapstable6()
+			elif point == 8:
+				crapstable8()
+			elif point == 9:
+				crapstable9()
+			elif point == 10:
+				crapstable10()
 			print("Press any key to roll again.")
 			input()
+			os.system("clear")
 			result = dice()
 			if result == point:
 				print("Shooter hits the point!!!")
@@ -225,6 +361,8 @@ while quitflag == False:
 				save(users_dict)
 				iscomeout = True
 				point = 0
+				input()
+				os.system("clear")
 				break
 			elif result == 7:
 				print("Seven!!! Shooter loses!")
@@ -235,6 +373,8 @@ while quitflag == False:
 				save(users_dict)
 				iscomeout = True
 				point = 0
+				input()
+				os.system("clear")
 				break
 		break
 
