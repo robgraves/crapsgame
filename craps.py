@@ -2,7 +2,7 @@
 #
 # Matthew Page 07/02/2019
 #
-# craps.py	-	my first attempt at making a command line
+# craps.py	-	My first attempt at making a command line
 #				craps game.
 #
 
@@ -95,6 +95,25 @@ def save(users_dict):
 	pickle.dump(users_dict, open("userdata.p","wb"))
 
 
+#Function for endgame/gameover if bankroll hits 0
+def gameover():
+	os.system("clear");
+	print("******************************\n\n")
+	print("       You are broke!\n\n")
+	print("******************************\n")
+	print("     G A M E  O V E R!!!\n\n")
+	print("******************************\n\n")
+	print("**** Terminal Craps Game ****")
+	print("** written by Matthew Page **")
+	print("**** me@matthewjpage.com ****\n\n")
+	print("******************************\n")
+	print("To play again, choose New User")
+	print("and use the same name to reset")
+	print("your bankroll.\n") 
+	quitflag = True
+	return quitflag
+
+
 #Script starts here
 intro()
 global point
@@ -107,13 +126,7 @@ print("Your bankroll is: " + str(bankroll))
 save(users_dict)
 
 
-##testing craps table output
-#print("Press any key to show the craps table.")
-#input()
-#crapstable()
-
-
-#main game loop
+#Main Game Loop
 quitflag = False
 while quitflag == False:
 	
@@ -122,6 +135,12 @@ while quitflag == False:
 
 	##Get bet location
 	bet_location = "0"
+	print("Press any key to show the craps table.")
+	input()
+	crapstable()
+	if bankroll == 0:
+		quitflag = gameover()
+		break
 	while bet_location not in ("1","2","3"):
 		print("Enter a bet location: ")
 		print("1 - Pass Line (Bet with the shooter)")
@@ -157,7 +176,7 @@ while quitflag == False:
 	print("Your current bankroll is: " + str(bankroll))
 	save(users_dict)
 
-	#come-out roll
+	#The Come-Out roll
 	iscomeout = True
 	while iscomeout == True:
 		print("Press any key to roll.")
@@ -191,7 +210,7 @@ while quitflag == False:
 			iscomeout = False
 			save(users_dict)
 
-		#subsequent rolls if not a come-out roll
+		#Subsequent rolls if not a Come-Out roll
 		while iscomeout == False:
 			print("Press any key to roll again.")
 			input()
