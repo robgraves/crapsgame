@@ -83,6 +83,7 @@ def crapstable4():
 	print(" \________No Call Bets_______| |    7 to 1     |   ")
 	print("                               +---------------+   ")
 
+
 #Function that draws the craps table in ASCII art
 def crapstable5():
 	print(" __ ___  ____________________                      ")
@@ -100,6 +101,7 @@ def crapstable5():
 	print("|s                           | |  any    craps |   ")
 	print(" \________No Call Bets_______| |    7 to 1     |   ")
 	print("                               +---------------+   ")
+
 
 #Function that draws the craps table in ASCII art
 def crapstable6():
@@ -176,6 +178,7 @@ def crapstable10():
 	print(" \________No Call Bets_______| |    7 to 1     |   ")
 	print("                               +---------------+   ")
 
+
 #Function for creating or loading user and their bankroll
 def player():
 	choice = "0"
@@ -248,8 +251,6 @@ while quitflag == False:
 
 	#Get bet location
 	bet_location = "0"
-	#print("Press any key to show the craps table.")
-	#input()
 	crapstable()
 	if bankroll == 0:
 		quitflag = gameover()
@@ -284,13 +285,10 @@ while quitflag == False:
 			print("Error: Invalid entry. Please enter a number.")
 			continue
 	print("You chose " + str(bet_amount))
-
 	bankroll = bankroll - bet_amount
 	os.system("clear")
 	print("Your current bankroll is: " + str(bankroll))
 	save(users_dict)
-	#crapstable()
-	#input()
 
 	#The Come-Out roll
 	iscomeout = True
@@ -330,7 +328,6 @@ while quitflag == False:
 			#If point is established we change come-out roll state
 			iscomeout = False
 			save(users_dict)
-			#print("Press any key to show the craps table.")
 			input()
 			os.system("clear")
 
@@ -350,11 +347,9 @@ while quitflag == False:
 				crapstable9()
 			elif point == 10:
 				crapstable10()
-			#print("The point is now " + str(point))
 			print("You rolled " + str(result))
 			print("Press any key to roll again.")
 			input()
-			#os.system("clear")
 			result = dice()
 			if result == point:
 				print("Shooter hits the point!!!")
