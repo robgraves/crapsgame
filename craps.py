@@ -44,6 +44,11 @@ def intro():
 	print("     |   o   |o/ \o   /o    /  ")
 	print("     |     o |/   \ o/  o  /   ")
 	print("     '-------'     \/____o/    ")
+	print("                               ")
+	print("   Created by Matthew J. Page  ")
+	print("         robgraves  2022       ")
+	print("       me@matthewjpage.com     ")
+	print("                               ")
 
 
 #Function that draws the craps table in ASCII art
@@ -230,6 +235,7 @@ def gameover():
 
 
 #Script starts here
+os.system("clear")
 intro()
 global point
 point = 0
