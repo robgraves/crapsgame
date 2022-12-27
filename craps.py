@@ -13,11 +13,6 @@ import random
 import pickle
 
 
-##Testing save and load function	
-#users_dict = {"Dan":250, "Thomas":1500}
-#pickle.dump(users_dict, open("userdata.p","wb"))
-
-
 #Initializing the user database and loading if it exists
 users_dict = {}
 if os.path.exists("userdata.p"):
@@ -111,12 +106,14 @@ print("Welcome " + username + "!!!")
 print("Your bankroll is: " + str(bankroll))
 save(users_dict)
 
+
 ##testing craps table output
 #print("Press any key to show the craps table.")
 #input()
 #crapstable()
 
-#NEED TO CREATE MAIN GAME LOOP HERE
+
+#main game loop
 quitflag = False
 while quitflag == False:
 	
@@ -160,8 +157,7 @@ while quitflag == False:
 	print("Your current bankroll is: " + str(bankroll))
 	save(users_dict)
 
-	##Actual come-out roll
-	#NEED AN INNER LOOP HERE FOR EACH CRAPS HAND
+	#come-out roll
 	iscomeout = True
 	while iscomeout == True:
 		print("Press any key to roll.")
@@ -177,6 +173,7 @@ while quitflag == False:
 			iscomeout = True
 			point = 0
 			break
+		#If 2, 3, or 12 Pass bettors lose, Don't Pass wins
 		elif result == 2 or result == 3 or result == 12:
 			print("Shooter Craps Out!")
 			print("bet location is : ", bet_location)
@@ -186,16 +183,15 @@ while quitflag == False:
 			iscomeout = True
 			point = 0
 			break
+		#Anything else becomes the point (4, 5, 6, 8, 9, 10)
 		else:
 			point = result
 			print("The point is now " + str(result))
+			#If point is established we change come-out roll state
 			iscomeout = False
 			save(users_dict)
 
-		#If 2, 3, or 12 Pass bettors lose, Don't Pass wins
-		#Anything else becomes the point (4, 5, 6, 8, 9, 10)
-		#If point is established we change come-out roll state
-
+		#subsequent rolls if not a come-out roll
 		while iscomeout == False:
 			print("Press any key to roll again.")
 			input()
@@ -220,14 +216,6 @@ while quitflag == False:
 				iscomeout = True
 				point = 0
 				break
-			#else:
-			#	continue
 		break
 
-##Random roll for no reason
-#print("Press any key to roll the dice.")
-#input()
-#result = dice()
-#print("Result: " + str(result))
-
-
+#End of File
