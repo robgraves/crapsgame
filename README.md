@@ -28,12 +28,19 @@ userdata.p  -  user data is stored here
 Fully functional game with only the Pass/Don't Pass betting options, saving and loading works.
 
 TO DO:
+
 All other betting options:
+
 Free odds bets on Pass/DP
+
 Come bet/Don't Come Bets
+
 Field Bets
+
 Place Bets/Lay Bets
+
 Hardway Bets/Any Craps/Any Seven
+
 Any other bets or features I might want to add
 
 
