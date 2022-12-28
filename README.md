@@ -1,14 +1,26 @@
 # crapsgame
 Matthew Page
+
 me@matthewjpage.com
 
+
+
+INSTRUCTIONS:
+
 To play, run from command line:
+
 username@hostname $  python craps.py
 
 
+
+FILES:
+
 craps.py 	-  main game file
+
 README.md   -  this file
+
 userdata.p  -  user data is stored here
+
 
 
 12/28/2022
@@ -24,9 +36,11 @@ Hardway Bets/Any Craps/Any Seven
 Any other bets or features I might want to add
 
 
+
 12/26/2022
 
 Toying with this command line craps game again hoping to make it functional.
+
 
 
 11/15/2019 
@@ -35,9 +49,10 @@ After a hiatus from working on this I am trying to structure this is some way th
 function properly.
 
 
+
 07/15/2019
 
 This is just an experiment with me learning python again and trying to get back into coding after a hiatus.
 So I'm just learning python while trying to write a command line Craps game because I love playing craps at the casinos.
 
-I started working on this a few weeks ago but decided to make a repo for it so I don't lose my progress and feel more securer making major changes.
+I started working on this a few weeks ago but decided to make a repo for it so I don't lose my progress and feel more secure about making major changes.
