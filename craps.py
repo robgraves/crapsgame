@@ -29,6 +29,32 @@ def dice():
 	die1 		= random.randint(1,6)
 	die2 		= random.randint(1,6)
 	diceresult 	= die1 + die2 	
+	#Display proper ASCII art for each dieface for die 1
+	if die1 == 1:
+		dieface1()
+	elif die1 == 2:
+		dieface2()
+	elif die1 == 3:
+		dieface3()
+	elif die1 == 4:
+		dieface4()
+	elif die1 == 5:
+		dieface5()
+	elif die1 == 6:
+		dieface6()
+	#Display proper ASCII art for each dieface for die 2
+	if die2 == 1:
+		dieface1()
+	elif die2 == 2:
+		dieface2()
+	elif die2 == 3:
+		dieface3()
+	elif die2 == 4:
+		dieface4()
+	elif die2 == 5:
+		dieface5()
+	elif die2 == 6:
+		dieface6()
 	print(str(die1) + " " + str(die2))
 	print("You rolled : ", diceresult)
 	return diceresult
@@ -410,6 +436,7 @@ while quitflag == False:
 			print("Press any key to roll again.")
 			input()
 			result = dice()
+			input()
 			if result == point:
 				print("Shooter hits the point!!!")
 				print("Pass Line Wins!!!")
