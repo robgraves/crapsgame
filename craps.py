@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 #
-# Matthew Page 07/02/2019  12/26/2022
+# Matthew Page 07/02/2019, 12/26/2022
 #
 # craps.py	-	My first attempt at making a command line
 #				craps game.
 #
-
+#				12/28/2022 - First fully playable version
+#				of the game with only Pass/Don't Pass
+#				betting options.
+#
 
 #Importing stuff
 import os
