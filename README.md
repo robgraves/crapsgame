@@ -1,5 +1,6 @@
 # crapsgame
 Matthew Page
+me@matthewjpage.com
 
 To play, run from command line:
 username@hostname $  python craps.py
@@ -9,7 +10,9 @@ craps.py 	-  main game file
 README.md   -  this file
 userdata.p  -  user data is stored here
 
+
 12/28/2022
+
 Fully functional game with only the Pass/Don't Pass betting options, saving and loading works.
 TO DO:
 All other betting options:
@@ -20,7 +23,9 @@ Place Bets/Lay Bets
 Hardway Bets/Any Craps/Any Seven
 Any other bets or features I might want to add
 
+
 12/26/2022
+
 Toying with this command line craps game again hoping to make it functional.
 
 
