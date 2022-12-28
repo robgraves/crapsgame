@@ -1,6 +1,14 @@
 # crapsgame
 Matthew Page
 
+To play, run from command line:
+username@hostname $  python craps.py
+
+
+craps.py 	-  main game file
+README.md   -  this file
+userdata.p  -  user data is stored here
+
 12/26/2023
 Toying with this command line craps game again hoping to make it functional.
 
