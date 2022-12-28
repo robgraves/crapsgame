@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Matthew Page 07/02/2019
+# Matthew Page 07/02/2019  12/26/2022
 #
 # craps.py	-	My first attempt at making a command line
 #				craps game.
@@ -182,6 +182,59 @@ def crapstable10():
 	print("|s                           | |  any    craps |   ")
 	print(" \________No Call Bets_______| |    7 to 1     |   ")
 	print("                               +---------------+   ")
+
+
+#Function to display a one on a die in ASCII
+def dieface1():
+	print("     ___     ")
+	print("    |   |    ")
+	print("    | o |    ")
+	print("    |___|    ")
+	print("             ")
+
+#Function to display a two on a die in ASCII
+def dieface2():
+	print("     ___     ")
+	print("    |o  |    ")
+	print("    |   |    ")
+	print("    |__o|    ")
+	print("             ")
+
+
+#Function to display a three on a die in ASCII
+def dieface3():
+	print("     ___     ")
+	print("    |o  |    ")
+	print("    | o |    ")
+	print("    |__o|    ")
+	print("             ")
+
+
+#Function to display a four on a die in ASCII
+def dieface4():
+	print("     ___     ")
+	print("    |o o|    ")
+	print("    |   |    ")
+	print("    |o_o|    ")
+	print("             ")
+
+
+#Function to display a five on a die in ASCII
+def dieface5():
+	print("     ___     ")
+	print("    |o o|    ")
+	print("    | o |    ")
+	print("    |o_o|    ")
+	print("             ")
+
+
+#Function to display a six on a die in ASCII
+def dieface6():
+	print("     ___     ")
+	print("    |o o|    ")
+	print("    |o o|    ")
+	print("    |o_o|    ")
+	print("             ")
 
 
 #Function for creating or loading user and their bankroll
