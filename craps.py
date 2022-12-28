@@ -10,6 +10,7 @@
 #				betting options.
 #
 
+
 #Importing stuff
 import os
 import random
@@ -314,6 +315,44 @@ def gameover():
 	print("your bankroll.\n") 
 	quitflag = True
 	return quitflag
+
+
+#Function to clear out mid game betting 
+def clearbets():
+	bets.clear()
+	bets = {
+	"freeodds":0		#can be made after point established, same odds as bets per point or come point
+	"come":0,			#acts like pass line, but bbbet turns into next roll buy bet
+	"dc":0,				#acts like don't pass line, but bet turns into next roll lay bet
+	"field":0,			#roll 2 is 2 to 1,roll 12 is 3 to 1, others are 1 to 1
+	"buy4":0,			#2 to 1
+	"lay4":0,			#1 to 2
+	"buy5":0,			#3 to 2
+	"lay5":0,			#2 to 3
+	"buy6":0,			#6 to 5
+	"lay6":0,			#5 to 6
+	"buy8":0,			#6 to 5
+	"lay8":0,			#5 to 6
+	"buy9":0,			#3 to 2
+	"lay9":0,			#2 to 3
+	"buy10":0,			#2 to 1
+	"lay10":0,			#1 to 2
+	"hardway6":0,		#9 to 1
+	"hardway8":0,		#9 to 1
+	"hardway4":0,		#7 to 1
+	"hardway10":0,		#7 to 1
+	"anyseven":0,		#4 to 1
+	"anycraps":0,		#7 to 1
+	"horn11":0,			#15 to 1 YO-leven!!!
+	"horn12":0,			#30 to 1
+	"horn3":0,			#15 to 1
+	"horn2":0			#30 to 1
+	}
+
+
+#Function for mid game betting
+def midgamebet():
+	clearbets()
 
 
 #Script starts here
