@@ -317,11 +317,10 @@ def gameover():
 	return quitflag
 
 
-#Function to clear out mid game betting 
-def clearbets():
-	bets.clear()
+#Function to initialize bets dictionary
+def bets_init():
 	bets = {
-	"freeodds":0		#can be made after point established, same odds as bets per point or come point
+	"freeodds":0,		#can be made after point established, same odds as bets per point or come point
 	"come":0,			#acts like pass line, but bbbet turns into next roll buy bet
 	"dc":0,				#acts like don't pass line, but bet turns into next roll lay bet
 	"field":0,			#roll 2 is 2 to 1,roll 12 is 3 to 1, others are 1 to 1
@@ -348,11 +347,18 @@ def clearbets():
 	"horn3":0,			#15 to 1
 	"horn2":0			#30 to 1
 	}
+	return bets
 
+#Function to clear out mid game betting 
+def clearbets(bets):
+	bets.clear()
+	bets = bets_init()
+	return bets
 
 #Function for mid game betting
-def midgamebet():
-	clearbets()
+def midgamebet(bets):
+	bets = clearbets(bets)
+	return bets
 
 
 #Script starts here
@@ -362,10 +368,19 @@ global point
 point = 0
 global bankroll
 bankroll = 0
+bets = bets_init()
 username = player()
 print("Welcome " + username + "!!!")
 print("Your bankroll is: " + str(bankroll))
 save(users_dict)
+bets = midgamebet(bets)   ####JUST TESTING
+bets.update({"come":100})   #TESTING
+print("BETS ARE: ", bets)		#TESTING
+input()						#TESTING
+bets = midgamebet(bets)				#TESTING
+bets.update({"field":100})  #TESTING
+print("BETS ARE: ", bets)		#TESTING
+input()						#TESTING
 os.system("clear")
 
 
