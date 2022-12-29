@@ -404,7 +404,7 @@ def midgamebet(bets):
 	print("You chose " + midbet_location)
 	midbet_location = int(midbet_location)
 	if midbet_location == 1:
-		print("All bets are in!")
+		print("Shooter has the dice! No more bets!")
 		input()
 	return bets
 
