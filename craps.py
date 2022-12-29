@@ -357,7 +357,8 @@ def clearbets(bets):
 
 #Function for mid game betting
 def midgamebet(bets):
-	bets = clearbets(bets)
+	#bets = clearbets(bets)
+	print("Something, something, dark side...")
 	return bets
 
 
@@ -373,14 +374,6 @@ username = player()
 print("Welcome " + username + "!!!")
 print("Your bankroll is: " + str(bankroll))
 save(users_dict)
-bets = midgamebet(bets)   ####JUST TESTING
-bets.update({"come":100})   #TESTING
-print("BETS ARE: ", bets)		#TESTING
-input()						#TESTING
-bets = midgamebet(bets)				#TESTING
-bets.update({"field":100})  #TESTING
-print("BETS ARE: ", bets)		#TESTING
-input()						#TESTING
 os.system("clear")
 
 
