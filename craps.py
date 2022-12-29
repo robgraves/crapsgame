@@ -12,6 +12,7 @@
 
 
 #Importing stuff
+import sys
 import os
 import random
 import pickle
@@ -302,7 +303,10 @@ def save(users_dict):
 def gameover():
 	os.system("clear");
 	print("******************************\n\n")
-	print("       You are broke!\n\n")
+	if bankroll == 0:
+		print("       You are broke!\n\n")
+	else:
+		print("                     \n\n")
 	print("******************************\n")
 	print("     G A M E  O V E R!!!\n\n")
 	print("******************************\n\n")
@@ -310,9 +314,16 @@ def gameover():
 	print("** written by Matthew Page **")
 	print("**** me@matthewjpage.com ****\n\n")
 	print("******************************\n")
-	print("To play again, choose New User")
-	print("and use the same name to reset")
-	print("your bankroll.\n") 
+	if bankroll == 0:
+		print("To play again, choose New User")
+		print("and use the same name to reset")
+		print("your bankroll.                \n") 
+	else:
+		print("To play again, choose Returning")
+		print("User and use the same name to  ")
+		print("use your saved bankroll.       \n") 
+	save(users_dict)
+	sys.exit()
 	quitflag = True
 	return quitflag
 
@@ -358,7 +369,43 @@ def clearbets(bets):
 #Function for mid game betting
 def midgamebet(bets):
 	#bets = clearbets(bets)
-	print("Something, something, dark side...")
+	#print("Something, something, dark side...")
+	midbet_location = "0"
+	while midbet_location not in ("1","2","3","4","5","6","7","8","9"):
+		print("Enter a bet location: ")
+		print("1 - No More Bets - Roll Dice")
+		print("2 - Free Odds on Pass or Don't Pass")
+		print("3 - Free Odds on Come or Don't Come")
+		print("4 - Field Bet")
+		print("5 - Buy Bets")
+		print("6 - Lay Bets")
+		print("7 - Hardway Bets")
+		print("8 - Horn Bets")
+		print("9 - Quit Game")
+		midbet_location = input()
+		if midbet_location in ("1","2","3","4","5","6","7","8","9"):
+			break
+		else:
+			print("Invalid entry!")
+	if midbet_location == "9":
+		confirm = "0"
+		while confirm not in ("Y","N","y","n"):
+			print("Are you sure? (Y/N) All bets on the table will be lost.")
+			confirm = input()
+			if confirm in ("Y","N","y","n"):
+				break
+			else:
+				 print("Invalid entry!")	
+		if confirm == "Y" or confirm == "y":
+			gameover()
+		elif confirm == "N" or confirm == "n":
+			print("Returning to game")
+			return(bets)
+	print("You chose " + midbet_location)
+	midbet_location = int(midbet_location)
+	if midbet_location == 1:
+		print("All bets are in!")
+		input()
 	return bets
 
 
@@ -388,7 +435,7 @@ while quitflag == False:
 	bet_location = "0"
 	crapstable()
 	if bankroll == 0:
-		quitflag = gameover()
+		gameover()
 		break
 	while bet_location not in ("1","2","3"):
 		print("Enter a bet location: ")
@@ -483,6 +530,20 @@ while quitflag == False:
 			elif point == 10:
 				crapstable10()
 			print("You rolled " + str(result))
+			bets = midgamebet(bets)
+			os.system("clear")
+			if point == 4:
+				crapstable4()
+			elif point == 5:
+				crapstable5()
+			elif point == 6:
+				crapstable6()
+			elif point == 8:
+				crapstable8()
+			elif point == 9:
+				crapstable9()
+			elif point == 10:
+				crapstable10()
 			print("Press any key to roll again.")
 			input()
 			result = dice()
