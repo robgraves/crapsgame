@@ -419,7 +419,7 @@ bankroll = 0
 bets = bets_init()
 username = player()
 print("Welcome " + username + "!!!")
-print("Your bankroll is: " + str(bankroll))
+print("Your bankroll is: $" + str(bankroll))
 save(users_dict)
 os.system("clear")
 
@@ -429,7 +429,7 @@ quitflag = False
 while quitflag == False:
 	
 	#Pre Come-Out roll bet
-	print("Your current bankroll is: " + str(bankroll))
+	print("Your current bankroll is: $" + str(bankroll))
 
 	#Get bet location
 	bet_location = "0"
@@ -459,7 +459,7 @@ while quitflag == False:
 	while not int(bet_amount) in range(1, bankroll+1):
 		if bet_amount > bankroll:
 			print("You do not have that much.")
-			print("Your current bankroll is: " + str(bankroll))
+			print("Your current bankroll is: $" + str(bankroll))
 			print("Enter a bet amount: ")
 		try:
 			bet_amount = int(input())
@@ -469,7 +469,7 @@ while quitflag == False:
 	print("You chose " + str(bet_amount))
 	bankroll = bankroll - bet_amount
 	os.system("clear")
-	print("Your current bankroll is: " + str(bankroll))
+	print("Your current bankroll is: $" + str(bankroll))
 	save(users_dict)
 
 	#The Come-Out roll
@@ -516,7 +516,7 @@ while quitflag == False:
 		#Subsequent rolls if not a Come-Out roll
 		while iscomeout == False:
 			os.system("clear")
-			print("Your current bankroll is: " + str(bankroll))
+			print("Your current bankroll is: $" + str(bankroll))
 			if point == 4:
 				crapstable4()
 			elif point == 5:
