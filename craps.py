@@ -14,6 +14,7 @@
 #Importing stuff
 import sys
 import os
+import math
 import random
 import pickle
 
@@ -331,40 +332,129 @@ def gameover():
 #Function to initialize bets dictionary
 def bets_init():
 	bets = {
-	"freeodds":0,		#can be made after point established, same odds as bets per point or come point
-	"come":0,			#acts like pass line, but bbbet turns into next roll buy bet
-	"dc":0,				#acts like don't pass line, but bet turns into next roll lay bet
-	"field":0,			#roll 2 is 2 to 1,roll 12 is 3 to 1, others are 1 to 1
-	"buy4":0,			#2 to 1
-	"lay4":0,			#1 to 2
-	"buy5":0,			#3 to 2
-	"lay5":0,			#2 to 3
-	"buy6":0,			#6 to 5
-	"lay6":0,			#5 to 6
-	"buy8":0,			#6 to 5
-	"lay8":0,			#5 to 6
-	"buy9":0,			#3 to 2
-	"lay9":0,			#2 to 3
-	"buy10":0,			#2 to 1
-	"lay10":0,			#1 to 2
-	"hardway6":0,		#9 to 1
-	"hardway8":0,		#9 to 1
-	"hardway4":0,		#7 to 1
-	"hardway10":0,		#7 to 1
-	"anyseven":0,		#4 to 1
-	"anycraps":0,		#7 to 1
-	"horn11":0,			#15 to 1 YO-leven!!!
-	"horn12":0,			#30 to 1
-	"horn3":0,			#15 to 1
-	"horn2":0			#30 to 1
+	"freeodds_pass4o10":0,	#can be made after point established, odds 2 to 1
+	"freeodds_pass5o9":0,	#can be made after point established, odds 3 to 2
+	"freeodds_pass6o8":0,	#can be made after point established, odds 6 to 5
+	"freeodds_dp4o10":0,	#can be made after point established, odds 1 to 2
+	"freeodds_dp5o9":0, 	#can be made after point established, odds 2 to 3
+	"freeodds_dp6o8":0, 	#can be made after point established, odds 5 to 6
+	"freeodds_come4":0,		#can be made after point established, odds 2 to 1
+	"freeodds_come5":0,		#can be made after point established, odds 3 to 2
+	"freeodds_come6":0,		#can be made after point established, odds 6 to 5
+	"freeodds_come8":0,		#can be made after point established, odds 6 to 5
+	"freeodds_come9":0,		#can be made after point established, odds 3 to 2
+	"freeodds_come10":0,	#can be made after point established, odds 2 to 1
+	"freeodds_dc4":0,		#can be made after point established, odds 1 to 2 
+	"freeodds_dc5":0,		#can be made after point established, odds 2 to 3
+	"freeodds_dc6":0,		#can be made after point established, odds 5 to 6
+	"freeodds_dc8":0,		#can be made after point established, odds 5 to 6
+	"freeodds_dc9":0,		#can be made after point established, odds 2 to 3
+	"freeodds_dc10":0,		#can be made after point established, odds 1 to 2
+	"come":0,				#acts like pass line, but bet turns into next roll buy bet
+	"dc":0,					#acts like don't pass line, but bet turns into next roll lay bet
+	"field":0,				#roll 2 is 2 to 1,roll 12 is 3 to 1, others are 1 to 1
+	"buy4":0,				#odds 2 to 1
+	"lay4":0,				#odds 1 to 2
+	"buy5":0,				#odds 3 to 2
+	"lay5":0,				#odds 2 to 3
+	"buy6":0,				#odds 6 to 5
+	"lay6":0,				#odds 5 to 6
+	"buy8":0,				#odds 6 to 5
+	"lay8":0,				#odds 5 to 6
+	"buy9":0,				#odds 3 to 2
+	"lay9":0,				#odds 2 to 3
+	"buy10":0,				#odds 2 to 1
+	"lay10":0,				#odds 1 to 2
+	"hardway6":0,			#odds 9 to 1
+	"hardway8":0,			#odds 9 to 1
+	"hardway4":0,			#odds 7 to 1
+	"hardway10":0,			#odds 7 to 1
+	"anyseven":0,			#odds 4 to 1
+	"anycraps":0,			#odds 7 to 1
+	"horn11":0,				#odds 15 to 1 YO-leven!!!
+	"horn12":0,				#odds 30 to 1
+	"horn3":0,				#odds 15 to 1
+	"horn2":0				#odds 30 to 1
 	}
 	return bets
+
 
 #Function to clear out mid game betting 
 def clearbets(bets):
 	bets.clear()
 	bets = bets_init()
 	return bets
+
+
+def freeodds_passdp(bets):
+	if point == 0:
+		print("You cannot take free odds bets on a come out roll.")
+		input()
+		return(bets)
+	else:
+		global bankroll
+		if bet_location == 1:
+			print("Your current bankroll is: $" + str(bankroll))
+			print("point is " + str(point))
+			print("Take odds on Pass Line wager.")
+			#Get bet amount
+			print("Enter odds bet: ")
+			oddsbet = 0
+			while not int(oddsbet) in range(1, bankroll+1):
+				if oddsbet > bankroll:
+					print("You do not have that much.")
+					print("Your current bankroll is: $" + str(bankroll))
+					print("Enter a bet amount: ")
+				try:
+					oddsbet = int(input())
+				except ValueError:
+					print("Error: Invalid entry. Please enter a number.")
+					continue
+			print("You chose " + str(oddsbet))
+			bankroll = bankroll - oddsbet
+			if point == 4 or point == 10:
+				bets.update({"freeodds_pass4o10":oddsbet})
+			if point == 5 or point == 9:
+				bets.update({"freeodds_pass5o9":oddsbet})
+			if point == 6 or point == 8:
+				bets.update({"freeodds_pass6o8":oddsbet})
+			os.system("clear")
+			print("Your current bankroll is: $" + str(bankroll))
+			save(users_dict)
+			print(bets)   ##TESTING
+			input()		##TESTING
+		if bet_location == 2:
+			print("Your current bankroll is: $" + str(bankroll))
+			print("point is " + str(point)) 
+			print("Take odds on Don't Pass wager.")
+			#Get bet amount
+			print("Enter odds bet: ")
+			oddsbet = 0
+			while not int(oddsbet) in range(1, bankroll+1):
+				if oddsbet > bankroll:
+					print("You do not have that much.")
+					print("Your current bankroll is: $" + str(bankroll))
+					print("Enter a bet amount: ")
+				try:
+					oddsbet = int(input())
+				except ValueError:
+					print("Error: Invalid entry. Please enter a number.")
+					continue
+			print("You chose " + str(oddsbet))
+			bankroll = bankroll - oddsbet
+			if point == 4 or point == 10:
+				bets.update({"freeodds_dp4o10":oddsbet})
+			if point == 5 or point == 9:
+				bets.update({"freeodds_dp5o9":oddsbet})
+			if point == 6 or point == 8:
+				bets.update({"freeodds_dp6o8":oddsbet})
+			os.system("clear")
+			print("Your current bankroll is: $" + str(bankroll))
+			save(users_dict)
+			print(bets)   ##TESTING
+			input()		##TESTING
+	return bets
+
 
 #Function for mid game betting
 def midgamebet(bets):
@@ -406,6 +496,8 @@ def midgamebet(bets):
 	if midbet_location == 1:
 		print("Shooter has the dice! No more bets!")
 		input()
+	if midbet_location == 2:
+		bets = freeodds_passdp(bets)
 	return bets
 
 
@@ -416,6 +508,8 @@ global point
 point = 0
 global bankroll
 bankroll = 0
+global bet_location
+bet_location = "0"
 bets = bets_init()
 username = player()
 print("Welcome " + username + "!!!")
@@ -554,6 +648,18 @@ while quitflag == False:
 				print("bet location is : ", bet_location)
 				if bet_location == 1:
 					bankroll = (bankroll + (bet_amount * 2))
+					if bets.get("freeodds_pass4o10") != 0: 
+						bankroll = (bankroll + math.floor((bets.get("freeodds_pass4o10") * 1)/2) + bets.get("freeodds_pass4o10"))
+						bets.update({"freeodds_pass4o10":0})
+					if bets.get("freeodds_pass5o9") != 0: 
+						bankroll = (bankroll + math.floor((bets.get("freeodds_pass5o9") * 2)/3) + bets.get("freeodds_pass5o9"))
+						bets.update({"freeodds_pass5o9":0})
+					if bets.get("freeodds_pass6o8") != 0: 
+						bankroll = (bankroll + math.floor((bets.get("freeodds_pass6o8") * 5)/6) + bets.get("freeodds_pass6o8"))
+						bets.update({"freeodds_pass6o8":0})
+				bets.update({"freeodds_dp4o10":0})
+				bets.update({"freeodds_dp5o9":0})
+				bets.update({"freeodds_dp6o8":0})
 				save(users_dict)
 				iscomeout = True
 				point = 0
@@ -566,6 +672,18 @@ while quitflag == False:
 				print("bet location is : ", bet_location)
 				if bet_location == 2:
 					bankroll = (bankroll + (bet_amount * 2))
+					if bets.get("freeodds_dp4o10") != 0: 
+						bankroll = (bankroll + math.floor((bets.get("freeodds_dp4o10") * 2)/1) + bets.get("freeodds_dp4o10"))
+						bets.update({"freeodds_dp4o10":0})
+					if bets.get("freeodds_dp5o9") != 0: 
+						bankroll = (bankroll + math.floor((bets.get("freeodds_dp5o9") * 3)/2) + bets.get("freeodds_dp5o9"))
+						bets.update({"freeodds_dp5o9":0})
+					if bets.get("freeodds_dp6o8") != 0: 
+						bankroll = (bankroll + math.floor((bets.get("freeodds_dp6o8") * 6)/5) + bets.get("freeodds_dp6o8"))
+						bets.update({"freeodds_dp6o8":0})
+				bets.update({"freeodds_pass4o10":0})
+				bets.update({"freeodds_pass5o9":0})
+				bets.update({"freeodds_pass6o8":0})
 				save(users_dict)
 				iscomeout = True
 				point = 0
