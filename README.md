@@ -31,17 +31,19 @@ TO DO:
 
 All other betting options:
 
-Free odds bets on Pass/DP
+DONE! 12/30/2022 - Free odds bets on Pass/DP
 
-Come bet/Don't Come Bets
+- Come bet/Don't Come Bets
 
-Field Bets
+- Free odds bets on Come/Don't Come
 
-Place Bets/Lay Bets
+- Field Bets
 
-Hardway Bets/Any Craps/Any Seven
+- Place Bets/Lay Bets
 
-Any other bets or features I might want to add
+- Hardway Bets/Any Craps/Any Seven
+
+- Any other bets or features I might want to add
 
 
 
