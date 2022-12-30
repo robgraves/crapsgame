@@ -413,16 +413,16 @@ def freeodds_passdp(bets):
 			print("You chose " + str(oddsbet))
 			bankroll = bankroll - oddsbet
 			if point == 4 or point == 10:
-				bets.update({"freeodds_pass4o10":oddsbet})
+				bets.update({"freeodds_pass4o10":(oddsbet + bets.get("freeodds_pass4o10"))})
 			if point == 5 or point == 9:
-				bets.update({"freeodds_pass5o9":oddsbet})
+				bets.update({"freeodds_pass5o9":(oddsbet + bets.get("freeodds_pass5o9"))})
 			if point == 6 or point == 8:
-				bets.update({"freeodds_pass6o8":oddsbet})
+				bets.update({"freeodds_pass6o8":(oddsbet + bets.get("freeodds_pass6o8"))})
 			os.system("clear")
 			print("Your current bankroll is: $" + str(bankroll))
 			save(users_dict)
-			print(bets)   ##TESTING
-			input()		##TESTING
+			#print(bets)   					##FOR TESTING
+			#input()						##FOR TESTING
 		if bet_location == 2:
 			print("Your current bankroll is: $" + str(bankroll))
 			print("point is " + str(point)) 
@@ -443,23 +443,21 @@ def freeodds_passdp(bets):
 			print("You chose " + str(oddsbet))
 			bankroll = bankroll - oddsbet
 			if point == 4 or point == 10:
-				bets.update({"freeodds_dp4o10":oddsbet})
+				bets.update({"freeodds_dp4o10":(oddsbet + bets.get("freeodds_dp4o10"))})
 			if point == 5 or point == 9:
-				bets.update({"freeodds_dp5o9":oddsbet})
+				bets.update({"freeodds_dp5o9":(oddsbet + bets.get("freeodds_dp5o9"))})
 			if point == 6 or point == 8:
-				bets.update({"freeodds_dp6o8":oddsbet})
+				bets.update({"freeodds_dp6o8":(oddsbet + bets.get("freeodds_dp6o8"))})
 			os.system("clear")
 			print("Your current bankroll is: $" + str(bankroll))
 			save(users_dict)
-			print(bets)   ##TESTING
-			input()		##TESTING
+			#print(bets)   					##FOR TESTING
+			#input()						##FOR TESTING
 	return bets
 
 
 #Function for mid game betting
 def midgamebet(bets):
-	#bets = clearbets(bets)
-	#print("Something, something, dark side...")
 	midbet_location = "0"
 	while midbet_location not in ("1","2","3","4","5","6","7","8","9"):
 		print("Enter a bet location: ")
@@ -492,6 +490,9 @@ def midgamebet(bets):
 			print("Returning to game")
 			return(bets)
 	print("You chose " + midbet_location)
+	for key in bets:												# These three lines won't work once I add
+		if bets[key] != 0:											# more bets to game.  I may need to make
+			print("Free odds bets on table: " + str(bets[key]))		# this loop more complicated.
 	midbet_location = int(midbet_location)
 	if midbet_location == 1:
 		print("Shooter has the dice! No more bets!")
@@ -648,6 +649,7 @@ while quitflag == False:
 				print("bet location is : ", bet_location)
 				if bet_location == 1:
 					bankroll = (bankroll + (bet_amount * 2))
+					#Checking for free odds bets on passline points and payouts
 					if bets.get("freeodds_pass4o10") != 0: 
 						bankroll = (bankroll + math.floor((bets.get("freeodds_pass4o10") * 1)/2) + bets.get("freeodds_pass4o10"))
 						bets.update({"freeodds_pass4o10":0})
@@ -657,6 +659,7 @@ while quitflag == False:
 					if bets.get("freeodds_pass6o8") != 0: 
 						bankroll = (bankroll + math.floor((bets.get("freeodds_pass6o8") * 5)/6) + bets.get("freeodds_pass6o8"))
 						bets.update({"freeodds_pass6o8":0})
+				#Clearing free odds bets for don't pass losses
 				bets.update({"freeodds_dp4o10":0})
 				bets.update({"freeodds_dp5o9":0})
 				bets.update({"freeodds_dp6o8":0})
@@ -672,6 +675,7 @@ while quitflag == False:
 				print("bet location is : ", bet_location)
 				if bet_location == 2:
 					bankroll = (bankroll + (bet_amount * 2))
+					#Checking for free odds bets on don't pass points and payouts
 					if bets.get("freeodds_dp4o10") != 0: 
 						bankroll = (bankroll + math.floor((bets.get("freeodds_dp4o10") * 2)/1) + bets.get("freeodds_dp4o10"))
 						bets.update({"freeodds_dp4o10":0})
@@ -681,6 +685,7 @@ while quitflag == False:
 					if bets.get("freeodds_dp6o8") != 0: 
 						bankroll = (bankroll + math.floor((bets.get("freeodds_dp6o8") * 6)/5) + bets.get("freeodds_dp6o8"))
 						bets.update({"freeodds_dp6o8":0})
+				#Clearing free odds bets for passline losses
 				bets.update({"freeodds_pass4o10":0})
 				bets.update({"freeodds_pass5o9":0})
 				bets.update({"freeodds_pass6o8":0})
