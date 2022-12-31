@@ -32,8 +32,11 @@ def dice():
 	else:
 		print("Point is : ", point)
 	print("Rolling the dice...")
-	die1 		= random.randint(1,6)
-	die2 		= random.randint(1,6)
+	rng = random.SystemRandom()	
+	#die1 		= random.randint(1,6)
+	#die2 		= random.randint(1,6)
+	die1 		= rng.randint(1,6)
+	die2 		= rng.randint(1,6)
 	diceresult 	= die1 + die2 	
 	#Display proper ASCII art for each dieface for die 1
 	if die1 == 1:
@@ -85,7 +88,7 @@ def intro():
 
 #Function that draws the craps table in ASCII art
 def crapstable():
-	print(" __ ___  ____________________                      ")
+	print(" __ ___  ____________________  (OFF)               ")
 	print("|N |  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
 	print("|o |P o||__|__|__|__|__|__|__| |any seven   4-1|   ")
 	print("|  |A n| ____________________  +===============+   ")
@@ -352,7 +355,7 @@ def bets_init():
 	"freeodds_dc10":0,		#can be made after point established, odds 1 to 2
 	"come":0,				#acts like pass line, but bet turns into next roll buy bet
 	"dc":0,					#acts like don't pass line, but bet turns into next roll lay bet
-	"field":0,				#roll 2 is 2 to 1,roll 12 is 3 to 1, others are 1 to 1
+	"field":0,				#roll 2 or 12 is 2 to 1, everything else is 1 to 1
 	"buy4":0,				#odds 2 to 1
 	"lay4":0,				#odds 1 to 2
 	"buy5":0,				#odds 3 to 2
