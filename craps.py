@@ -355,7 +355,7 @@ def bets_init():
 	"freeodds_dc10":0,		#can be made after point established, odds 1 to 2
 	"come":0,				#acts like pass line, but bet turns into next roll buy bet
 	"dc":0,					#acts like don't pass line, but bet turns into next roll lay bet
-	"field":0,				#roll 2 or 12 is 2 to 1, everything else is 1 to 1
+	"field":0,				#roll 2 is 2 to 1, roll 12 is 3 to 1, everything else is 1 to 1
 	"buy4":0,				#odds 2 to 1
 	"lay4":0,				#odds 1 to 2
 	"buy5":0,				#odds 3 to 2
