@@ -71,22 +71,22 @@ def dice():
 
 #Function that displays Intro screen
 def intro():
-	print("Welcome to Matt's Craps Game!!!")
-	print("       .-------.    ______     ")
-	print("      /   o   /|   /\     \    ")
-	print("     /_______/o|  /o \  o  \   ")
-	print("     | o     | | /   o\_____\  ")
-	print("     |   o   |o/ \o   /o    /  ")
-	print("     |     o |/   \ o/  o  /   ")
-	print("     '-------'     \/____o/    ")
-	print("                               ")
-	print("   Created by Matthew J. Page  ")
-	print("         robgraves  2022       ")
-	print("       me@matthewjpage.com     ")
-	print("                               ")
+	print("Welcome to Terminal Craps Game!!!")
+	print("       .-------.    ______       ")
+	print("      /   o   /|   /\     \      ")
+	print("     /_______/o|  /o \  o  \     ")
+	print("     | o     | | /   o\_____\    ")
+	print("     |   o   |o/ \o   /o    /    ")
+	print("     |     o |/   \ o/  o  /     ")
+	print("     '-------'     \/____o/      ")
+	print("                                 ")
+	print("   Created by Matthew J. Page    ")
+	print("         robgraves  2022         ")
+	print("       me@matthewjpage.com       ")
+	print("                                 ")
 
 
-#Function that draws the craps table in ASCII art
+#Function that draws the craps table in ASCII art, come-out roll
 def crapstable():
 	print(" __ ___  ____________________  (OFF)               ")
 	print("|N |  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
@@ -105,7 +105,7 @@ def crapstable():
 	print("                               +---------------+   ")
 
 
-#Function that draws the craps table in ASCII art
+#Function that draws the craps table in ASCII art, point is 4
 def crapstable4():
 	print(" __ ___  ____________________                      ")
 	print("|N |  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
@@ -124,7 +124,7 @@ def crapstable4():
 	print("                               +---------------+   ")
 
 
-#Function that draws the craps table in ASCII art
+#Function that draws the craps table in ASCII art, point is 5
 def crapstable5():
 	print(" __ ___  ____________________                      ")
 	print("|N |  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
@@ -143,7 +143,7 @@ def crapstable5():
 	print("                               +---------------+   ")
 
 
-#Function that draws the craps table in ASCII art
+#Function that draws the craps table in ASCII art, point is 6
 def crapstable6():
 	print(" __ ___  ____________________                      ")
 	print("|N |  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
@@ -162,7 +162,7 @@ def crapstable6():
 	print("                               +---------------+   ")
 
 
-#Function that draws the craps table in ASCII art
+#Function that draws the craps table in ASCII art, point is 8
 def crapstable8():
 	print(" __ ___  ____________________                      ")
 	print("|N |  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
@@ -181,7 +181,7 @@ def crapstable8():
 	print("                               +---------------+   ")
 
 
-#Function that draws the craps table in ASCII art
+#Function that draws the craps table in ASCII art, point is 9
 def crapstable9():
 	print(" __ ___  ____________________                      ")
 	print("|N |  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
@@ -200,7 +200,7 @@ def crapstable9():
 	print("                               +---------------+   ")
 
 
-#Function that draws the craps table in ASCII art
+#Function that draws the craps table in ASCII art, point is 10
 def crapstable10():
 	print(" __ ___  ____________________                      ")
 	print("|N |  d||DC| 4| 5| 6| 8| 9|10| +---------------+   ")
@@ -303,9 +303,45 @@ def save(users_dict):
 	pickle.dump(users_dict, open("userdata.p","wb"))
 
 
+#Function for implementing Mike's idea for ways to make
+#money if you go broke
+def shady():
+	os.system("clear")
+	print("A shady looking middle-aged man approaches")	
+	print('you and he says, "I notice you are broke."')
+	print("                                          ")
+	print("You are a little unsure if you can trust  ")
+	print("him. But you let him continue.            ")
+	print("                                          ")
+	print('He goes on, "...I have a way for you to   ')
+	print('make some money if you follow me          ')
+	print('out back."                                ')
+	choice = "0"
+	global bankroll
+	while choice not in ("1","2"):
+		print("Do you follow the shady man out back?     ")	
+		print("1 - Yes")
+		print("2 - No")
+		choice = input()
+		if choice not in ("1","2"):
+			print("ERROR: Bad choice! Invalid entry!")
+	if choice == "1":
+		print("The man has you go behind the dumpster")
+		print("with him and he drops his pants...    ")
+		input()
+		os.system("clear")
+		print("...15 minutes later")
+		print("You have made 20 dollars")
+		bankroll = 20
+		return bankroll	
+	if choice == "2":
+		print("You decide not to follow the man.")
+	return bankroll
+
+
 #Function for endgame/gameover if bankroll hits 0
 def gameover():
-	os.system("clear");
+	os.system("clear")
 	print("******************************\n\n")
 	if bankroll == 0:
 		print("       You are broke!\n\n")
@@ -532,6 +568,9 @@ while quitflag == False:
 	#Get bet location
 	bet_location = "0"
 	crapstable()
+	#insert function call here for mikes idea function if broke
+	if bankroll == 0:
+		shady()		
 	if bankroll == 0:
 		gameover()
 		break
