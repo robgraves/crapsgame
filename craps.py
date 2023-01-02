@@ -303,6 +303,24 @@ def save(users_dict):
 	pickle.dump(users_dict, open("userdata.p","wb"))
 
 
+#Function to check if player wants mature content
+def maturecheck(mature):
+	choice = "0"
+	while choice not in ("1","2"):
+		print("Do you want to play with G rated or Mature Content?")	
+		print("1 - G-rated")
+		print("2 - Mature")
+		choice = input()
+		if choice not in ("1","2"):
+			print("ERROR: Bad choice! Invalid entry!")
+	if choice == "1":
+		mature = 0 
+		return mature
+	if choice == "2":
+		mature = 1
+	return mature
+
+
 #Function for implementing Mike's idea for ways to make
 #money if you go broke
 def shady():
@@ -544,6 +562,7 @@ def midgamebet(bets):
 #Script starts here
 os.system("clear")
 intro()
+mature = 0    #mature content is off by default
 global point
 point = 0
 global bankroll
@@ -551,6 +570,7 @@ bankroll = 0
 global bet_location
 bet_location = "0"
 bets = bets_init()
+mature = maturecheck(mature)
 username = player()
 print("Welcome " + username + "!!!")
 print("Your bankroll is: $" + str(bankroll))
@@ -570,7 +590,8 @@ while quitflag == False:
 	crapstable()
 	#insert function call here for mikes idea function if broke
 	if bankroll == 0:
-		shady()		
+		if mature == 1:
+			shady()		
 	if bankroll == 0:
 		gameover()
 		break
