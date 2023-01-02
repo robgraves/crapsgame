@@ -597,6 +597,7 @@ while quitflag == False:
 	if bankroll == 0:
 		if mature == 1:
 			shady()		
+			print("Your current bankroll is: $" + str(bankroll))
 			crapstable()
 	if bankroll == 0:
 		gameover()
