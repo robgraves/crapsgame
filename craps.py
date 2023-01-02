@@ -19,10 +19,14 @@ import random
 import pickle
 
 
+#userdata.p path (soon to be data/userdata.p)
+userdata = "userdata.p"
+
+
 #Initializing the user database and loading if it exists
 users_dict = {}
-if os.path.exists("userdata.p"):
-	users_dict = pickle.load(open("userdata.p","rb"))
+if os.path.exists(userdata):
+	users_dict = pickle.load(open(userdata,"rb"))
 
 
 #Function that rolls two dice
@@ -300,7 +304,7 @@ def player():
 def save(users_dict):
 	global bankroll
 	users_dict[username] = bankroll
-	pickle.dump(users_dict, open("userdata.p","wb"))
+	pickle.dump(users_dict, open(userdata,"wb"))
 
 
 #Function to check if player wants mature content
@@ -347,10 +351,11 @@ def shady():
 		print("The man has you go behind the dumpster")
 		print("with him and he drops his pants...    ")
 		input()
-		os.system("clear")
 		print("...15 minutes later")
 		print("You have made 20 dollars")
 		bankroll = 20
+		input()
+		os.system("clear")
 		return bankroll	
 	if choice == "2":
 		print("You decide not to follow the man.")
@@ -592,6 +597,7 @@ while quitflag == False:
 	if bankroll == 0:
 		if mature == 1:
 			shady()		
+			crapstable()
 	if bankroll == 0:
 		gameover()
 		break
