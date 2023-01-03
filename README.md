@@ -15,12 +15,23 @@ username@hostname $  python craps.py
 
 FILES:
 
-craps.py 	-  main game file
+main.py 	-  main game file
 
 README.md   -  this file
 
-userdata.p  -  user data is stored here
+data/userdata.p  -  user data is stored here
 
+data/graphics.py - ASCII art for game
+
+
+
+01/03/2023
+
+Free odds bets for Pass/Don't Pass are fully functional 
+
+and reorganized code into a folder and a couple files
+
+renamed craps.py to main.py
 
 
 12/28/2022
