@@ -33,7 +33,12 @@ and reorganized code into a folder and a couple files
 
 renamed craps.py to main.py
 
+NOTE:	If you have an earlier pull of this like I do and want to keep your bankroll
 
+		then you will need to move your userdata.p into the new data folder:
+
+
+	
 12/28/2022
 
 Fully functional game with only the Pass/Don't Pass betting options, saving and loading works.
