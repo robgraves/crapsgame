@@ -258,6 +258,7 @@ def clearbets(bets):
 	return bets
 
 
+#Function for handling free odds bets on Pass Line or Don't Pass
 def freeodds_passdp(bets):
 	global bankroll
 	if point == 0:
@@ -332,6 +333,38 @@ def freeodds_passdp(bets):
 	return bets
 
 
+#Function for handling the Field Bet (a one roll bet)
+#pays 2 to 1 for roll of 2, pays 3 to 1 for roll of 12
+#pays 1 to 1 for rolls of 3, 4, 9, 10, and 11
+#anything else is a loss.
+def fieldbet(bets):
+	global bankroll	
+	print("Your current bankroll is: $" + str(bankroll))
+	#Get bet amount
+	print("Enter amount to bet on the Field: ")
+	fieldbet = 0
+	while not int(fieldbet) in range(1, bankroll+1):
+		if fieldbet > bankroll:
+			print("You do not have that much.")
+			print("Your current bankroll is: $" + str(bankroll))
+			print("Enter a bet amount: ")
+		try:
+			fieldbet = int(input())
+		except ValueError:
+			print("Error: Invalid entry. Please enter a number.")
+			continue
+	print("You chose " + str(fieldbet))
+	bankroll = bankroll - fieldbet
+	bets.update({"field":(fieldbet + bets.get("field"))})
+	os.system("clear")
+	print("Your current bankroll is: $" + str(bankroll))
+	save(users_dict)
+	#print(bets)   					##FOR TESTING
+	#input()						##FOR TESTING
+	return bets
+	
+
+
 #Function for mid game betting
 def midgamebet(bets):
 	midbet_location = "0"
@@ -366,13 +399,11 @@ def midgamebet(bets):
 			print("Returning to game")
 			return(bets)
 	print("You chose " + midbet_location)
-	#for key in bets:												# These three lines won't work once I add
-	#	if bets[key] != 0:											# more bets to game.  I may need to make
-	#		print("Free odds bets on table: $" + str(bets[key]))		# this loop more complicated.
 	for key in bets:
 		if bets[key] != 0:											
-			freeoddsbet = bets[key]
+			activebet = bets[key]
 	if (bets.get('freeodds_pass4o10') != 0) or (bets.get('freeodds_pass5o9') != 0) or (bets.get('freeodds_pass6o8') != 0) or (bets.get('freeodds_dp4o10') != 0) or (bets.get('freeodds_dp5o9') !=0) or (bets.get('freeodds_dp6o8') != 0):
+		freeoddsbet = activebet
 		print("Free odds bets on table: $" + str(freeoddsbet))
 	midbet_location = int(midbet_location)
 	if midbet_location == 1:
@@ -380,6 +411,8 @@ def midgamebet(bets):
 		input()
 	if midbet_location == 2:
 		bets = freeodds_passdp(bets)
+	if midbet_location == 3:
+		bets = fieldbet(bets)
 	return bets
 
 
@@ -414,7 +447,7 @@ while quitflag == False:
 	#Get bet location
 	bet_location = "0"
 	graphics.crapstable()
-	#insert function call here for mikes idea function if broke
+	#checking for easter egg if user chose mature content at start
 	if bankroll == 0:
 		if mature == 1:
 			shady()		
@@ -534,7 +567,27 @@ while quitflag == False:
 			print("Press any key to roll again.")
 			input()
 			result = dice()
+
+			#Field bet payouts
+			if result in (2,3,4,9,10,11,12):
+				if (bets.get("field") != 0):
+					print("Field bet Winner!!!")
+				if result == 2:
+					bankroll = (bankroll + (bets.get("field") * 3))
+					bets.update({"field":0})
+				elif result == 12:
+					bankroll = (bankroll + (bets.get("field") * 4))
+					bets.update({"field":0})
+				elif result in (3,4,9,10,11):
+					bankroll = (bankroll + (bets.get("field") * 2))
+					bets.update({"field":0})
+				else:
+					bets.update({"field":0})
+			else:
+				bets.update({"field":0})
 			input()
+
+			#Payoff for shooter hitting the point	
 			if result == point:
 				print("Shooter hits the point!!!")
 				print("Pass Line Wins!!!")
@@ -561,6 +614,8 @@ while quitflag == False:
 				input()
 				os.system("clear")
 				break
+
+			#Payoff for if shooter Sevens Out
 			elif result == 7:
 				print("Seven!!! Shooter loses!")
 				print("Pass Line loses.")
