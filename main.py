@@ -2,7 +2,7 @@
 #
 # Matthew Page 07/02/2019, 12/26/2022
 #
-# craps.py	-	My first attempt at making a command line
+# main.py	-	My first attempt at making a command line
 #				craps game.
 #
 #				12/28/2022 - First fully playable version
@@ -366,9 +366,14 @@ def midgamebet(bets):
 			print("Returning to game")
 			return(bets)
 	print("You chose " + midbet_location)
-	for key in bets:												# These three lines won't work once I add
-		if bets[key] != 0:											# more bets to game.  I may need to make
-			print("Free odds bets on table: $" + str(bets[key]))		# this loop more complicated.
+	#for key in bets:												# These three lines won't work once I add
+	#	if bets[key] != 0:											# more bets to game.  I may need to make
+	#		print("Free odds bets on table: $" + str(bets[key]))		# this loop more complicated.
+	for key in bets:
+		if bets[key] != 0:											
+			freeoddsbet = bets[key]
+	if (bets.get('freeodds_pass4o10') != 0) or (bets.get('freeodds_pass5o9') != 0) or (bets.get('freeodds_pass6o8') != 0) or (bets.get('freeodds_dp4o10') != 0) or (bets.get('freeodds_dp5o9') !=0) or (bets.get('freeodds_dp6o8') != 0):
+		print("Free odds bets on table: $" + str(freeoddsbet))
 	midbet_location = int(midbet_location)
 	if midbet_location == 1:
 		print("Shooter has the dice! No more bets!")
