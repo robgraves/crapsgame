@@ -17,10 +17,12 @@ import os
 import math
 import random
 import pickle
+import data.graphics
+from data import graphics
 
 
-#userdata.p path (soon to be data/userdata.p)
-userdata = "userdata.p"
+#path for userdata.p file 
+userdata = "data/userdata.p"
 
 
 #Initializing the user database and loading if it exists
@@ -44,35 +46,35 @@ def dice():
 	diceresult 	= die1 + die2 	
 	#Display proper ASCII art for each dieface for die 1
 	if die1 == 1:
-		dieface1()
+		graphics.dieface1()
 	elif die1 == 2:
-		dieface2()
+		graphics.dieface2()
 	elif die1 == 3:
-		dieface3()
+		graphics.dieface3()
 	elif die1 == 4:
-		dieface4()
+		graphics.dieface4()
 	elif die1 == 5:
-		dieface5()
+		graphics.dieface5()
 	elif die1 == 6:
-		dieface6()
+		graphics.dieface6()
 	#Display proper ASCII art for each dieface for die 2
 	if die2 == 1:
-		dieface1()
+		graphics.dieface1()
 	elif die2 == 2:
-		dieface2()
+		graphics.dieface2()
 	elif die2 == 3:
-		dieface3()
+		graphics.dieface3()
 	elif die2 == 4:
-		dieface4()
+		graphics.dieface4()
 	elif die2 == 5:
-		dieface5()
+		graphics.dieface5()
 	elif die2 == 6:
-		dieface6()
+		graphics.dieface6()
 	print(str(die1) + " " + str(die2))
 	print("You rolled : ", diceresult)
 	return diceresult
 
-
+'''
 #Function that displays Intro screen
 def intro():
 	print("Welcome to Terminal Craps Game!!!")
@@ -274,6 +276,7 @@ def dieface6():
 	print("    |o o|    ")
 	print("    |o_o|    ")
 	print("             ")
+'''
 
 
 #Function for creating or loading user and their bankroll
@@ -300,7 +303,7 @@ def player():
 	if choice == "2":
 		print("Please enter your name:")
 		username = input()
-		saveduser = pickle.load(open("userdata.p","rb"))
+		saveduser = pickle.load(open(userdata,"rb"))
 		while saveduser.get(username) == None:
 			print("This user doesn't exist.")
 			print("Please select New User.")
@@ -581,7 +584,7 @@ def midgamebet(bets):
 
 #Script starts here
 os.system("clear")
-intro()
+graphics.intro()
 mature = 0    #mature content is off by default
 global point
 point = 0
@@ -609,13 +612,13 @@ while quitflag == False:
 		break
 	#Get bet location
 	bet_location = "0"
-	crapstable()
+	graphics.crapstable()
 	#insert function call here for mikes idea function if broke
 	if bankroll == 0:
 		if mature == 1:
 			shady()		
 			print("Your current bankroll is: $" + str(bankroll))
-			crapstable()
+			graphics.crapstable()
 	if bankroll == 0:
 		gameover()
 		break
@@ -658,7 +661,7 @@ while quitflag == False:
 	#The Come-Out roll
 	iscomeout = True
 	while iscomeout == True:
-		crapstable()
+		graphics.crapstable()
 		print("Press any key to roll.")
 		input()
 		result = dice()
@@ -701,32 +704,32 @@ while quitflag == False:
 			os.system("clear")
 			print("Your current bankroll is: $" + str(bankroll))
 			if point == 4:
-				crapstable4()
+				graphics.crapstable4()
 			elif point == 5:
-				crapstable5()
+				graphics.crapstable5()
 			elif point == 6:
-				crapstable6()
+				graphics.crapstable6()
 			elif point == 8:
-				crapstable8()
+				graphics.crapstable8()
 			elif point == 9:
-				crapstable9()
+				graphics.crapstable9()
 			elif point == 10:
-				crapstable10()
+				graphics.crapstable10()
 			print("You rolled " + str(result))
 			bets = midgamebet(bets)
 			os.system("clear")
 			if point == 4:
-				crapstable4()
+				graphics.crapstable4()
 			elif point == 5:
-				crapstable5()
+				graphics.crapstable5()
 			elif point == 6:
-				crapstable6()
+				graphics.crapstable6()
 			elif point == 8:
-				crapstable8()
+				graphics.crapstable8()
 			elif point == 9:
-				crapstable9()
+				graphics.crapstable9()
 			elif point == 10:
-				crapstable10()
+				graphics.crapstable10()
 			print("Press any key to roll again.")
 			input()
 			result = dice()
