@@ -35,7 +35,7 @@ renamed craps.py to main.py
 
 NOTE:	If you have an earlier pull of this like I do and want to keep your bankroll
 
-then you will need to move your userdata.p into the new data folder:
+then you will need to move your userdata.p into the new data folder
 
 
 	
