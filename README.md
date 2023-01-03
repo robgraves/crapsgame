@@ -53,7 +53,7 @@ DONE! 12/30/2022 - Free odds bets on Pass/DP
 
 - Free odds bets on Come/Don't Come
 
-- Field Bets
+DONE! 01/03/2023 - Field Bets
 
 - Place Bets/Lay Bets
 
