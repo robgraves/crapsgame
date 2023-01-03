@@ -290,12 +290,23 @@ def player():
 	if choice == "1":
 		print("Please enter your name:")
 		username = input()
+		if username == "" or None:
+			print("WARNING: By not entering a name,")
+			print("you may not be able to load your")
+			print("saved game in the future.")
+			input()
 		bankroll = 1000
 		return username		
 	if choice == "2":
 		print("Please enter your name:")
 		username = input()
 		saveduser = pickle.load(open("userdata.p","rb"))
+		while saveduser.get(username) == None:
+			print("This user doesn't exist.")
+			print("Please select New User.")
+			input()
+			username = player()
+			return username
 		bankroll = saveduser.get(username)
 	return username
 
@@ -369,7 +380,7 @@ def gameover():
 	if bankroll == 0:
 		print("       You are broke!\n\n")
 	else:
-		print("                     \n\n")
+		print("      Come back soon!!\n\n") 
 	print("******************************\n")
 	print("     G A M E  O V E R!!!\n\n")
 	print("******************************\n\n")
@@ -449,12 +460,16 @@ def clearbets(bets):
 
 
 def freeodds_passdp(bets):
+	global bankroll
 	if point == 0:
 		print("You cannot take free odds bets on a come out roll.")
 		input()
 		return(bets)
+	elif bankroll == 0:
+		print("You have no more money available to bet.")
+		input()
+		return(bets)
 	else:
-		global bankroll
 		if bet_location == 1:
 			print("Your current bankroll is: $" + str(bankroll))
 			print("point is " + str(point))
@@ -554,7 +569,7 @@ def midgamebet(bets):
 	print("You chose " + midbet_location)
 	for key in bets:												# These three lines won't work once I add
 		if bets[key] != 0:											# more bets to game.  I may need to make
-			print("Free odds bets on table: " + str(bets[key]))		# this loop more complicated.
+			print("Free odds bets on table: $" + str(bets[key]))		# this loop more complicated.
 	midbet_location = int(midbet_location)
 	if midbet_location == 1:
 		print("Shooter has the dice! No more bets!")
@@ -590,6 +605,8 @@ while quitflag == False:
 	#Pre Come-Out roll bet
 	print("Your current bankroll is: $" + str(bankroll))
 
+	if bankroll == None:
+		break
 	#Get bet location
 	bet_location = "0"
 	crapstable()
@@ -614,6 +631,7 @@ while quitflag == False:
 			print("Invalid entry!")
 	if bet_location == "3":
 		quitflag = True
+		gameover()
 		break
 	print("You chose " + bet_location)
 	bet_location = int(bet_location)
