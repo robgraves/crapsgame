@@ -118,14 +118,13 @@ def player():
 		username = input()
 		if not os.path.exists(userdata):
 			print("You have not created a user.")
-			print("Please select New User to")
+			print("Please select New Player to")
 			print("create a user and play.")
 			username = player()
 		try:
 			saveduser = pickle.load(open(userdata,"rb"))
 		except ValueError:
 			print("Error: Invalid entry. Please enter a number.")
-		#saveduser = pickle.load(open(userdata,"rb"))
 		while saveduser.get(username) == None:
 			print("This user doesn't exist.")
 			print("Please select New User.")
@@ -680,4 +679,10 @@ while quitflag == False:
 				break
 		break
 
-#End of File
+##############################################
+#
+#
+# End of File
+#
+#
+##############################################
