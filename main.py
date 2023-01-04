@@ -29,20 +29,25 @@ import data.graphics
 from data import graphics
 
 
-#path for userdata.p file 
+#path for userdata.p file
 userdata = "data/userdata.p"
 musicfile = "data/diceroll.mp3"
 
 
-#Initializing the user database and loading if it exists
+#Initializing the user database and loading if it exists,
+#forcing creation of file if it doesn't exist to solve
+#some issues encountered later
 users_dict = {}
 if os.path.exists(userdata):
 	users_dict = pickle.load(open(userdata,"rb"))
+else:
+	users_dict = {"dealer":1000000}
+pickle.dump(users_dict, open(userdata,"wb"))
 
 
-#############################################
+############################################
 #
-# 
+#
 #  Function definitions
 #
 #
@@ -54,12 +59,12 @@ def dice():
 	else:
 		print("Point is : ", point)
 	print("Rolling the dice...")
-	rng = random.SystemRandom()	
+	rng = random.SystemRandom()
 	#die1 		= random.randint(1,6)
 	#die2 		= random.randint(1,6)
 	die1 		= rng.randint(1,6)
 	die2 		= rng.randint(1,6)
-	diceresult 	= die1 + die2 	
+	diceresult 	= die1 + die2
 	os.system("mpg123 -q " + musicfile + " > /dev/null 2>&1")
 	#Display proper ASCII art for each dieface for die 1
 	if die1 == 1:
@@ -113,26 +118,21 @@ def player():
 			print("saved game in the future.")
 			input()
 		bankroll = 1000
-		return username		
+		return username
 	if choice == "2":
 		print("Please enter your name:")
 		username = input()
-		if not os.path.exists(userdata):
-			print("You have not created a user.")
-			print("Please select New Player to")
-			print("create a user and play.")
-			username = player()
 		try:
 			saveduser = pickle.load(open(userdata,"rb"))
+			bankroll = saveduser.get(username)
 		except FileNotFoundError:
 			print("Error: File does not exist. Please create a New Player.")
 		while saveduser.get(username) == None:
 			print("This user doesn't exist.")
-			print("Please select New User.")
+			print("Please select New Player.")
 			input()
 			username = player()
 			return username
-		bankroll = saveduser.get(username)
 	return username
 
 
@@ -147,14 +147,14 @@ def save(users_dict):
 def maturecheck(mature):
 	choice = "0"
 	while choice not in ("1","2"):
-		print("Do you want to play with G rated or Mature Content?")	
+		print("Do you want to play with G rated or Mature Content?")
 		print("1 - G-rated")
 		print("2 - Mature")
 		choice = input()
 		if choice not in ("1","2"):
 			print("ERROR: Bad choice! Invalid entry!")
 	if choice == "1":
-		mature = 0 
+		mature = 0
 		return mature
 	if choice == "2":
 		mature = 1
@@ -165,7 +165,7 @@ def maturecheck(mature):
 #money if you go broke
 def shady():
 	os.system("clear")
-	print("A shady looking middle-aged man approaches")	
+	print("A shady looking middle-aged man approaches")
 	print('you and he says, "I notice you are broke."')
 	print("                                          ")
 	print("You are a little unsure if you can trust  ")
@@ -177,7 +177,7 @@ def shady():
 	choice = "0"
 	global bankroll
 	while choice not in ("1","2"):
-		print("Do you follow the shady man out back?     ")	
+		print("Do you follow the shady man out back?     ")
 		print("1 - Yes")
 		print("2 - No")
 		choice = input()
@@ -192,7 +192,7 @@ def shady():
 		bankroll = 20
 		input()
 		os.system("clear")
-		return bankroll	
+		return bankroll
 	if choice == "2":
 		print("You decide not to follow the man.")
 	return bankroll
@@ -205,7 +205,7 @@ def gameover():
 	if bankroll == 0:
 		print("       You are broke!\n\n")
 	else:
-		print("      Come back soon!!\n\n") 
+		print("      Come back soon!!\n\n")
 	if bankroll == 0:
 		print("******************************\n")
 		print("     G A M E  O V E R!!!\n\n")
@@ -219,11 +219,11 @@ def gameover():
 	if bankroll == 0:
 		print("To play again, choose New User")
 		print("and use the same name to reset")
-		print("your bankroll.                \n") 
+		print("your bankroll.                \n")
 	else:
 		print("To play again, choose Returning")
 		print("User and use the same name to  ")
-		print("use your saved bankroll.       \n") 
+		print("use your saved bankroll.       \n")
 	save(users_dict)
 	sys.exit()
 	quitflag = True
@@ -245,7 +245,7 @@ def bets_init():
 	"freeodds_come8":0,		#can be made after point established, odds 6 to 5
 	"freeodds_come9":0,		#can be made after point established, odds 3 to 2
 	"freeodds_come10":0,	#can be made after point established, odds 2 to 1
-	"freeodds_dc4":0,		#can be made after point established, odds 1 to 2 
+	"freeodds_dc4":0,		#can be made after point established, odds 1 to 2
 	"freeodds_dc5":0,		#can be made after point established, odds 2 to 3
 	"freeodds_dc6":0,		#can be made after point established, odds 5 to 6
 	"freeodds_dc8":0,		#can be made after point established, odds 5 to 6
@@ -280,7 +280,7 @@ def bets_init():
 	return bets
 
 
-#Function to clear out mid game betting 
+#Function to clear out mid game betting
 def clearbets(bets):
 	bets.clear()
 	bets = bets_init()
@@ -331,7 +331,7 @@ def freeodds_passdp(bets):
 			#input()						##FOR TESTING
 		if bet_location == 2:
 			print("Your current bankroll is: $" + str(bankroll))
-			print("point is " + str(point)) 
+			print("point is " + str(point))
 			print("Take odds on Don't Pass wager.")
 			#Get bet amount
 			print("Enter odds bet: ")
@@ -367,7 +367,7 @@ def freeodds_passdp(bets):
 #pays 1 to 1 for rolls of 3, 4, 9, 10, and 11
 #anything else is a loss.
 def fieldbet(bets):
-	global bankroll	
+	global bankroll
 	print("Your current bankroll is: $" + str(bankroll))
 	#Get bet amount
 	print("Enter amount to bet on the Field: ")
@@ -420,7 +420,7 @@ def midgamebet(bets):
 			if confirm in ("Y","N","y","n"):
 				break
 			else:
-				 print("Invalid entry!")	
+				 print("Invalid entry!")
 		if confirm == "Y" or confirm == "y":
 			gameover()
 		elif confirm == "N" or confirm == "n":
@@ -428,7 +428,7 @@ def midgamebet(bets):
 			return(bets)
 	print("You chose " + midbet_location)
 	for key in bets:
-		if bets[key] != 0:											
+		if bets[key] != 0:
 			activebet = bets[key]
 	if (bets.get('freeodds_pass4o10') != 0) or (bets.get('freeodds_pass5o9') != 0) or (bets.get('freeodds_pass6o8') != 0) or (bets.get('freeodds_dp4o10') != 0) or (bets.get('freeodds_dp5o9') !=0) or (bets.get('freeodds_dp6o8') != 0):
 		freeoddsbet = activebet
@@ -474,7 +474,7 @@ os.system("clear")
 #Main Game Loop
 quitflag = False
 while quitflag == False:
-	
+
 	#Pre Come-Out roll bet
 	print("Your current bankroll is: $" + str(bankroll))
 
@@ -486,7 +486,7 @@ while quitflag == False:
 	#checking for easter egg if user chose mature content at start
 	if bankroll == 0:
 		if mature == 1:
-			shady()		
+			shady()
 			print("Your current bankroll is: $" + str(bankroll))
 			graphics.crapstable()
 	if bankroll == 0:
@@ -623,7 +623,7 @@ while quitflag == False:
 				bets.update({"field":0})
 			input()
 
-			#Payoff for shooter hitting the point	
+			#Payoff for shooter hitting the point
 			if result == point:
 				print("Shooter hits the point!!!")
 				print("Pass Line Wins!!!")
@@ -631,13 +631,13 @@ while quitflag == False:
 				if bet_location == 1:
 					bankroll = (bankroll + (bet_amount * 2))
 					#Checking for free odds bets on passline points and payouts
-					if bets.get("freeodds_pass4o10") != 0: 
+					if bets.get("freeodds_pass4o10") != 0:
 						bankroll = (bankroll + math.floor((bets.get("freeodds_pass4o10") * 1)/2) + bets.get("freeodds_pass4o10"))
 						bets.update({"freeodds_pass4o10":0})
-					if bets.get("freeodds_pass5o9") != 0: 
+					if bets.get("freeodds_pass5o9") != 0:
 						bankroll = (bankroll + math.floor((bets.get("freeodds_pass5o9") * 2)/3) + bets.get("freeodds_pass5o9"))
 						bets.update({"freeodds_pass5o9":0})
-					if bets.get("freeodds_pass6o8") != 0: 
+					if bets.get("freeodds_pass6o8") != 0:
 						bankroll = (bankroll + math.floor((bets.get("freeodds_pass6o8") * 5)/6) + bets.get("freeodds_pass6o8"))
 						bets.update({"freeodds_pass6o8":0})
 				#Clearing free odds bets for don't pass losses
@@ -659,13 +659,13 @@ while quitflag == False:
 				if bet_location == 2:
 					bankroll = (bankroll + (bet_amount * 2))
 					#Checking for free odds bets on don't pass points and payouts
-					if bets.get("freeodds_dp4o10") != 0: 
+					if bets.get("freeodds_dp4o10") != 0:
 						bankroll = (bankroll + math.floor((bets.get("freeodds_dp4o10") * 2)/1) + bets.get("freeodds_dp4o10"))
 						bets.update({"freeodds_dp4o10":0})
-					if bets.get("freeodds_dp5o9") != 0: 
+					if bets.get("freeodds_dp5o9") != 0:
 						bankroll = (bankroll + math.floor((bets.get("freeodds_dp5o9") * 3)/2) + bets.get("freeodds_dp5o9"))
 						bets.update({"freeodds_dp5o9":0})
-					if bets.get("freeodds_dp6o8") != 0: 
+					if bets.get("freeodds_dp6o8") != 0:
 						bankroll = (bankroll + math.floor((bets.get("freeodds_dp6o8") * 6)/5) + bets.get("freeodds_dp6o8"))
 						bets.update({"freeodds_dp6o8":0})
 				#Clearing free odds bets for passline losses
