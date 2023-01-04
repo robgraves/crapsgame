@@ -233,6 +233,19 @@ def gameover():
 #Function to initialize bets dictionary
 def bets_init():
 	bets = {
+    #########################################################################
+    #
+    # Bets Dictionary holds all bets except for Pass/Don't Pass wagers
+    #
+    #########################################################################
+    #     Odds are x to y where y is bet and payoff is ((y * x) + y)
+    #in the case of division resulting in fractional results, the payout is
+    #round`ed down (math.floor) for the house advantage.
+    #     Come and Don't Come behaves like a Pass/Don't Pass mid game creating
+    #come points,  your bet will move to the come point (4,5,6,8,9,10) if next
+    #roll isn't a 7,11 (win on come bet) or 2,3,or 12 (loss on come bet),
+    #at this point any come points win if they are hit before a 7 comes out
+    #again, don't come wins if shooter Sevens Out.
 	"freeodds_pass4o10":0,	#can be made after point established, odds 2 to 1
 	"freeodds_pass5o9":0,	#can be made after point established, odds 3 to 2
 	"freeodds_pass6o8":0,	#can be made after point established, odds 6 to 5
@@ -251,21 +264,27 @@ def bets_init():
 	"freeodds_dc8":0,		#can be made after point established, odds 5 to 6
 	"freeodds_dc9":0,		#can be made after point established, odds 2 to 3
 	"freeodds_dc10":0,		#can be made after point established, odds 1 to 2
-	"come":0,				#acts like pass line, but bet turns into next roll buy bet
-	"dc":0,					#acts like don't pass line, but bet turns into next roll lay bet
+	"come":0,				#acts like pass line, but bet turns into buy bet sort of
+	"dc":0,					#acts like don't pass line, but bet turns into lay bet sort of
 	"field":0,				#roll 2 is 2 to 1, roll 12 is 3 to 1, everything else is 1 to 1
-	"buy4":0,				#odds 2 to 1
-	"lay4":0,				#odds 1 to 2
-	"buy5":0,				#odds 3 to 2
-	"lay5":0,				#odds 2 to 3
-	"buy6":0,				#odds 6 to 5
-	"lay6":0,				#odds 5 to 6
-	"buy8":0,				#odds 6 to 5
-	"lay8":0,				#odds 5 to 6
-	"buy9":0,				#odds 3 to 2
-	"lay9":0,				#odds 2 to 3
-	"buy10":0,				#odds 2 to 1
-	"lay10":0,				#odds 1 to 2
+    "place4":0,             #hit 4 before shooter loses, odds 9 to 5
+    "place5":0,             #hit 5 before shooter loses, odds 7 to 5
+    "place6":0,             #hit 6 before shooter loses, odds 7 to 6
+    "place8":0,             #hit 8 before shooter loses, odds 7 to 6
+    "place9":0,             #hit 9 before shooter loses, odds 7 to 5
+    "place10":0,            #hit 10 before shooter loses, odds 9 to 5
+	"buy4":0,				#odds 2 to 1 buy bets pay 5% commission from winnings
+	"lay4":0,				#odds 1 to 2 lay bets pay 5% commission when betting
+	"buy5":0,				#odds 3 to 2 buy bets pay 5% commission from winnings
+	"lay5":0,				#odds 2 to 3 lay bets pay 5% commission when betting
+	"buy6":0,				#odds 6 to 5 buy bets pay 5% commission from winnings
+	"lay6":0,				#odds 5 to 6 lay bets pay 5% commission when betting
+	"buy8":0,				#odds 6 to 5 buy bets pay 5% commission from winnings
+	"lay8":0,				#odds 5 to 6 lay bets pay 5% commission when betting
+	"buy9":0,				#odds 3 to 2 buy bets pay 5% commission from winnings
+	"lay9":0,				#odds 2 to 3 lay bets pay 5% commission when betting
+	"buy10":0,				#odds 2 to 1 buy bets pay 5% commission from winnings
+	"lay10":0,				#odds 1 to 2 lay bets pay 5% commission when betting
 	"hardway6":0,			#odds 9 to 1
 	"hardway8":0,			#odds 9 to 1
 	"hardway4":0,			#odds 7 to 1
@@ -275,8 +294,11 @@ def bets_init():
 	"horn11":0,				#odds 15 to 1 YO-leven!!!
 	"horn12":0,				#odds 30 to 1
 	"horn3":0,				#odds 15 to 1
-	"horn2":0				#odds 30 to 1
-	}
+	"horn2":0,				#odds 30 to 1
+    "big6":0,               #some craps tables have these, odds 1 to 1
+    "big8":0,               #some craps tables have these, odds 1 to 1
+    "C&E":0                 #craps-eleven, same as any craps plus 11, pays same as
+	}                       #the individual bets, any craps (7 to 1) & YO11 (15 to 1)
 	return bets
 
 
