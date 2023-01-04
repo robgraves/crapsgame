@@ -45,7 +45,7 @@ def dice():
 	die1 		= rng.randint(1,6)
 	die2 		= rng.randint(1,6)
 	diceresult 	= die1 + die2 	
-	os.system("mpg123 -q " + musicfile + " &")
+	os.system("mpg123 -q " + musicfile + " > /dev/null 2>&1")
 	#Display proper ASCII art for each dieface for die 1
 	if die1 == 1:
 		graphics.dieface1()
