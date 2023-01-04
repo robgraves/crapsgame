@@ -22,7 +22,6 @@ from data import graphics
 
 
 #path for userdata.p file 
-os.system("touch data/userdata.p")
 userdata = "data/userdata.p"
 musicfile = "data/diceroll.mp3"
 
