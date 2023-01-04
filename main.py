@@ -120,6 +120,7 @@ def player():
 			print("You have not created a user.")
 			print("Please select New User to")
 			print("create a user and play.")
+			username = player()
 		try:
 			saveduser = pickle.load(open(userdata,"rb"))
 		except ValueError:
