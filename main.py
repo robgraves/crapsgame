@@ -123,8 +123,8 @@ def player():
 			username = player()
 		try:
 			saveduser = pickle.load(open(userdata,"rb"))
-		except ValueError:
-			print("Error: Invalid entry. Please enter a number.")
+		except FileNotFoundError:
+			print("Error: File does not exist. Please create a New Player.")
 		while saveduser.get(username) == None:
 			print("This user doesn't exist.")
 			print("Please select New User.")
