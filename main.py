@@ -425,9 +425,9 @@ def midgamebet(bets):
 		print("3 - Field Bet")
 		print("4 - Come or Don't Come Bets")
 		print("5 - Free Odds Bets on Come or Don't Come")
-		print("6 - Buy Bets")
-		print("7 - Lay Bets")
-		print("8 - Hardway & Horn Bets")
+		print("6 - Place, Buy, and Lay Bets")
+		print("7 - Hardway & Horn Bets")
+		print("8 - Miscellaneous Bets")
 		print("9 - Quit Game")
 		midbet_location = input()
 		if midbet_location in ("1","2","3","4","5","6","7","8","9"):
