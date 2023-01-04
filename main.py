@@ -95,6 +95,7 @@ def dice():
 #Function for creating or loading user and their bankroll
 def player():
 	choice = "0"
+	saveduser = None
 	global bankroll
 	while choice not in ("1","2"):
 		print("Are you a new or returning player?")
@@ -463,7 +464,6 @@ bet_location = "0"
 
 bets = bets_init()
 mature = maturecheck(mature)
-saveduser = None
 username = player()
 print("Welcome " + username + "!!!")
 print("Your bankroll is: $" + str(bankroll))
