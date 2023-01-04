@@ -9,9 +9,17 @@
 #				of the game with only Pass/Don't Pass
 #				betting options.
 #
+##########################################################
 
 
-#Importing stuff
+
+############################################
+#
+#
+# Importing stuff and other setup
+#
+#
+############################################
 import sys
 import os
 import math
@@ -32,6 +40,13 @@ if os.path.exists(userdata):
 	users_dict = pickle.load(open(userdata,"rb"))
 
 
+#############################################
+#
+# 
+#  Function definitions
+#
+#
+#############################################
 #Function that rolls two dice
 def dice():
 	if point == 0:
@@ -101,7 +116,15 @@ def player():
 	if choice == "2":
 		print("Please enter your name:")
 		username = input()
-		saveduser = pickle.load(open(userdata,"rb"))
+		if not os.path.exists(userdata):
+			print("You have not created a user.")
+			print("Please select New User to")
+			print("create a user and play.")
+		try:
+			saveduser = pickle.load(open(userdata,"rb"))
+		except ValueError:
+			print("Error: Invalid entry. Please enter a number.")
+		#saveduser = pickle.load(open(userdata,"rb"))
 		while saveduser.get(username) == None:
 			print("This user doesn't exist.")
 			print("Please select New User.")
@@ -420,7 +443,13 @@ def midgamebet(bets):
 	return bets
 
 
-#Script starts here
+#############################################
+#
+#
+#  Script starts here
+#
+#
+#############################################
 os.system("clear")
 graphics.intro()
 mature = 0    #mature content is off by default
