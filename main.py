@@ -23,6 +23,7 @@ from data import graphics
 
 #path for userdata.p file 
 userdata = "data/userdata.p"
+musicfile = "data/diceroll.mp3"
 
 
 #Initializing the user database and loading if it exists
@@ -44,6 +45,7 @@ def dice():
 	die1 		= rng.randint(1,6)
 	die2 		= rng.randint(1,6)
 	diceresult 	= die1 + die2 	
+	os.system("mpg123 -q " + musicfile + " &")
 	#Display proper ASCII art for each dieface for die 1
 	if die1 == 1:
 		graphics.dieface1()
@@ -362,7 +364,6 @@ def fieldbet(bets):
 	#print(bets)   					##FOR TESTING
 	#input()						##FOR TESTING
 	return bets
-	
 
 
 #Function for mid game betting

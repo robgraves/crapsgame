@@ -7,9 +7,11 @@ me@matthewjpage.com
 
 INSTRUCTIONS:
 
-To play, run from command line:
+-To play, run from command line:
 
 username@hostname $  python craps.py
+
+-To have sound install mpg123 package on your Linux distribution
 
 
 
@@ -22,6 +24,8 @@ README.md   -  this file
 data/userdata.p  -  user data is stored here
 
 data/graphics.py - ASCII art for game
+
+data/diceroll.mp3 - sound effect for dice rolls
 
 
 
