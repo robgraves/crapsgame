@@ -463,6 +463,7 @@ bet_location = "0"
 
 bets = bets_init()
 mature = maturecheck(mature)
+saveduser = None
 username = player()
 print("Welcome " + username + "!!!")
 print("Your bankroll is: $" + str(bankroll))
