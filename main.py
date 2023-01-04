@@ -182,9 +182,12 @@ def gameover():
 		print("       You are broke!\n\n")
 	else:
 		print("      Come back soon!!\n\n") 
-	print("******************************\n")
-	print("     G A M E  O V E R!!!\n\n")
-	print("******************************\n\n")
+	if bankroll == 0:
+		print("******************************\n")
+		print("     G A M E  O V E R!!!\n\n")
+		print("******************************\n\n")
+	else:
+		graphics.cactus()
 	print("**** Terminal Craps Game ****")
 	print("** written by Matthew Page **")
 	print("**** me@matthewjpage.com ****\n\n")
@@ -421,12 +424,14 @@ def midgamebet(bets):
 os.system("clear")
 graphics.intro()
 mature = 0    #mature content is off by default
+
 global point
 point = 0
 global bankroll
 bankroll = 0
 global bet_location
 bet_location = "0"
+
 bets = bets_init()
 mature = maturecheck(mature)
 username = player()

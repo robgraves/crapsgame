@@ -211,4 +211,25 @@ def dieface6():
 	print("    |o_o|    ")
 	print("             ")
 
+
+def cactus():
+	'''Function to display a cactus'''
+	print("                              ")
+	print("             /|\              ")
+	print("            |||||             ")
+	print("            |||||             ")
+	print("        /\  |||||             ")
+	print("       |||| |||||             ")
+	print("       |||| |||||  /\         ")
+	print("       |||| ||||| ||||        ")
+	print("        \|`-'|||| ||||        ")
+	print("         \__ |||| ||||        ")
+	print("            ||||`-'|||        ")
+	print("            |||| ___/         ")
+	print("            |||||             ")
+	print("            |||||             ")
+	print("                              ")	
+	
+	
+	
 #End of File
