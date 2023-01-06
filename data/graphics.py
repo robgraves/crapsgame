@@ -1,8 +1,8 @@
-#!/usr/bin/env python3 
+#!/usr/bin/env python3
 #
 # Matthew Page 01/03/2023
 #
-# graphics.py  - 	A library I made to move 
+# graphics.py  - 	A library I made to move
 #					all the ASCII art for the
 # 					game into a seperate file.
 #
@@ -49,7 +49,7 @@ def crapstable():
 	print("|l |I s||2  3 4  9  10 11  12| +===============+   ")
 	print("|  |N s||_______FIELD________| |two    |  three|   ")
 	print("|B |E  |_____________________  |-----HORN------|   ")
-	print("|e |       don't pass bar    | |eleven | twelve|   ")
+	print("|e |       don't pass  bar 12| |eleven | twelve|   ")
 	print("|t  \_________PASS_LINE______| +===============+   ")
 	print("|s                           | |  any    craps |   ")
 	print(" \________No Call Bets_______| |    7 to 1     |   ")
@@ -68,7 +68,7 @@ def crapstable4():
 	print("|l |I s||2  3 4  9  10 11  12| +===============+   ")
 	print("|  |N s||_______FIELD________| |two    |  three|   ")
 	print("|B |E  |_____________________  |-----HORN------|   ")
-	print("|e |       don't pass bar    | |eleven | twelve|   ")
+	print("|e |       don't pass  bar 12| |eleven | twelve|   ")
 	print("|t  \_________PASS_LINE______| +===============+   ")
 	print("|s                           | |  any    craps |   ")
 	print(" \________No Call Bets_______| |    7 to 1     |   ")
@@ -87,7 +87,7 @@ def crapstable5():
 	print("|l |I s||2  3 4  9  10 11  12| +===============+   ")
 	print("|  |N s||_______FIELD________| |two    |  three|   ")
 	print("|B |E  |_____________________  |-----HORN------|   ")
-	print("|e |       don't pass bar    | |eleven | twelve|   ")
+	print("|e |       don't pass  bar 12| |eleven | twelve|   ")
 	print("|t  \_________PASS_LINE______| +===============+   ")
 	print("|s                           | |  any    craps |   ")
 	print(" \________No Call Bets_______| |    7 to 1     |   ")
@@ -106,7 +106,7 @@ def crapstable6():
 	print("|l |I s||2  3 4  9  10 11  12| +===============+   ")
 	print("|  |N s||_______FIELD________| |two    |  three|   ")
 	print("|B |E  |_____________________  |-----HORN------|   ")
-	print("|e |       don't pass bar    | |eleven | twelve|   ")
+	print("|e |       don't pass  bar 12| |eleven | twelve|   ")
 	print("|t  \_________PASS_LINE______| +===============+   ")
 	print("|s                           | |  any    craps |   ")
 	print(" \________No Call Bets_______| |    7 to 1     |   ")
@@ -125,7 +125,7 @@ def crapstable8():
 	print("|l |I s||2  3 4  9  10 11  12| +===============+   ")
 	print("|  |N s||_______FIELD________| |two    |  three|   ")
 	print("|B |E  |_____________________  |-----HORN------|   ")
-	print("|e |       don't pass bar    | |eleven | twelve|   ")
+	print("|e |       don't pass  bar 12| |eleven | twelve|   ")
 	print("|t  \_________PASS_LINE______| +===============+   ")
 	print("|s                           | |  any    craps |   ")
 	print(" \________No Call Bets_______| |    7 to 1     |   ")
@@ -144,7 +144,7 @@ def crapstable9():
 	print("|l |I s||2  3 4  9  10 11  12| +===============+   ")
 	print("|  |N s||_______FIELD________| |two    |  three|   ")
 	print("|B |E  |_____________________  |-----HORN------|   ")
-	print("|e |       don't pass bar    | |eleven | twelve|   ")
+	print("|e |       don't pass  bar 12| |eleven | twelve|   ")
 	print("|t  \_________PASS_LINE______| +===============+   ")
 	print("|s                           | |  any    craps |   ")
 	print(" \________No Call Bets_______| |    7 to 1     |   ")
@@ -163,7 +163,7 @@ def crapstable10():
 	print("|l |I s||2  3 4  9  10 11  12| +===============+   ")
 	print("|  |N s||_______FIELD________| |two    |  three|   ")
 	print("|B |E  |_____________________  |-----HORN------|   ")
-	print("|e |       don't pass bar    | |eleven | twelve|   ")
+	print("|e |       don't pass  bar 12| |eleven | twelve|   ")
 	print("|t  \_________PASS_LINE______| +===============+   ")
 	print("|s                           | |  any    craps |   ")
 	print(" \________No Call Bets_______| |    7 to 1     |   ")
@@ -239,12 +239,12 @@ def cactus():
 	print("            |||| ___/         ")
 	print("            |||||             ")
 	print("            |||||             ")
-	print("                              ")	
-	
-	
+	print("                              ")
+
+
 ############################################
 #
-#	
+#
 # End of File
 #
 #

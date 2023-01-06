@@ -65,7 +65,9 @@ def dice():
 	die1 		= rng.randint(1,6)
 	die2 		= rng.randint(1,6)
 	diceresult 	= die1 + die2
+    #Play dice rolling sound
 	os.system("mpg123 -q " + musicfile + " > /dev/null 2>&1")
+	#os.system("mplayer " + musicfile + " > /dev/null 2>&1")
 	#Display proper ASCII art for each dieface for die 1
 	if die1 == 1:
 		graphics.dieface1()
@@ -138,9 +140,19 @@ def player():
 
 #Function to be used prior to quitting the game
 def save(users_dict):
+	#global bankroll
+	#users_dict[username] = bankroll
+	#pickle.dump(users_dict, open(userdata,"wb"))
 	global bankroll
-	users_dict[username] = bankroll
-	pickle.dump(users_dict, open(userdata,"wb"))
+	print("Do you want to save?")
+	print("1 - Yes")
+	print("2 - No")
+	choice = input()
+	if choice == "1":
+		users_dict[username] = bankroll
+		pickle.dump(users_dict, open(userdata,"wb"))
+	if choice == "2":
+		return(users_dict)
 
 
 #Function to check if player wants mature content
@@ -243,7 +255,8 @@ def bets_init():
     #round`ed down (math.floor) for the house advantage.
     #     Come and Don't Come behaves like a Pass/Don't Pass mid game creating
     #come points,  your bet will move to the come point (4,5,6,8,9,10) if next
-    #roll isn't a 7,11 (win on come bet) or 2,3,or 12 (loss on come bet),
+    #roll isn't a 7,11 (win on come bet) or 2,3,12 (loss on come bet),
+    #also a roll of 12 on don't pass or don't come bets is a push (BAR 12),
     #at this point any come points win if they are hit before a 7 comes out
     #again, don't come wins if shooter Sevens Out.
 	"freeodds_pass4o10":0,	#can be made after point established, odds 2 to 1
@@ -463,6 +476,8 @@ def midgamebet(bets):
 		bets = freeodds_passdp(bets)
 	if midbet_location == 3:
 		bets = fieldbet(bets)
+	if midbet_location == 8:
+		save(users_dict)
 	return bets
 
 
@@ -570,11 +585,15 @@ while quitflag == False:
 			os.system("clear")
 			break
 		#If 2, 3, or 12 Pass bettors lose, Don't Pass wins
+        #on 2 or 3, pushes if rolls 12 (BAR 12)
 		elif result == 2 or result == 3 or result == 12:
 			print("Shooter Craps Out!")
 			print("bet location is : ", bet_location)
 			if bet_location == 2:
-				bankroll = (bankroll + (bet_amount * 2))
+				if result == 2 or result == 3:
+					bankroll = (bankroll + (bet_amount * 2))
+				if result == 12:
+					bankroll = (bankroll + bet_amount)
 			save(users_dict)
 			iscomeout = True
 			point = 0
@@ -648,7 +667,7 @@ while quitflag == False:
 			#Payoff for shooter hitting the point
 			if result == point:
 				print("Shooter hits the point!!!")
-				print("Pass Line Wins!!!")
+				print("Front Line Winner!!!")
 				print("bet location is : ", bet_location)
 				if bet_location == 1:
 					bankroll = (bankroll + (bet_amount * 2))
@@ -675,8 +694,8 @@ while quitflag == False:
 
 			#Payoff for if shooter Sevens Out
 			elif result == 7:
-				print("Seven!!! Shooter loses!")
-				print("Pass Line loses.")
+				print("Big Red!!! Shooter sevens out!")
+				print("Pay the Don't Pass.")
 				print("bet location is : ", bet_location)
 				if bet_location == 2:
 					bankroll = (bankroll + (bet_amount * 2))
