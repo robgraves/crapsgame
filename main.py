@@ -140,19 +140,9 @@ def player():
 
 #Function to be used prior to quitting the game
 def save(users_dict):
-	#global bankroll
-	#users_dict[username] = bankroll
-	#pickle.dump(users_dict, open(userdata,"wb"))
 	global bankroll
-	print("Do you want to save?")
-	print("1 - Yes")
-	print("2 - No")
-	choice = input()
-	if choice == "1":
-		users_dict[username] = bankroll
-		pickle.dump(users_dict, open(userdata,"wb"))
-	if choice == "2":
-		return(users_dict)
+	users_dict[username] = bankroll
+	pickle.dump(users_dict, open(userdata,"wb"))
 
 
 #Function to check if player wants mature content
@@ -476,8 +466,16 @@ def midgamebet(bets):
 		bets = freeodds_passdp(bets)
 	if midbet_location == 3:
 		bets = fieldbet(bets)
-	if midbet_location == 8:
-		save(users_dict)
+	#if midbet_location == 4:
+		#Come and Don't Come
+	#if midbet_location == 5:
+		#Free Odds on Come/Don't Come
+	#if midbet_location == 6:
+		#Place/Buy/Lay
+	#if midbet_location == 7:
+		#Hardway and Horn
+	#if midbet_location == 8:
+		#Miscellaneous Bets
 	return bets
 
 
