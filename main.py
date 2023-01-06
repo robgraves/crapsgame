@@ -313,8 +313,15 @@ def clearbets(bets):
 	bets = bets_init()
 	return bets
 
-
-#Function for handling free odds bets on Pass Line or Don't Pass
+####################################################
+#
+#    Function for handling free odds bets on
+# Pass Line or Don't Pass. These are paid at
+# true odds with no commission.  This is actually
+# the bet with the  lowest house advantage bet
+# in the entire casino.
+#
+####################################################
 def freeodds_passdp(bets):
 	global bankroll
 	if point == 0:
@@ -389,10 +396,14 @@ def freeodds_passdp(bets):
 	return bets
 
 
-#Function for handling the Field Bet (a one roll bet)
-#pays 2 to 1 for roll of 2, pays 3 to 1 for roll of 12
-#pays 1 to 1 for rolls of 3, 4, 9, 10, and 11
-#anything else is a loss.
+#######################################################
+#
+# Function for handling the Field Bet (a one roll bet)
+# pays 2 to 1 for roll of 2, pays 3 to 1 for roll of 12
+# pays 1 to 1 for rolls of 3, 4, 9, 10, and 11
+# anything else is a loss.
+#
+#######################################################
 def fieldbet(bets):
 	global bankroll
 	print("Your current bankroll is: $" + str(bankroll))
@@ -420,9 +431,170 @@ def fieldbet(bets):
 	return bets
 
 
+#Function defining Place Bets
+def place(bets):
+	global bankroll
+	global placeselect
+	print("Your current bankroll is: $" + str(bankroll))
+	placebet_location = "0"
+	while placebet_location not in ("Q","q","4","5","6","8","9","10"):
+		print("Choose where to place your bet: ")
+		print("4  - Place 4")
+		print("5  - Place 5")
+		print("6  - Place 6")
+		print("8  - Place 8")
+		print("9  - Place 9")
+		print("10 - Place 10")
+		print("Q  - Quit Game")
+		placebet_location = input()
+		if placebet_location in ("Q","q","4","5","6","8","9","10"):
+			break
+		else:
+			print("Invalid entry!")
+	print("You chose " + placebet_location)
+	if placebet_location == "Q" or placebet_location == "q":
+		confirm = "0"
+		while confirm not in ("Y","N","y","n"):
+			print("Are you sure? (Y/N) All bets on the table will be lost.")
+			confirm = input()
+			if confirm in ("Y","N","y","n"):
+				break
+			else:
+				 print("Invalid entry!")
+		if confirm == "Y" or confirm == "y":
+			gameover()
+		elif confirm == "N" or confirm == "n":
+			print("Returning to game")
+			return(bets)
+	#Get bet amount
+	print("Enter bet amount: ")
+	placebet = 0
+	while not int(placebet) in range(1, bankroll+1):
+		if placebet > bankroll:
+			print("You do not have that much.")
+			print("Your current bankroll is: $" + str(bankroll))
+			print("Enter a bet amount: ")
+		try:
+			placebet = int(input())
+		except ValueError:
+			print("Error: Invalid entry. Please enter a number.")
+			continue
+	print("You chose " + str(placebet))
+	bankroll = bankroll - placebet
+	os.system("clear")
+	print("Your current bankroll is: $" + str(bankroll))
+	save(users_dict)
+	if placebet_location == "4":
+		placeselect[0] = 4	
+		bets.update({"place4":(placebet + bets.get("place4"))})
+		return(bets)
+	if placebet_location == "5":
+		placeselect[1] = 5	
+		bets.update({"place5":(placebet + bets.get("place5"))})
+		return(bets)
+	if placebet_location == "6":
+		placeselect[2] = 6	
+		bets.update({"place6":(placebet + bets.get("place6"))})
+		return(bets)
+	if placebet_location == "8":
+		placeselect[3] = 8	
+		bets.update({"place8":(placebet + bets.get("place8"))})
+		return(bets)
+	if placebet_location == "9":
+		placeselect[4] = 9	
+		bets.update({"place9":(placebet + bets.get("place9"))})
+		return(bets)
+	if placebet_location == "10":
+		placeselect[5] = 10	
+		bets.update({"place10":(placebet + bets.get("place10"))})
+		return(bets)
+	print("You chose " + placebet_location)
+	return bets
+
+
+#Function defining Buy Bets
+def buy(bets):
+
+    return bets
+
+
+#Function defining Lay Bets
+def lay(bets):
+
+    return bets
+
+
+############################################################
+#
+#    Function for handling Place, Buy, and Lay Bets
+# These are essentially betting that certain numbers
+# will show up before a shooter Sevens Out (in the case
+# of Place and Buy Bets) or that a shooter Sevens Out
+# before said number is rolled (Lay Bets)
+#
+#    Place and Buy are essentially betting with the shooter
+# whereas Lay is against the shooter.
+# The Difference between Place and Buy is Buy gets true
+# odds but has to pay a 5% commission on the winnings
+# Place Bets behave the same with no commission but
+# lower odds payouts.
+#
+#    Lay Bets behave like the opposite of Buy bets, where
+# player pays a 5% commission, but it is payed up front
+# Possible numbers for Place, Buy and Lay Bets are the
+# point numbers: 4, 5, 6, 8, 9, and 10
+#
+#    These are all multi-roll bets, like Pass/DP and
+# Come/DC, as they stay until either the shooter Sevens Out
+# or the number hits, all other dice resuts don't affect
+# these bets.
+#
+###########################################################
+def placebuylay(bets):
+	pblbet_location = "0"
+	while pblbet_location not in ("1","2","3","4"):
+		print("Choose one: ")
+		print("1 - Place Bets")
+		print("2 - Buy Bets")
+		print("3 - Lay Bets")
+		print("4 - Quit Game")
+		pblbet_location = input()
+		if pblbet_location in ("1","2","3","4"):
+			break
+		else:
+			print("Invalid entry!")
+	if pblbet_location == "4":
+		confirm = "0"
+		while confirm not in ("Y","N","y","n"):
+			print("Are you sure? (Y/N) All bets on the table will be lost.")
+			confirm = input()
+			if confirm in ("Y","N","y","n"):
+				break
+			else:
+				 print("Invalid entry!")
+		if confirm == "Y" or confirm == "y":
+			gameover()
+		elif confirm == "N" or confirm == "n":
+			print("Returning to game")
+			return(bets)
+	if pblbet_location == "1":
+		bets = place(bets)
+		return(bets)
+	if pblbet_location == "2":
+		bets = buy(bets)
+		return(bets)
+	if pblbet_location == "3":
+		bets = lay(bets)
+		return(bets)
+	print("You chose " + pblbet_location)
+	return bets
+
+
 #Function for mid game betting
 def midgamebet(bets):
 	midbet_location = "0"
+	print(bets)   					##FOR TESTING
+	input()						##FOR TESTING
 	while midbet_location not in ("1","2","3","4","5","6","7","8","9"):
 		print("Enter a bet location: ")
 		print("1 - No More Bets - Roll Dice")
@@ -465,15 +637,20 @@ def midgamebet(bets):
 		print("Shooter has the dice! No more bets!")
 		input()
 	if midbet_location == 2:
+        #Free odds on Pass or Don't Pass
 		bets = freeodds_passdp(bets)
 	if midbet_location == 3:
+        #Field Bet
 		bets = fieldbet(bets)
 	#if midbet_location == 4:
 		#Come and Don't Come
+        #DOING LAST
 	#if midbet_location == 5:
 		#Free Odds on Come/Don't Come
-	#if midbet_location == 6:
+        #DOING LAST
+	if midbet_location == 6:
 		#Place/Buy/Lay
+		bets = placebuylay(bets)
 	#if midbet_location == 7:
 		#Hardway and Horn
 	#if midbet_location == 8:
@@ -492,12 +669,22 @@ os.system("clear")
 graphics.intro()
 mature = 0    #mature content is off by default
 
+#Established point if there is one
+#Can be 4, 5, 6, 8, 9 or 10
 global point
 point = 0
+#Player's bankroll
 global bankroll
 bankroll = 0
+#bet_location is Pass/Don't Pass bet
+#1 for Pass, 2 for Don't Pass
 global bet_location
 bet_location = "0"
+#TESTING for PLACE bets
+#Need to check against results
+global placeselect
+#placeselect = {"4":0,"5":0,"6":0,"8":0,"9":0,"10":0}
+placeselect = [0,0,0,0,0,0]
 
 bets = bets_init()
 mature = maturecheck(mature)
@@ -507,8 +694,13 @@ print("Your bankroll is: $" + str(bankroll))
 save(users_dict)
 os.system("clear")
 
-
-#Main Game Loop
+#############################################
+#
+#
+# Main Game Loop
+#
+#
+#############################################
 quitflag = False
 while quitflag == False:
 
@@ -565,7 +757,11 @@ while quitflag == False:
 	print("Your current bankroll is: $" + str(bankroll))
 	save(users_dict)
 
-	#The Come-Out roll
+    #########################################
+    #
+	# The Come-Out roll
+    #
+    #########################################
 	iscomeout = True
 	while iscomeout == True:
 		graphics.crapstable()
@@ -610,7 +806,11 @@ while quitflag == False:
 			input()
 			os.system("clear")
 
-		#Subsequent rolls if not a Come-Out roll
+        #########################################
+        #
+		# Subsequent rolls if not a Come-Out roll
+        #
+        #########################################
 		while iscomeout == False:
 			os.system("clear")
 			print("Your current bankroll is: $" + str(bankroll))
@@ -645,21 +845,49 @@ while quitflag == False:
 			input()
 			result = dice()
 
+
+			#Place bet payouts
+			if bets.get("place4") != 0:
+				if placeselect[0] == result:
+					bankroll = (bankroll + math.floor((bets.get("place4") * 9)/5) + bets.get("place4"))
+					bets.update({"place4":0})
+			if bets.get("place5") != 0:
+				if placeselect[1] == result:
+					bankroll = (bankroll + math.floor((bets.get("place5") * 7)/5) + bets.get("place5"))
+					bets.update({"place5":0})
+			if bets.get("place6") != 0:
+				if placeselect[2] == result:
+					bankroll = (bankroll + math.floor((bets.get("place6") * 7)/6) + bets.get("place6"))
+					bets.update({"place6":0})
+			if bets.get("place8") != 0:
+				if placeselect[3] == result:
+					bankroll = (bankroll + math.floor((bets.get("place8") * 7)/6) + bets.get("place8"))
+					bets.update({"place8":0})
+			if bets.get("place9") != 0:
+				if placeselect[4] == result:
+					bankroll = (bankroll + math.floor((bets.get("place9") * 7)/5) + bets.get("place9"))
+					bets.update({"place9":0})
+			if bets.get("place10") != 0:
+				if placeselect[5] == result:
+					bankroll = (bankroll + math.floor((bets.get("place10") * 9)/5) + bets.get("place10"))
+					bets.update({"place10":0})
+
+
 			#Field bet payouts
 			if result in (2,3,4,9,10,11,12):
 				if (bets.get("field") != 0):
 					print("Field bet Winner!!!")
-				if result == 2:
-					bankroll = (bankroll + (bets.get("field") * 3))
-					bets.update({"field":0})
-				elif result == 12:
-					bankroll = (bankroll + (bets.get("field") * 4))
-					bets.update({"field":0})
-				elif result in (3,4,9,10,11):
-					bankroll = (bankroll + (bets.get("field") * 2))
-					bets.update({"field":0})
-				else:
-					bets.update({"field":0})
+					if result == 2:
+						bankroll = (bankroll + (bets.get("field") * 3))
+						bets.update({"field":0})
+					elif result == 12:
+						bankroll = (bankroll + (bets.get("field") * 4))
+						bets.update({"field":0})
+					elif result in (3,4,9,10,11):
+						bankroll = (bankroll + (bets.get("field") * 2))
+						bets.update({"field":0})
+					else:
+						bets.update({"field":0})
 			else:
 				bets.update({"field":0})
 			input()
@@ -709,11 +937,22 @@ while quitflag == False:
 					if bets.get("freeodds_dp6o8") != 0:
 						bankroll = (bankroll + math.floor((bets.get("freeodds_dp6o8") * 6)/5) + bets.get("freeodds_dp6o8"))
 						bets.update({"freeodds_dp6o8":0})
+
 				#Clearing free odds bets for passline losses
 				bets.update({"freeodds_pass4o10":0})
 				bets.update({"freeodds_pass5o9":0})
 				bets.update({"freeodds_pass6o8":0})
 				save(users_dict)
+
+				#Clearing place bets on Seven Out
+				bets.update({"place4":0})
+				bets.update({"place5":0})
+				bets.update({"place6":0})
+				bets.update({"place8":0})
+				bets.update({"place9":0})
+				bets.update({"place10":0})
+				save(users_dict)
+
 				iscomeout = True
 				point = 0
 				input()
