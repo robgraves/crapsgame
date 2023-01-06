@@ -616,66 +616,68 @@ def midgamebet(bets):
 	midbet_location = "0"
 	print(bets)   					##FOR TESTING
 	input()						##FOR TESTING
-	while midbet_location not in ("1","2","3","4","5","6","7","8","9"):
-		print("Enter a bet location: ")
-		print("1 - No More Bets - Roll Dice")
-		print("2 - Free Odds Bets on Pass or Don't Pass")
-		print("3 - Field Bet")
-		print("4 - Come or Don't Come Bets")
-		print("5 - Free Odds Bets on Come or Don't Come")
-		print("6 - Place, Buy, and Lay Bets")
-		print("7 - Hardway & Horn Bets")
-		print("8 - Miscellaneous Bets")
-		print("9 - Quit Game")
-		midbet_location = input()
-		if midbet_location in ("1","2","3","4","5","6","7","8","9"):
-			break
-		else:
-			print("Invalid entry!")
-	if midbet_location == "9":
-		confirm = "0"
-		while confirm not in ("Y","N","y","n"):
-			print("Are you sure? (Y/N) All bets on the table will be lost.")
-			confirm = input()
-			if confirm in ("Y","N","y","n"):
+	while midbet_location != "1":
+		while midbet_location not in ("1","2","3","4","5","6","7","8","9"):
+			print("Enter a bet location: ")
+			print("1 - No More Bets - Roll Dice")
+			print("2 - Free Odds Bets on Pass or Don't Pass")
+			print("3 - Field Bet")
+			print("4 - Come or Don't Come Bets")
+			print("5 - Free Odds Bets on Come or Don't Come")
+			print("6 - Place, Buy, and Lay Bets")
+			print("7 - Hardway & Horn Bets")
+			print("8 - Miscellaneous Bets")
+			print("9 - Quit Game")
+			midbet_location = input()
+			if midbet_location in ("1","2","3","4","5","6","7","8","9"):
 				break
 			else:
-				 print("Invalid entry!")
-		if confirm == "Y" or confirm == "y":
-			gameover()
-		elif confirm == "N" or confirm == "n":
-			print("Returning to game")
-			return(bets)
-	print("You chose " + midbet_location)
-	for key in bets:
-		if bets[key] != 0:
-			activebet = bets[key]
-	if (bets.get('freeodds_pass4o10') != 0) or (bets.get('freeodds_pass5o9') != 0) or (bets.get('freeodds_pass6o8') != 0) or (bets.get('freeodds_dp4o10') != 0) or (bets.get('freeodds_dp5o9') !=0) or (bets.get('freeodds_dp6o8') != 0):
-		freeoddsbet = activebet
-		print("Free odds bets on table: $" + str(freeoddsbet))
-	midbet_location = int(midbet_location)
-	if midbet_location == 1:
-		print("Shooter has the dice! No more bets!")
-		input()
-	if midbet_location == 2:
-        #Free odds on Pass or Don't Pass
-		bets = freeodds_passdp(bets)
-	if midbet_location == 3:
-        #Field Bet
-		bets = fieldbet(bets)
-	#if midbet_location == 4:
-		#Come and Don't Come
-        #DOING LAST
-	#if midbet_location == 5:
-		#Free Odds on Come/Don't Come
-        #DOING LAST
-	if midbet_location == 6:
-		#Place/Buy/Lay
-		bets = placebuylay(bets)
-	#if midbet_location == 7:
-		#Hardway and Horn
-	#if midbet_location == 8:
-		#Miscellaneous Bets
+				print("Invalid entry!")
+		if midbet_location == "9":
+			confirm = "0"
+			while confirm not in ("Y","N","y","n"):
+				print("Are you sure? (Y/N) All bets on the table will be lost.")
+				confirm = input()
+				if confirm in ("Y","N","y","n"):
+					break
+				else:
+					 print("Invalid entry!")
+			if confirm == "Y" or confirm == "y":
+				gameover()
+			elif confirm == "N" or confirm == "n":
+				print("Returning to game")
+				return(bets)
+		print("You chose " + midbet_location)
+		for key in bets:
+			if bets[key] != 0:
+				activebet = bets[key]
+		if (bets.get('freeodds_pass4o10') != 0) or (bets.get('freeodds_pass5o9') != 0) or (bets.get('freeodds_pass6o8') != 0) or (bets.get('freeodds_dp4o10') != 0) or (bets.get('freeodds_dp5o9') !=0) or (bets.get('freeodds_dp6o8') != 0):
+			freeoddsbet = activebet
+			print("Free odds bets on table: $" + str(freeoddsbet))
+		midbet_location = int(midbet_location)
+		if midbet_location == 1:
+			print("Shooter has the dice! No more bets!")
+			input()
+			break
+		if midbet_location == 2:
+			#Free odds on Pass or Don't Pass
+			bets = freeodds_passdp(bets)
+		if midbet_location == 3:
+			#Field Bet
+			bets = fieldbet(bets)
+		#if midbet_location == 4:
+			#Come and Don't Come
+			#DOING LAST
+		#if midbet_location == 5:
+			#Free Odds on Come/Don't Come
+			#DOING LAST
+		if midbet_location == 6:
+			#Place/Buy/Lay
+			bets = placebuylay(bets)
+		#if midbet_location == 7:
+			#Hardway and Horn
+		#if midbet_location == 8:
+			#Miscellaneous Bets
 	return bets
 
 
