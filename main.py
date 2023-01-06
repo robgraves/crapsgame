@@ -446,7 +446,7 @@ def place(bets):
 	print("Your current bankroll is: $" + str(bankroll))
 	placebet_location = "0"
 	while placebet_location != "B" or placebet_location != "b":
-		while placebet_location not in ("Q","q","B","b","4","5","6","8","9","10"):
+		while placebet_location not in ("Q","q","B","b","T","t","4","5","6","8","9","10"):
 			print("Choose where to place your bet: ")
 			print("4  - Place 4")
 			print("5  - Place 5")
@@ -454,14 +454,16 @@ def place(bets):
 			print("8  - Place 8")
 			print("9  - Place 9")
 			print("10 - Place 10")
+			print("T  - Take down a bet")
 			print("B  - Back")
 			print("Q  - Quit Game")
 			placebet_location = input()
-			if placebet_location in ("Q","q","B","b","4","5","6","8","9","10"):
+			if placebet_location in ("Q","q","B","b","T","t","4","5","6","8","9","10"):
 				break
 			else:
 				print("Invalid entry!")
 		print("You chose " + placebet_location)
+
 		if placebet_location == "Q" or placebet_location == "q":
 			confirm = "0"
 			while confirm not in ("Y","N","y","n"):
@@ -476,8 +478,45 @@ def place(bets):
 			elif confirm == "N" or confirm == "n":
 				print("Returning to game")
 				return(bets)
+
 		if placebet_location == "B" or placebet_location == "b":
 			return(bets)
+
+		if placebet_location == "T" or placebet_location == "t":
+			print("Which bet do you want to take down?")
+			if bets.get("place4") != 0:
+				print("4  - Take down bet on the 4")
+			if bets.get("place5") != 0:
+				print("5  - Take down bet on the 5")
+			if bets.get("place6") != 0:
+				print("6  - Take down bet on the 6")
+			if bets.get("place8") != 0:
+				print("8  - Take down bet on the 8")
+			if bets.get("place9") != 0:
+				print("9  - Take down bet on the 9")
+			if bets.get("place10") != 0:
+				print("10 - Take down bet on the 10")
+			takedownbet = input()
+			if takedownbet == "4":
+				bankroll = bankroll + bets.get("place4")
+				bets.update({"place4":0})
+			if takedownbet == "5":
+				bankroll = bankroll + bets.get("place5")
+				bets.update({"place5":0})
+			if takedownbet == "6":
+				bankroll = bankroll + bets.get("place6")
+				bets.update({"place6":0})
+			if takedownbet == "8":
+				bankroll = bankroll + bets.get("place8")
+				bets.update({"place8":0})
+			if takedownbet == "9":
+				bankroll = bankroll + bets.get("place9")
+				bets.update({"place9":0})
+			if takedownbet == "10":
+				bankroll = bankroll + bets.get("place10")
+				bets.update({"place10":0})
+			print("Your current bankroll is: $" + str(bankroll))
+			break
 		#Get bet amount
 		print("Enter bet amount: ")
 		placebet = 0
@@ -648,12 +687,14 @@ def midgamebet(bets):
 				print("Returning to game")
 				return(bets)
 		print("You chose " + midbet_location)
-		for key in bets:
-			if bets[key] != 0:
-				activebet = bets[key]
-		if (bets.get('freeodds_pass4o10') != 0) or (bets.get('freeodds_pass5o9') != 0) or (bets.get('freeodds_pass6o8') != 0) or (bets.get('freeodds_dp4o10') != 0) or (bets.get('freeodds_dp5o9') !=0) or (bets.get('freeodds_dp6o8') != 0):
-			freeoddsbet = activebet
-			print("Free odds bets on table: $" + str(freeoddsbet))
+		#######GET RID OF???##########
+		#for key in bets:
+		#	if bets[key] != 0:
+		#		activebet = bets[key]
+		#if (bets.get('freeodds_pass4o10') != 0) or (bets.get('freeodds_pass5o9') != 0) or (bets.get('freeodds_pass6o8') != 0) or (bets.get('freeodds_dp4o10') != 0) or (bets.get('freeodds_dp5o9') !=0) or (bets.get('freeodds_dp6o8') != 0):
+			#freeoddsbet = activebet 
+			#print("Free odds bets on table: $" + str(freeoddsbet))
+		#######GET RID OF END###########
 		midbet_location = int(midbet_location)
 		if midbet_location == 1:
 			print("Shooter has the dice! No more bets!")
