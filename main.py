@@ -935,36 +935,9 @@ while quitflag == False:
         #########################################
 		while iscomeout == False:
 			table()
-			#os.system("clear")
-			#print("Your current bankroll is: $" + str(bankroll))
-			#if point == 4:
-			#	graphics.crapstable4()
-			#elif point == 5:
-			#	graphics.crapstable5()
-			#elif point == 6:
-			#	graphics.crapstable6()
-			#elif point == 8:
-			#	graphics.crapstable8()
-			#elif point == 9:
-			#	graphics.crapstable9()
-			#elif point == 10:
-			#	graphics.crapstable10()
 			print("You rolled " + str(result))
 			bets = midgamebet(bets)
 			table()
-			#os.system("clear")
-			#if point == 4:
-			#	graphics.crapstable4()
-			#elif point == 5:
-			#	graphics.crapstable5()
-			#elif point == 6:
-			#	graphics.crapstable6()
-			#elif point == 8:
-			#	graphics.crapstable8()
-			#elif point == 9:
-			#	graphics.crapstable9()
-			#elif point == 10:
-			#	graphics.crapstable10()
 			print("Press any key to roll again.")
 			input()
 			result = dice()
