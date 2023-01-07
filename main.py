@@ -169,6 +169,9 @@ def maturecheck(mature):
 #roll or what the established point is
 def table():
 	global bankroll
+	global bet_location
+	global bet_amount
+	freeoddsbet = 0
 	os.system("clear")
 	print("Your current bankroll is: $" + str(bankroll))
 	if point == 4:
@@ -183,6 +186,17 @@ def table():
 		graphics.crapstable9()
 	elif point == 10:
 		graphics.crapstable10()
+	if bet_location == 1:
+		print("Pass: $" + str(bet_amount))
+	if bet_location == 2:
+		print("DP: $" + str(bet_amount))
+	if (bets.get('freeodds_pass4o10') != 0) or (bets.get('freeodds_pass5o9') != 0) or (bets.get('freeodds_pass6o8') != 0) or (bets.get('freeodds_dp4o10') != 0) or (bets.get('freeodds_dp5o9') !=0) or (bets.get('freeodds_dp6o8') != 0):
+		for value in bets.values():
+			if value != 0:
+				freeoddsbet = freeoddsbet + value
+		print("Odds: $" + str(freeoddsbet))
+	if bets.get("field") != 0:
+		print("Field: $" + str(bets.get("field")))
 
 
 #Function for implementing Mike's idea for ways to make
@@ -718,14 +732,6 @@ def midgamebet(bets):
 				print("Returning to game")
 				return(bets)
 		print("You chose " + midbet_location)
-		#######GET RID OF???##########
-		#for key in bets:
-		#	if bets[key] != 0:
-		#		activebet = bets[key]
-		#if (bets.get('freeodds_pass4o10') != 0) or (bets.get('freeodds_pass5o9') != 0) or (bets.get('freeodds_pass6o8') != 0) or (bets.get('freeodds_dp4o10') != 0) or (bets.get('freeodds_dp5o9') !=0) or (bets.get('freeodds_dp6o8') != 0):
-			#freeoddsbet = activebet 
-			#print("Free odds bets on table: $" + str(freeoddsbet))
-		#######GET RID OF END###########
 		midbet_location = int(midbet_location)
 		if midbet_location == 1:
 			print("Shooter has the dice! No more bets!")
@@ -998,13 +1004,13 @@ while quitflag == False:
 					bankroll = (bankroll + (bet_amount * 2))
 					#Checking for free odds bets on passline points and payouts
 					if bets.get("freeodds_pass4o10") != 0:
-						bankroll = (bankroll + math.floor((bets.get("freeodds_pass4o10") * 1)/2) + bets.get("freeodds_pass4o10"))
+						bankroll = (bankroll + math.floor((bets.get("freeodds_pass4o10") * 2)/1) + bets.get("freeodds_pass4o10"))
 						bets.update({"freeodds_pass4o10":0})
 					if bets.get("freeodds_pass5o9") != 0:
-						bankroll = (bankroll + math.floor((bets.get("freeodds_pass5o9") * 2)/3) + bets.get("freeodds_pass5o9"))
+						bankroll = (bankroll + math.floor((bets.get("freeodds_pass5o9") * 3)/2) + bets.get("freeodds_pass5o9"))
 						bets.update({"freeodds_pass5o9":0})
 					if bets.get("freeodds_pass6o8") != 0:
-						bankroll = (bankroll + math.floor((bets.get("freeodds_pass6o8") * 5)/6) + bets.get("freeodds_pass6o8"))
+						bankroll = (bankroll + math.floor((bets.get("freeodds_pass6o8") * 6)/5) + bets.get("freeodds_pass6o8"))
 						bets.update({"freeodds_pass6o8":0})
 				#Clearing free odds bets for don't pass losses
 				bets.update({"freeodds_dp4o10":0})
@@ -1026,13 +1032,13 @@ while quitflag == False:
 					bankroll = (bankroll + (bet_amount * 2))
 					#Checking for free odds bets on don't pass points and payouts
 					if bets.get("freeodds_dp4o10") != 0:
-						bankroll = (bankroll + math.floor((bets.get("freeodds_dp4o10") * 2)/1) + bets.get("freeodds_dp4o10"))
+						bankroll = (bankroll + math.floor((bets.get("freeodds_dp4o10") * 1)/2) + bets.get("freeodds_dp4o10"))
 						bets.update({"freeodds_dp4o10":0})
 					if bets.get("freeodds_dp5o9") != 0:
-						bankroll = (bankroll + math.floor((bets.get("freeodds_dp5o9") * 3)/2) + bets.get("freeodds_dp5o9"))
+						bankroll = (bankroll + math.floor((bets.get("freeodds_dp5o9") * 2)/3) + bets.get("freeodds_dp5o9"))
 						bets.update({"freeodds_dp5o9":0})
 					if bets.get("freeodds_dp6o8") != 0:
-						bankroll = (bankroll + math.floor((bets.get("freeodds_dp6o8") * 6)/5) + bets.get("freeodds_dp6o8"))
+						bankroll = (bankroll + math.floor((bets.get("freeodds_dp6o8") * 5)/6) + bets.get("freeodds_dp6o8"))
 						bets.update({"freeodds_dp6o8":0})
 
 				#Clearing free odds bets for passline losses
