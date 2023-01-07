@@ -165,6 +165,26 @@ def maturecheck(mature):
 	return mature
 
 
+#Function to display craps table, depending on come-out
+#roll or what the established point is
+def table():
+	global bankroll
+	os.system("clear")
+	print("Your current bankroll is: $" + str(bankroll))
+	if point == 4:
+		graphics.crapstable4()
+	elif point == 5:
+		graphics.crapstable5()
+	elif point == 6:
+		graphics.crapstable6()
+	elif point == 8:
+		graphics.crapstable8()
+	elif point == 9:
+		graphics.crapstable9()
+	elif point == 10:
+		graphics.crapstable10()
+
+
 #Function for implementing Mike's idea for ways to make
 #money if you go broke
 def shady():
@@ -331,6 +351,7 @@ def freeodds_passdp(bets):
 	elif bankroll == 0:
 		print("You have no more money available to bet.")
 		input()
+		table()
 		return(bets)
 	else:
 		if bet_location == 1:
@@ -393,6 +414,7 @@ def freeodds_passdp(bets):
 			save(users_dict)
 			#print(bets)   					##FOR TESTING
 			#input()						##FOR TESTING
+	table()
 	return bets
 
 
@@ -409,6 +431,7 @@ def fieldbet(bets):
 	if bankroll == 0:
 		print("You have no more money available to bet.")
 		input()
+		table()
 		return(bets)
 	print("Your current bankroll is: $" + str(bankroll))
 	#Get bet amount
@@ -432,6 +455,7 @@ def fieldbet(bets):
 	save(users_dict)
 	#print(bets)   					##FOR TESTING
 	#input()						##FOR TESTING
+	table()
 	return bets
 
 
@@ -441,6 +465,7 @@ def place(bets):
 	if bankroll == 0:
 		print("You have no more money available to bet.")
 		input()
+		table()
 		return(bets)
 	global placeselect
 	print("Your current bankroll is: $" + str(bankroll))
@@ -477,9 +502,11 @@ def place(bets):
 				gameover()
 			elif confirm == "N" or confirm == "n":
 				print("Returning to game")
+				table()
 				return(bets)
 
 		if placebet_location == "B" or placebet_location == "b":
+			table()
 			return(bets)
 
 		if placebet_location == "T" or placebet_location == "t":
@@ -565,7 +592,9 @@ def place(bets):
 			bets.update({"place10":(placebet + bets.get("place10"))})
 			placebet_location = "0"
 			#return(bets)
+		table()
 	print("You chose " + placebet_location)
+	table()
 	return bets
 
 
@@ -609,19 +638,19 @@ def lay(bets):
 ###########################################################
 def placebuylay(bets):
 	pblbet_location = "0"
-	while pblbet_location not in ("1","2","3","4","5"):
+	while pblbet_location not in ("1","2","3","B","b","Q","q"):
 		print("Choose one: ")
 		print("1 - Place Bets")
 		print("2 - Buy Bets")
 		print("3 - Lay Bets")
-		print("4 - Back")
-		print("5 - Quit Game")
+		print("B - Back")
+		print("Q - Quit Game")
 		pblbet_location = input()
-		if pblbet_location in ("1","2","3","4","5"):
+		if pblbet_location in ("1","2","3","B","b","Q","q"):
 			break
 		else:
 			print("Invalid entry!")
-	if pblbet_location == "5":
+	if pblbet_location == "Q" or pblbet_location == "q":
 		confirm = "0"
 		while confirm not in ("Y","N","y","n"):
 			print("Are you sure? (Y/N) All bets on the table will be lost.")
@@ -634,6 +663,7 @@ def placebuylay(bets):
 			gameover()
 		elif confirm == "N" or confirm == "n":
 			print("Returning to game")
+			table()
 			return(bets)
 	if pblbet_location == "1":
 		bets = place(bets)
@@ -644,7 +674,8 @@ def placebuylay(bets):
 	if pblbet_location == "3":
 		bets = lay(bets)
 		return(bets)
-	if pblbet_location == "4":
+	if pblbet_location == "B" or pblbet_location == "b":
+		table()
 		return(bets)
 	print("You chose " + pblbet_location)
 	return bets
@@ -653,8 +684,8 @@ def placebuylay(bets):
 #Function for mid game betting
 def midgamebet(bets):
 	midbet_location = "0"
-	print(bets)   					##FOR TESTING
-	input()						##FOR TESTING
+	#print(bets)   					##FOR TESTING
+	#input()						##FOR TESTING
 	while midbet_location != "1":
 		while midbet_location not in ("1","2","3","4","5","6","7","8","9"):
 			print("Enter a bet location: ")
@@ -744,10 +775,9 @@ bankroll = 0
 #1 for Pass, 2 for Don't Pass
 global bet_location
 bet_location = "0"
-#TESTING for PLACE bets
+#List for Place bets
 #Need to check against results
 global placeselect
-#placeselect = {"4":0,"5":0,"6":0,"8":0,"9":0,"10":0}
 placeselect = [0,0,0,0,0,0]
 
 bets = bets_init()
@@ -904,35 +934,37 @@ while quitflag == False:
         #
         #########################################
 		while iscomeout == False:
-			os.system("clear")
-			print("Your current bankroll is: $" + str(bankroll))
-			if point == 4:
-				graphics.crapstable4()
-			elif point == 5:
-				graphics.crapstable5()
-			elif point == 6:
-				graphics.crapstable6()
-			elif point == 8:
-				graphics.crapstable8()
-			elif point == 9:
-				graphics.crapstable9()
-			elif point == 10:
-				graphics.crapstable10()
+			table()
+			#os.system("clear")
+			#print("Your current bankroll is: $" + str(bankroll))
+			#if point == 4:
+			#	graphics.crapstable4()
+			#elif point == 5:
+			#	graphics.crapstable5()
+			#elif point == 6:
+			#	graphics.crapstable6()
+			#elif point == 8:
+			#	graphics.crapstable8()
+			#elif point == 9:
+			#	graphics.crapstable9()
+			#elif point == 10:
+			#	graphics.crapstable10()
 			print("You rolled " + str(result))
 			bets = midgamebet(bets)
-			os.system("clear")
-			if point == 4:
-				graphics.crapstable4()
-			elif point == 5:
-				graphics.crapstable5()
-			elif point == 6:
-				graphics.crapstable6()
-			elif point == 8:
-				graphics.crapstable8()
-			elif point == 9:
-				graphics.crapstable9()
-			elif point == 10:
-				graphics.crapstable10()
+			table()
+			#os.system("clear")
+			#if point == 4:
+			#	graphics.crapstable4()
+			#elif point == 5:
+			#	graphics.crapstable5()
+			#elif point == 6:
+			#	graphics.crapstable6()
+			#elif point == 8:
+			#	graphics.crapstable8()
+			#elif point == 9:
+			#	graphics.crapstable9()
+			#elif point == 10:
+			#	graphics.crapstable10()
 			print("Press any key to roll again.")
 			input()
 			result = dice()
