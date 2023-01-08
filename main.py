@@ -913,7 +913,7 @@ while quitflag == False:
 		#If 7 or 11 Pass bettors win, Don't Pass loses
 		if result == 7 or result == 11:
 			print("Shooter Wins!!!")
-			os.system("mplayer " + applausesound + " > /dev/null 2>&1 &")
+			os.system("mplayer " + applausesound + " > /dev/null 2>&1")
 			#print("bet location is : ", bet_location)
 			if bet_location == 1:
 				bankroll = (bankroll + (bet_amount * 2))
@@ -1050,7 +1050,7 @@ while quitflag == False:
 			if result == point:
 				print("Shooter hits the point!!!")
 				print("Front Line Winner!!!")
-				os.system("mplayer " + applausesound + " > /dev/null 2>&1 &")
+				os.system("mplayer " + applausesound + " > /dev/null 2>&1")
 				#print("bet location is : ", bet_location)
 				if bet_location == 1:
 					bankroll = (bankroll + (bet_amount * 2))
