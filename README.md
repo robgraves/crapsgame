@@ -11,7 +11,9 @@ INSTRUCTIONS:
 
 `python3 main.py`
 
--To have sound install mpg123 package on your Linux distribution
+-To have sound install mplayer package on your Linux distribution
+
+if it isn't already on your system.
 
 
 
@@ -34,6 +36,7 @@ data/sounds/applause.wav - sound effect for shooter winning
 data/sounds/winsound.wav - sound effect for any other bet winning
 
 
+
 01/07/2023
 
 Place bets with option to take down bets appears to be
@@ -41,6 +44,7 @@ Place bets with option to take down bets appears to be
 fully functional.  Next on to Buy bets and Lay bets.
 
 Also added more sounds.
+
 
 
 01/03/2023
@@ -54,6 +58,7 @@ renamed craps.py to main.py
 NOTE:	If you have an earlier pull of this like I do and want to keep your bankroll
 
 then you will need to move your userdata.p into the new data folder
+
 
 
 	
@@ -81,6 +86,7 @@ DONE! 01/03/2023 - Field Bets
 - Big 6 and Big 8
 - C&E Bet (Craps and Eleven)
 - World Bet (C&E plus any seven)
+
 
 
 12/26/2022
