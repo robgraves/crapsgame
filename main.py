@@ -122,8 +122,9 @@ def player():
 		try:
 			saveduser = pickle.load(open(userdata,"rb"))
 			bankroll = saveduser.get(username)
-			if bankroll == 0:
+			if bankroll == 0 or bankroll == None:
 				bankroll = 1000
+				return username
 			else:
 				choice2 = "0"
 				while choice2 not in ("Y","y","N","n"):
