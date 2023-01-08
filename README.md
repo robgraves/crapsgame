@@ -21,11 +21,17 @@ main.py 	-  main game file
 
 README.md   -  this file
 
-data/userdata.p  -  user data is stored here
+data/save/userdata.p  -  user data is stored here
 
-data/graphics.py - ASCII art for game
+data/graphics/graphics.py - ASCII art for game
 
-data/diceroll.mp3 - sound effect for dice rolls
+data/sounds/diceroll.mp3 - sound effect for dice rolls
+
+data/sounds/aww.mp3 - sound effect for shooter losing
+
+data/sounds/applause.wav - sound effect for shooter winning
+
+data/sounds/winsound.wav - sound effect for any other bet winning
 
 
 01/07/2023
@@ -67,12 +73,14 @@ DONE! 12/30/2022 - Free odds bets on Pass/DP
 
 DONE! 01/03/2023 - Field Bets
 
-- Place Bets/Lay Bets
+- Place Bets/Buy Bets/Lay Bets
 
 - Hardway Bets/Any Craps/Any Seven
 
 - Any other bets or features I might want to add
-
+- Big 6 and Big 8
+- C&E Bet (Craps and Eleven)
+- World Bet (C&E plus any seven)
 
 
 12/26/2022
