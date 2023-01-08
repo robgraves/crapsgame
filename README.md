@@ -7,9 +7,9 @@ me@matthewjpage.com
 
 INSTRUCTIONS:
 
--To play, run from command line:
+-To play, using python 3, run from command line:
 
-username@hostname $  python craps.py
+username@hostname $ `python3 main.py`
 
 -To have sound install mpg123 package on your Linux distribution
 
