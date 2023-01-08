@@ -43,6 +43,7 @@ users_dict = {}
 if os.path.exists(userdata):
 	users_dict = pickle.load(open(userdata,"rb"))
 else:
+	os.system("mkdir -p data/save")
 	users_dict = {"dealer":1000000}
 pickle.dump(users_dict, open(userdata,"wb"))
 
