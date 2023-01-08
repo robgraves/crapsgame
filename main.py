@@ -55,6 +55,7 @@ pickle.dump(users_dict, open(userdata,"wb"))
 #
 #
 #############################################
+
 #Function that rolls two dice
 def dice():
 	if point == 0:
@@ -63,14 +64,11 @@ def dice():
 		print("Point is : ", point)
 	print("Rolling the dice...")
 	rng = random.SystemRandom()
-	#die1 		= random.randint(1,6)
-	#die2 		= random.randint(1,6)
 	die1 		= rng.randint(1,6)
 	die2 		= rng.randint(1,6)
 	diceresult 	= die1 + die2
 
     #Play dice rolling sound
-	#os.system("mpg123 -q " + dicesound + " > /dev/null 2>&1")
 	os.system("mplayer " + dicesound + " > /dev/null 2>&1")
 
 	#Display proper ASCII art for each dieface for die 1
@@ -116,34 +114,41 @@ def player():
 		choice = input()
 		if choice not in ("1","2"):
 			print("ERROR: Bad choice! Invalid entry!")
+	#Create new player
 	if choice == "1":
 		print("Please enter your name:")
 		username = input()
 		try:
 			saveduser = pickle.load(open(userdata,"rb"))
 			bankroll = saveduser.get(username)
+			#if former player who busted, rebankroll
 			if bankroll == 0 or bankroll == None:
 				bankroll = 1000
 				return username
 			else:
 				choice2 = "0"
+				#Preventing overwriting of existing player
 				while choice2 not in ("Y","y","N","n"):
 					print("This player already exists.") 
 					print("Would you like to overwrite the existing player?")
 					choice2 = input("Y/N?")
 					if choice2 == "N" or choice2 == "n":
 						choice3 = "0"
+						#If player exist, give option to load player
 						while choice3 not in ("Y","y","N","n"):
 							print("Would you like to load this player?")
 							choice3 = input("Y/N?")
+							#Quits out of game if player doesn't want to load
+							#existing player, sending 1 signal to gameover()
+							#doesn't save in the gameover() function
 							if choice3 == "N" or choice3 == "n":
-								#sys.exit()
 								gameover(1)
 							elif choice3 == "Y" or choice3 == "y":
 								return username
 							if choice3 not in ("Y","y","N","n"):
 								print("ERROR: Bad choice! Invalid entry!")
 						return username
+					#Allows user to overwrite existing player for whatever reason
 					elif choice2 == "Y" or choice2 == "y":
 						bankroll = 1000
 						return username
@@ -151,6 +156,8 @@ def player():
 						print("ERROR: Bad choice! Invalid entry!")
 		except FileNotFoundError:
 			print("Error: File does not exist. Please create a New Player.")
+		#Allows you to play with no name but warns you that you won't
+		#be able to load the player in future gaming sessions
 		if username == "" or None:
 			print("WARNING: By not entering a name,")
 			print("you may not be able to load your")
@@ -158,6 +165,7 @@ def player():
 			input()
 		bankroll = 1000
 		return username
+	#Loading existing user and their bankroll
 	if choice == "2":
 		print("Please enter your name:")
 		username = input()
@@ -175,7 +183,10 @@ def player():
 	return username
 
 
+#Saving player data
 #Function to be used prior to quitting the game
+#Also after every payout and loss, to prevent 
+#quitting program to cheat.
 def save(users_dict):
 	global bankroll
 	users_dict[username] = bankroll
@@ -222,10 +233,12 @@ def table():
 		graphics.crapstable9()
 	elif point == 10:
 		graphics.crapstable10()
+	#Display current Pass or Don't Pass bet
 	if bet_location == 1:
 		print("Pass: $" + str(bet_amount))
 	if bet_location == 2:
 		print("DP: $" + str(bet_amount))
+	#Display current Odds bet if there is one
 	if (bets.get('freeodds_pass4o10') != 0) or (bets.get('freeodds_pass5o9') != 0) or (bets.get('freeodds_pass6o8') != 0) or (bets.get('freeodds_dp4o10') != 0) or (bets.get('freeodds_dp5o9') !=0) or (bets.get('freeodds_dp6o8') != 0):
 		if (point == 4) or (point == 10):
 			freeoddsbet = (bets.get('freeodds_pass4o10') + bets.get('freeodds_dp4o10'))
@@ -233,16 +246,39 @@ def table():
 			freeoddsbet = (bets.get('freeodds_pass5o9') + bets.get('freeodds_dp5o9'))
 		if (point == 6) or (point == 8):
 			freeoddsbet = (bets.get('freeodds_pass6o8') + bets.get('freeodds_dp6o8'))
-		#for value in bets.values():
-		#	if value != 0:
-		#		freeoddsbet = freeoddsbet + value
 		print("Odds: $" + str(freeoddsbet))
+	#Display current Field bet if there is one
 	if bets.get("field") != 0:
 		print("Field: $" + str(bets.get("field")))
+	#Display numbers you have money on and their 
+	#respective amount of bets 
+	#Not doing these individually because typically
+	#people only play place, buy, or lay, not any combination
+	#of those types of bets, e.g. if betting place, may have multiple place numbers
+	#but no buy or lays bets 
+	if  (bets.get("place4") != 0) or (bets.get("buy4") != 0) or (bets.get("lay4") != 0):
+		fourtotal = bets.get("place4") + bets.get("buy4") +  bets.get("lay4")
+		print("Four: $" + str(fourtotal))		
+	if  (bets.get("place5") != 0) or (bets.get("buy5") != 0) or (bets.get("lay5") != 0):
+		fivetotal = bets.get("place5") + bets.get("buy5") +  bets.get("lay5")
+		print("Five: $" + str(fivetotal))		
+	if  (bets.get("place6") != 0) or (bets.get("buy6") != 0) or (bets.get("lay6") != 0):
+		sixtotal = bets.get("place6") + bets.get("buy6") +  bets.get("lay6")
+		print("Six: $" + str(sixtotal))		
+	if  (bets.get("place8") != 0) or (bets.get("buy8") != 0) or (bets.get("lay8") != 0):
+		eighttotal = bets.get("place8") + bets.get("buy8") +  bets.get("lay8")
+		print("Eight: $" + str(eighttotal))		
+	if  (bets.get("place9") != 0) or (bets.get("buy9") != 0) or (bets.get("lay9") != 0):
+		ninetotal = bets.get("place9") + bets.get("buy9") +  bets.get("lay9")
+		print("Nine: $" + str(ninetotal))		
+	if  (bets.get("place10") != 0) or (bets.get("buy10") != 0) or (bets.get("lay10") != 0):
+		tentotal = bets.get("place4") + bets.get("buy4") +  bets.get("lay4")
+		print("Ten: $" + str(tentotal))		
 
 
 #Function for implementing Mike's idea for ways to make
-#money if you go broke
+#money if you go broke, only works if you chose M-rated
+#at the start of game.
 def shady():
 	os.system("clear")
 	print("A shady looking middle-aged man approaches")
@@ -402,16 +438,22 @@ def clearbets(bets):
 ####################################################
 def freeodds_passdp(bets):
 	global bankroll
+	#this scenario (point == 0) never happens in the game's current 
+	#state as this function is never called in a come-out roll
+	#but is there for future proofing if ever make it so players
+	#have all bets available as choices at all times in the game
 	if point == 0:
 		print("You cannot take free odds bets on a come out roll.")
 		input()
 		return(bets)
+	#Check for out of money
 	elif bankroll == 0:
 		print("You have no more money available to bet.")
 		input()
 		table()
 		return(bets)
 	else:
+		#Odds on Pass Line wager
 		if bet_location == 1:
 			print("Your current bankroll is: $" + str(bankroll))
 			print("point is " + str(point))
@@ -430,6 +472,9 @@ def freeodds_passdp(bets):
 					print("Error: Invalid entry. Please enter a number.")
 					continue
 			print("You chose " + str(oddsbet))
+			#Placing Freeodds bet and putting on relevant number
+			#I combined the keys for 4 and 10, 5 and 9, and 8 and 6, as they have the same
+			#odds and payouts
 			bankroll = bankroll - oddsbet
 			if point == 4 or point == 10:
 				bets.update({"freeodds_pass4o10":(oddsbet + bets.get("freeodds_pass4o10"))})
@@ -442,6 +487,8 @@ def freeodds_passdp(bets):
 			save(users_dict)
 			#print(bets)   					##FOR TESTING
 			#input()						##FOR TESTING
+
+		#Odds on Don't Pass wager
 		if bet_location == 2:
 			print("Your current bankroll is: $" + str(bankroll))
 			print("point is " + str(point))
@@ -460,6 +507,9 @@ def freeodds_passdp(bets):
 					print("Error: Invalid entry. Please enter a number.")
 					continue
 			print("You chose " + str(oddsbet))
+			#Placing Freeodds bet and putting on relevant number
+			#I combined the keys for 4 and 10, 5 and 9, and 8 and 6, as they have the same
+			#odds and payouts
 			bankroll = bankroll - oddsbet
 			if point == 4 or point == 10:
 				bets.update({"freeodds_dp4o10":(oddsbet + bets.get("freeodds_dp4o10"))})
@@ -486,6 +536,7 @@ def freeodds_passdp(bets):
 #######################################################
 def fieldbet(bets):
 	global bankroll
+	#Check for out of money and return if so
 	if bankroll == 0:
 		print("You have no more money available to bet.")
 		input()
@@ -506,6 +557,7 @@ def fieldbet(bets):
 			print("Error: Invalid entry. Please enter a number.")
 			continue
 	print("You chose " + str(fieldbet))
+	#Take field bet from bankroll and updating the bet dictionary
 	bankroll = bankroll - fieldbet
 	bets.update({"field":(fieldbet + bets.get("field"))})
 	os.system("clear")
@@ -520,6 +572,7 @@ def fieldbet(bets):
 #Function defining Place Bets
 def place(bets):
 	global bankroll
+	#Check for out of money and return if so
 	if bankroll == 0:
 		print("You have no more money available to bet.")
 		input()
@@ -528,6 +581,13 @@ def place(bets):
 	global placeselect
 	print("Your current bankroll is: $" + str(bankroll))
 	placebet_location = "0"
+	#The only way to get out of the Place bet submenu is to type B or b for Back as
+	#many players will bet on multiple numbers here allowing you to place every number
+	#desired and then go back to main bet menu when finished.
+	#Also includes a Takedown option as a seven will wipe all these bets and they are
+	#not contract bets (bets you are stuck with once you make them (Pass and Come bets)
+	#so players can choose to takedown or turn off these bets at any point to protect it
+	#from the inevitable shooter Sevening Out
 	while placebet_location != "B" or placebet_location != "b":
 		while placebet_location not in ("Q","q","B","b","T","t","4","5","6","8","9","10"):
 			print("Choose where to place your bet: ")
@@ -547,6 +607,8 @@ def place(bets):
 				print("Invalid entry!")
 		print("You chose " + placebet_location)
 
+		#Allow for quitting game at every menu but warning player that there are still
+		#live bets on the table and quitting now would surrender those bets to the house
 		if placebet_location == "Q" or placebet_location == "q":
 			confirm = "0"
 			while confirm not in ("Y","N","y","n"):
@@ -556,6 +618,8 @@ def place(bets):
 					break
 				else:
 					 print("Invalid entry!")
+			#sending gameover function the 0 signal
+			#to ensure saving
 			if confirm == "Y" or confirm == "y":
 				gameover(0)
 			elif confirm == "N" or confirm == "n":
@@ -563,10 +627,12 @@ def place(bets):
 				table()
 				return(bets)
 
+		#Return if player chooses Back
 		if placebet_location == "B" or placebet_location == "b":
 			table()
 			return(bets)
 
+		#Takedown bets submenu
 		if placebet_location == "T" or placebet_location == "t":
 			print("Which bet do you want to take down?")
 			if bets.get("place4") != 0:
@@ -581,6 +647,7 @@ def place(bets):
 				print("9  - Take down bet on the 9")
 			if bets.get("place10") != 0:
 				print("10 - Take down bet on the 10")
+			#Take user input and takedown relevant bet
 			takedownbet = input()
 			if takedownbet == "4":
 				bankroll = bankroll + bets.get("place4")
@@ -616,6 +683,8 @@ def place(bets):
 				print("Error: Invalid entry. Please enter a number.")
 				continue
 		print("You chose " + str(placebet))
+		#Take place bet and based on number chosen update betting dictionary
+		#for that number
 		bankroll = bankroll - placebet
 		os.system("clear")
 		print("Your current bankroll is: $" + str(bankroll))
@@ -624,32 +693,26 @@ def place(bets):
 			placeselect[0] = 4	
 			bets.update({"place4":(placebet + bets.get("place4"))})
 			placebet_location = "0"
-			#return(bets)
 		if placebet_location == "5":
 			placeselect[1] = 5	
 			bets.update({"place5":(placebet + bets.get("place5"))})
 			placebet_location = "0"
-			#return(bets)
 		if placebet_location == "6":
 			placeselect[2] = 6	
 			bets.update({"place6":(placebet + bets.get("place6"))})
 			placebet_location = "0"
-			#return(bets)
 		if placebet_location == "8":
 			placeselect[3] = 8	
 			bets.update({"place8":(placebet + bets.get("place8"))})
 			placebet_location = "0"
-			#return(bets)
 		if placebet_location == "9":
 			placeselect[4] = 9	
 			bets.update({"place9":(placebet + bets.get("place9"))})
 			placebet_location = "0"
-			#return(bets)
 		if placebet_location == "10":
 			placeselect[5] = 10	
 			bets.update({"place10":(placebet + bets.get("place10"))})
 			placebet_location = "0"
-			#return(bets)
 		table()
 	print("You chose " + placebet_location)
 	table()
@@ -658,13 +721,13 @@ def place(bets):
 
 #Function defining Buy Bets
 def buy(bets):
-
+	#BUY BET FUNCTION 
     return bets
 
 
 #Function defining Lay Bets
 def lay(bets):
-
+	#LAY BET FUNCTION
     return bets
 
 
@@ -696,6 +759,7 @@ def lay(bets):
 ###########################################################
 def placebuylay(bets):
 	pblbet_location = "0"
+	#Submenu to choose Place, Buy, or Lay bets
 	while pblbet_location not in ("1","2","3","B","b","Q","q"):
 		print("Choose one: ")
 		print("1 - Place Bets")
@@ -708,6 +772,8 @@ def placebuylay(bets):
 			break
 		else:
 			print("Invalid entry!")
+	#Allow for quitting game at every menu but warning player that there are still
+	#live bets on the table and quitting now would surrender those bets to the house
 	if pblbet_location == "Q" or pblbet_location == "q":
 		confirm = "0"
 		while confirm not in ("Y","N","y","n"):
@@ -723,6 +789,8 @@ def placebuylay(bets):
 			print("Returning to game")
 			table()
 			return(bets)
+	#Depending on user input go to next submenu function
+	#for place(), buy() and lay() bets
 	if pblbet_location == "1":
 		bets = place(bets)
 		return(bets)
@@ -732,6 +800,8 @@ def placebuylay(bets):
 	if pblbet_location == "3":
 		bets = lay(bets)
 		return(bets)
+	#Allow user to back out without committing to any of
+	#these bets
 	if pblbet_location == "B" or pblbet_location == "b":
 		table()
 		return(bets)
@@ -744,6 +814,7 @@ def midgamebet(bets):
 	midbet_location = "0"
 	#print(bets)   					##FOR TESTING
 	#input()						##FOR TESTING
+	#Main Menu for mid-game betting (not the Come-Out roll
 	while midbet_location != "1":
 		while midbet_location not in ("1","2","3","4","5","6","7","8","9"):
 			print("Enter a bet location: ")
@@ -761,6 +832,8 @@ def midgamebet(bets):
 				break
 			else:
 				print("Invalid entry!")
+		#Allow for quitting game at every menu but warning player that there are still
+		#live bets on the table and quitting now would surrender those bets to the house
 		if midbet_location == "9":
 			confirm = "0"
 			while confirm not in ("Y","N","y","n"):
@@ -777,29 +850,48 @@ def midgamebet(bets):
 				return(bets)
 		print("You chose " + midbet_location)
 		midbet_location = int(midbet_location)
+		#Choosing 1 always continues the game to the next roll
 		if midbet_location == 1:
 			print("Shooter has the dice! No more bets!")
 			input()
 			break
+		#Choosing 2 allows player to make an Odds bet
 		if midbet_location == 2:
 			#Free odds on Pass or Don't Pass
 			bets = freeodds_passdp(bets)
+		#Choosing 3 allows player to make the Field bet
 		if midbet_location == 3:
 			#Field Bet
 			bets = fieldbet(bets)
-		#if midbet_location == 4:
+		#Choosing 4 allows player to bet on Come or Don't Come
+		if midbet_location == 4:
 			#Come and Don't Come
+			print("Come/Don't Come bets here") #Deleting when written
 			#DOING LAST
-		#if midbet_location == 5:
+			#bets = comedc(bets)
+		#Choosing 5 allows player to bet Odds on Come points or
+		#Don't Come points 
+		if midbet_location == 5:
 			#Free Odds on Come/Don't Come
+			print("Free Odds onCome/Don't Come bets here") #Deleting when written
 			#DOING LAST
+			#bets = freeodds_comedc(bets)
+		#Choosing 6 allows player to bet on place numbers, buy numbers,
+		#or lay numbers
 		if midbet_location == 6:
 			#Place/Buy/Lay
 			bets = placebuylay(bets)
-		#if midbet_location == 7:
+		#Choosing 7 allows player to bet on the Hardways or Horn Bets
+		if midbet_location == 7:
 			#Hardway and Horn
-		#if midbet_location == 8:
+			print("Hardway and Horn bets here") #Deleting when written
+			#bets = hardwayhorn(bets)
+		#Choosing 8 allows players to make other bets (Big6, Big8, C&E, World,
+		#and anything else I come up with or think about)
+		if midbet_location == 8:
 			#Miscellaneous Bets
+			print("Other bets here") #Deleting when written
+			#bets = otherbets(bets)
 	return bets
 
 
@@ -810,9 +902,12 @@ def midgamebet(bets):
 #
 #
 #############################################
+
 os.system("clear")
 graphics.intro()
-mature = 0    #mature content is off by default
+
+#mature content is off by default
+mature = 0
 
 #Established point if there is one
 #Can be 4, 5, 6, 8, 9 or 10
