@@ -9,7 +9,7 @@ INSTRUCTIONS:
 
 -To play, using python 3, run from command line:
 
-username@hostname $ `python3 main.py`
+`python3 main.py`
 
 -To have sound install mpg123 package on your Linux distribution
 
