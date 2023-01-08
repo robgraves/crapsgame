@@ -122,17 +122,29 @@ def player():
 			if bankroll == 0:
 				bankroll = 1000
 			else:
-				print("This player already exists.") 
-				print("Would you like to overwrite the existing user?")
-				choice = input("Y/N?")
-				if choice == "N" or choice == "n":
-					return username
-				elif choice == "Y" or choice == "y":
-					bankroll = 1000
-					return username
-				else:
-					print("Invalid Entry!")
-				 
+				choice2 = "0"
+				while choice2 not in ("Y","y","N","n"):
+					print("This player already exists.") 
+					print("Would you like to overwrite the existing player?")
+					choice2 = input("Y/N?")
+					if choice2 == "N" or choice2 == "n":
+						choice3 = "0"
+						while choice3 not in ("Y","y","N","n"):
+							print("Would you like to load this player?")
+							choice3 = input("Y/N?")
+							if choice3 == "N" or choice3 == "n":
+								#sys.exit()
+								gameover(1)
+							elif choice3 == "Y" or choice3 == "y":
+								return username
+							if choice3 not in ("Y","y","N","n"):
+								print("ERROR: Bad choice! Invalid entry!")
+						return username
+					elif choice2 == "Y" or choice2 == "y":
+						bankroll = 1000
+						return username
+					if choice2 not in ("Y","y","N","n"):
+						print("ERROR: Bad choice! Invalid entry!")
 		except FileNotFoundError:
 			print("Error: File does not exist. Please create a New Player.")
 		if username == "" or None:
@@ -256,7 +268,8 @@ def shady():
 
 
 #Function for endgame/gameover if bankroll hits 0
-def gameover():
+#0 to save, 1 to not save as input to function
+def gameover(int):
 	os.system("clear")
 	print("******************************\n\n")
 	if bankroll == 0:
@@ -281,7 +294,8 @@ def gameover():
 		print("To play again, choose Returning")
 		print("User and use the same name to  ")
 		print("use your saved bankroll.       \n")
-	save(users_dict)
+	if int == 0:
+		save(users_dict)
 	sys.exit()
 	quitflag = True
 	return quitflag
@@ -532,7 +546,7 @@ def place(bets):
 				else:
 					 print("Invalid entry!")
 			if confirm == "Y" or confirm == "y":
-				gameover()
+				gameover(0)
 			elif confirm == "N" or confirm == "n":
 				print("Returning to game")
 				table()
@@ -693,7 +707,7 @@ def placebuylay(bets):
 			else:
 				 print("Invalid entry!")
 		if confirm == "Y" or confirm == "y":
-			gameover()
+			gameover(0)
 		elif confirm == "N" or confirm == "n":
 			print("Returning to game")
 			table()
@@ -746,7 +760,7 @@ def midgamebet(bets):
 				else:
 					 print("Invalid entry!")
 			if confirm == "Y" or confirm == "y":
-				gameover()
+				gameover(0)
 			elif confirm == "N" or confirm == "n":
 				print("Returning to game")
 				return(bets)
@@ -838,7 +852,7 @@ while quitflag == False:
 			print("Your current bankroll is: $" + str(bankroll))
 			graphics.crapstable()
 	if bankroll == 0:
-		gameover()
+		gameover(0)
 		break
 	while bet_location not in ("1","2","3"):
 		print("Enter a bet location: ")
@@ -852,7 +866,7 @@ while quitflag == False:
 			print("Invalid entry!")
 	if bet_location == "3":
 		quitflag = True
-		gameover()
+		gameover(0)
 		break
 	print("You chose " + bet_location)
 	bet_location = int(bet_location)
