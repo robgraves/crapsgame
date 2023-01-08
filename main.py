@@ -35,6 +35,7 @@ dicesound 		= "data/sounds/diceroll.mp3"
 awwsound		= "data/sounds/aww.mp3"
 applausesound	= "data/sounds/applause.wav"
 winsound		= "data/sounds/winsound.wav"
+gruntsound 		= "data/sounds/grunt.mp3"
 
 #Initializing the user database and loading if it exists,
 #forcing creation of file if it doesn't exist to solve
@@ -302,6 +303,7 @@ def shady():
 	if choice == "1":
 		print("The man has you go behind the dumpster")
 		print("with him and he drops his pants...    ")
+		os.system("mplayer " + gruntsound + " > /dev/null 2>&1")
 		input()
 		print("...15 minutes later")
 		print("You have made 20 dollars")
