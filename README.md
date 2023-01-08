@@ -28,6 +28,14 @@ data/graphics.py - ASCII art for game
 data/diceroll.mp3 - sound effect for dice rolls
 
 
+01/07/2023
+
+Place bets with option to take down bets appears to be
+
+fully functional.  Next on to Buy bets and Lay bets.
+
+Also added more sounds.
+
 
 01/03/2023
 
