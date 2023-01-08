@@ -116,6 +116,25 @@ def player():
 	if choice == "1":
 		print("Please enter your name:")
 		username = input()
+		try:
+			saveduser = pickle.load(open(userdata,"rb"))
+			bankroll = saveduser.get(username)
+			if bankroll == 0:
+				bankroll = 1000
+			else:
+				print("This player already exists.") 
+				print("Would you like to overwrite the existing user?")
+				choice = input("Y/N?")
+				if choice == "N" or choice == "n":
+					return username
+				elif choice == "Y" or choice == "y":
+					bankroll = 1000
+					return username
+				else:
+					print("Invalid Entry!")
+				 
+		except FileNotFoundError:
+			print("Error: File does not exist. Please create a New Player.")
 		if username == "" or None:
 			print("WARNING: By not entering a name,")
 			print("you may not be able to load your")
