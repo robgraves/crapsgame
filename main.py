@@ -25,14 +25,16 @@ import os
 import math
 import random
 import pickle
-import data.graphics
-from data import graphics
+import data.graphics.graphics
+from data.graphics import graphics
 
 
-#path for userdata.p file
-userdata = "data/userdata.p"
-musicfile = "data/diceroll.mp3"
-
+#path for files used
+userdata 		= "data/save/userdata.p"
+dicesound 		= "data/sounds/diceroll.mp3"
+awwsound		= "data/sounds/aww.mp3"
+applausesound	= "data/sounds/applause.wav"
+winsound		= "data/sounds/winsound.wav"
 
 #Initializing the user database and loading if it exists,
 #forcing creation of file if it doesn't exist to solve
@@ -67,8 +69,8 @@ def dice():
 	diceresult 	= die1 + die2
 
     #Play dice rolling sound
-	#os.system("mpg123 -q " + musicfile + " > /dev/null 2>&1")
-	os.system("mplayer " + musicfile + " > /dev/null 2>&1")
+	#os.system("mpg123 -q " + dicesound + " > /dev/null 2>&1")
+	os.system("mplayer " + dicesound + " > /dev/null 2>&1")
 
 	#Display proper ASCII art for each dieface for die 1
 	if die1 == 1:
@@ -202,6 +204,7 @@ def table():
 	global bankroll
 	global bet_location
 	global bet_amount
+	global point
 	freeoddsbet = 0
 	os.system("clear")
 	print("Your current bankroll is: $" + str(bankroll))
@@ -222,9 +225,15 @@ def table():
 	if bet_location == 2:
 		print("DP: $" + str(bet_amount))
 	if (bets.get('freeodds_pass4o10') != 0) or (bets.get('freeodds_pass5o9') != 0) or (bets.get('freeodds_pass6o8') != 0) or (bets.get('freeodds_dp4o10') != 0) or (bets.get('freeodds_dp5o9') !=0) or (bets.get('freeodds_dp6o8') != 0):
-		for value in bets.values():
-			if value != 0:
-				freeoddsbet = freeoddsbet + value
+		if (point == 4) or (point == 10):
+			freeoddsbet = (bets.get('freeodds_pass4o10') + bets.get('freeodds_dp4o10'))
+		if (point == 5) or (point == 9):
+			freeoddsbet = (bets.get('freeodds_pass5o9') + bets.get('freeodds_dp5o9'))
+		if (point == 6) or (point == 8):
+			freeoddsbet = (bets.get('freeodds_pass6o8') + bets.get('freeodds_dp6o8'))
+		#for value in bets.values():
+		#	if value != 0:
+		#		freeoddsbet = freeoddsbet + value
 		print("Odds: $" + str(freeoddsbet))
 	if bets.get("field") != 0:
 		print("Field: $" + str(bets.get("field")))
@@ -904,7 +913,8 @@ while quitflag == False:
 		#If 7 or 11 Pass bettors win, Don't Pass loses
 		if result == 7 or result == 11:
 			print("Shooter Wins!!!")
-			print("bet location is : ", bet_location)
+			os.system("mplayer " + applausesound + " > /dev/null 2>&1 &")
+			#print("bet location is : ", bet_location)
 			if bet_location == 1:
 				bankroll = (bankroll + (bet_amount * 2))
 			save(users_dict)
@@ -917,7 +927,8 @@ while quitflag == False:
         #on 2 or 3, pushes if rolls 12 (BAR 12)
 		elif result == 2 or result == 3 or result == 12:
 			print("Shooter Craps Out!")
-			print("bet location is : ", bet_location)
+			os.system("mplayer " + awwsound + " > /dev/null 2>&1 &")
+			#print("bet location is : ", bet_location)
 			if bet_location == 2:
 				if result == 2 or result == 3:
 					bankroll = (bankroll + (bet_amount * 2))
@@ -986,26 +997,32 @@ while quitflag == False:
 			if bets.get("place4") != 0:
 				if placeselect[0] == result:
 					bankroll = (bankroll + math.floor((bets.get("place4") * 9)/5) + bets.get("place4"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 					bets.update({"place4":0})
 			if bets.get("place5") != 0:
 				if placeselect[1] == result:
 					bankroll = (bankroll + math.floor((bets.get("place5") * 7)/5) + bets.get("place5"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 					bets.update({"place5":0})
 			if bets.get("place6") != 0:
 				if placeselect[2] == result:
 					bankroll = (bankroll + math.floor((bets.get("place6") * 7)/6) + bets.get("place6"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 					bets.update({"place6":0})
 			if bets.get("place8") != 0:
 				if placeselect[3] == result:
 					bankroll = (bankroll + math.floor((bets.get("place8") * 7)/6) + bets.get("place8"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 					bets.update({"place8":0})
 			if bets.get("place9") != 0:
 				if placeselect[4] == result:
 					bankroll = (bankroll + math.floor((bets.get("place9") * 7)/5) + bets.get("place9"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 					bets.update({"place9":0})
 			if bets.get("place10") != 0:
 				if placeselect[5] == result:
 					bankroll = (bankroll + math.floor((bets.get("place10") * 9)/5) + bets.get("place10"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 					bets.update({"place10":0})
 			save(users_dict)
 
@@ -1013,6 +1030,7 @@ while quitflag == False:
 			if result in (2,3,4,9,10,11,12):
 				if (bets.get("field") != 0):
 					print("Field bet Winner!!!")
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 					if result == 2:
 						bankroll = (bankroll + (bets.get("field") * 3))
 						bets.update({"field":0})
@@ -1032,7 +1050,8 @@ while quitflag == False:
 			if result == point:
 				print("Shooter hits the point!!!")
 				print("Front Line Winner!!!")
-				print("bet location is : ", bet_location)
+				os.system("mplayer " + applausesound + " > /dev/null 2>&1 &")
+				#print("bet location is : ", bet_location)
 				if bet_location == 1:
 					bankroll = (bankroll + (bet_amount * 2))
 					#Checking for free odds bets on passline points and payouts
@@ -1060,7 +1079,8 @@ while quitflag == False:
 			elif result == 7:
 				print("Big Red!!! Shooter sevens out!")
 				print("Pay the Don't Pass.")
-				print("bet location is : ", bet_location)
+				os.system("mplayer " + awwsound + " > /dev/null 2>&1 &")
+				#print("bet location is : ", bet_location)
 				if bet_location == 2:
 					bankroll = (bankroll + (bet_amount * 2))
 					#Checking for free odds bets on don't pass points and payouts
