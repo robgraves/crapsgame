@@ -33,8 +33,9 @@ from data.graphics import graphics
 userdata 		= "data/save/userdata.p"
 dicesound 		= "data/sounds/diceroll.mp3"
 awwsound		= "data/sounds/aww.mp3"
-applausesound	= "data/sounds/applause.wav"
-winsound		= "data/sounds/winsound.wav"
+#applausesound	= "data/sounds/applause.wav"
+applausesound	= "data/sounds/claps.mp3"
+winsound		= "data/sounds/chips.mp3"
 gruntsound 		= "data/sounds/grunt.mp3"
 
 #Initializing the user database and loading if it exists,
@@ -816,9 +817,9 @@ def midgamebet(bets):
 	midbet_location = "0"
 	#print(bets)   					##FOR TESTING
 	#input()						##FOR TESTING
-	#Main Menu for mid-game betting (not the Come-Out roll
+	#Main Menu for mid-game betting (not the Come-Out roll)
 	while midbet_location != "1":
-		while midbet_location not in ("1","2","3","4","5","6","7","8","9"):
+		while midbet_location not in ("1","2","3","4","5","6","7","8","9",""):
 			print("Enter a bet location: ")
 			print("1 - No More Bets - Roll Dice")
 			print("2 - Free Odds Bets on Pass or Don't Pass")
@@ -830,7 +831,7 @@ def midgamebet(bets):
 			print("8 - Miscellaneous Bets")
 			print("9 - Quit Game")
 			midbet_location = input()
-			if midbet_location in ("1","2","3","4","5","6","7","8","9"):
+			if midbet_location in ("1","2","3","4","5","6","7","8","9",""):
 				break
 			else:
 				print("Invalid entry!")
@@ -850,6 +851,11 @@ def midgamebet(bets):
 			elif confirm == "N" or confirm == "n":
 				print("Returning to game")
 				return(bets)
+		#Checking if user just presses Enter to roll dice
+		if midbet_location == "":
+			print("Shooter has the dice! No more bets!")
+			input()
+			break
 		print("You chose " + midbet_location)
 		midbet_location = int(midbet_location)
 		#Choosing 1 always continues the game to the next roll
@@ -1013,6 +1019,7 @@ while quitflag == False:
 		if result == 7 or result == 11:
 			print("Shooter Wins!!!")
 			os.system("mplayer " + applausesound + " > /dev/null 2>&1")
+			os.system("mplayer " + winsound + " > /dev/null 2>&1")
 			#print("bet location is : ", bet_location)
 			if bet_location == 1:
 				bankroll = (bankroll + (bet_amount * 2))
@@ -1150,6 +1157,7 @@ while quitflag == False:
 				print("Shooter hits the point!!!")
 				print("Front Line Winner!!!")
 				os.system("mplayer " + applausesound + " > /dev/null 2>&1")
+				os.system("mplayer " + winsound + " > /dev/null 2>&1")
 				#print("bet location is : ", bet_location)
 				if bet_location == 1:
 					bankroll = (bankroll + (bet_amount * 2))
