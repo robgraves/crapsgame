@@ -1069,35 +1069,6 @@ while quitflag == False:
 			iscomeout = False
 			save(users_dict)
 
-			'''
-			#Place bet payouts on come-out roll, for previous place bets
-			if bets.get("place4") != 0:
-				if placeselect[0] == result:
-					bankroll = (bankroll + math.floor((bets.get("place4") * 9)/5) + bets.get("place4"))
-					bets.update({"place4":0})
-			if bets.get("place5") != 0:
-				if placeselect[1] == result:
-					bankroll = (bankroll + math.floor((bets.get("place5") * 7)/5) + bets.get("place5"))
-					bets.update({"place5":0})
-			if bets.get("place6") != 0:
-				if placeselect[2] == result:
-					bankroll = (bankroll + math.floor((bets.get("place6") * 7)/6) + bets.get("place6"))
-					bets.update({"place6":0})
-			if bets.get("place8") != 0:
-				if placeselect[3] == result:
-					bankroll = (bankroll + math.floor((bets.get("place8") * 7)/6) + bets.get("place8"))
-					bets.update({"place8":0})
-			if bets.get("place9") != 0:
-				if placeselect[4] == result:
-					bankroll = (bankroll + math.floor((bets.get("place9") * 7)/5) + bets.get("place9"))
-					bets.update({"place9":0})
-			if bets.get("place10") != 0:
-				if placeselect[5] == result:
-					bankroll = (bankroll + math.floor((bets.get("place10") * 9)/5) + bets.get("place10"))
-					bets.update({"place10":0})
-			save(users_dict)
-			'''
-
 			input()
 			os.system("clear")
 
