@@ -33,7 +33,6 @@ from data.graphics import graphics
 userdata 		= "data/save/userdata.p"
 dicesound 		= "data/sounds/diceroll.mp3"
 awwsound		= "data/sounds/aww.mp3"
-#applausesound	= "data/sounds/applause.wav"
 applausesound	= "data/sounds/claps.mp3"
 winsound		= "data/sounds/chips.mp3"
 gruntsound 		= "data/sounds/grunt.mp3"
@@ -274,7 +273,7 @@ def table():
 		ninetotal = bets.get("place9") + bets.get("buy9") +  bets.get("lay9")
 		print("Nine: $" + str(ninetotal))		
 	if  (bets.get("place10") != 0) or (bets.get("buy10") != 0) or (bets.get("lay10") != 0):
-		tentotal = bets.get("place4") + bets.get("buy4") +  bets.get("lay4")
+		tentotal = bets.get("place10") + bets.get("buy10") +  bets.get("lay10")
 		print("Ten: $" + str(tentotal))		
 
 
@@ -422,17 +421,6 @@ def bets_init():
     "C&E":0                 #craps-eleven, same as any craps plus 11, pays same as
 	}                       #the individual bets, any craps (7 to 1) & YO11 (15 to 1)
 	return bets
-
-
-#Function for creating a backup dictionary to dump bets in that would
-# normally turn off on a come out roll, so that real bets dictionary 
-#can be empty on come out roll, then copy back the turned off bets to 
-#the real bets dictionary and clear backup dictionary.
-def backup_init():
-	backup = {}
-	for key, value in bets.items():
-		backup[key] = value
-	return backup
 
 
 #Function to clear out mid game betting
@@ -599,7 +587,7 @@ def place(bets):
 	#many players will bet on multiple numbers here allowing you to place every number
 	#desired and then go back to main bet menu when finished.
 	#Also includes a Takedown option as a seven will wipe all these bets and they are
-	#not contract bets (bets you are stuck with once you make them (Pass and Come bets)
+	#not contract bets (bets you are stuck with once you make them (Pass and Come bets))
 	#so players can choose to takedown or turn off these bets at any point to protect it
 	#from the inevitable shooter Sevening Out
 	while placebet_location != "B" or placebet_location != "b":
@@ -650,19 +638,22 @@ def place(bets):
 		if placebet_location == "T" or placebet_location == "t":
 			print("Which bet do you want to take down?")
 			if bets.get("place4") != 0:
-				print("4  - Take down bet on the 4")
+				print("4  - Take down Place 4 bet")
 			if bets.get("place5") != 0:
-				print("5  - Take down bet on the 5")
+				print("5  - Take down Place 5 bet")
 			if bets.get("place6") != 0:
-				print("6  - Take down bet on the 6")
+				print("6  - Take down Place 6 bet")
 			if bets.get("place8") != 0:
-				print("8  - Take down bet on the 8")
+				print("8  - Take down Place 8 bet")
 			if bets.get("place9") != 0:
-				print("9  - Take down bet on the 9")
+				print("9  - Take down Place 9 bet")
 			if bets.get("place10") != 0:
-				print("10 - Take down bet on the 10")
+				print("10 - Take down Place 10 bet")
+			print("B - Back")
 			#Take user input and takedown relevant bet
 			takedownbet = input()
+			if (takedownbet == "B") or (takedownbet == "B"):
+				return(bets)
 			if takedownbet == "4":
 				bankroll = bankroll + bets.get("place4")
 				bets.update({"place4":0})
@@ -735,14 +726,333 @@ def place(bets):
 
 #Function defining Buy Bets
 def buy(bets):
-	#BUY BET FUNCTION 
-    return bets
+	global bankroll
+	#Check for out of money and return if so
+	if bankroll == 0:
+		print("You have no more money available to bet.")
+		input()
+		table()
+		return(bets)
+	global buyselect
+	print("Your current bankroll is: $" + str(bankroll))
+	buybet_location = "0"
+	#The only way to get out of the Buy bet submenu is to type B or b for Back as
+	#many players will bet on multiple numbers here allowing you to place every number
+	#desired and then go back to main bet menu when finished.
+	#Also includes a Takedown option as a seven will wipe all these bets and they are
+	#not contract bets (bets you are stuck with once you make them (Pass and Come bets))
+	#so players can choose to takedown or turn off these bets at any point to protect it
+	#from the inevitable shooter Sevening Out
+	while buybet_location != "B" or buybet_location != "b":
+		while buybet_location not in ("Q","q","B","b","T","t","4","5","6","8","9","10"):
+			print("Choose where to place your bet: ")
+			print("4  - Buy 4")
+			print("5  - Buy 5")
+			print("6  - Buy 6")
+			print("8  - Buy 8")
+			print("9  - Buy 9")
+			print("10 - Buy 10")
+			print("T  - Take down a bet")
+			print("B  - Back")
+			print("Q  - Quit Game")
+			print("PLEASE NOTE: There is a 5% commission")
+			print("on Buy bets paid from winnings.")
+			buybet_location = input()
+			if buybet_location in ("Q","q","B","b","T","t","4","5","6","8","9","10"):
+				break
+			else:
+				print("Invalid entry!")
+		print("You chose " + buybet_location)
+
+		#Allow for quitting game at every menu but warning player that there are still
+		#live bets on the table and quitting now would surrender those bets to the house
+		if buybet_location == "Q" or buybet_location == "q":
+			confirm = "0"
+			while confirm not in ("Y","N","y","n"):
+				print("Are you sure? (Y/N) All bets on the table will be lost.")
+				confirm = input()
+				if confirm in ("Y","N","y","n"):
+					break
+				else:
+					 print("Invalid entry!")
+			#sending gameover function the 0 signal
+			#to ensure saving
+			if confirm == "Y" or confirm == "y":
+				gameover(0)
+			elif confirm == "N" or confirm == "n":
+				print("Returning to game")
+				table()
+				return(bets)
+
+		#Return if player chooses Back
+		if buybet_location == "B" or buybet_location == "b":
+			table()
+			return(bets)
+
+		#Takedown bets submenu
+		if buybet_location == "T" or buybet_location == "t":
+			print("Which bet do you want to take down?")
+			if bets.get("buy4") != 0:
+				print("4  - Take down Buy 4 bet")
+			if bets.get("buy5") != 0:
+				print("5  - Take down Buy 5 bet")
+			if bets.get("buy6") != 0:
+				print("6  - Take down Buy 6 bet")
+			if bets.get("buy8") != 0:
+				print("8  - Take down Buy 8 bet")
+			if bets.get("buy9") != 0:
+				print("9  - Take down Buy 9 bet")
+			if bets.get("buy10") != 0:
+				print("10 - Take down Buy 10 bet")
+			print("B - Back")
+			#Take user input and takedown relevant bet
+			takedownbet = input()
+			if (takedownbet == "B") or (takedownbet == "B"):
+				return(bets)
+			if takedownbet == "4":
+				bankroll = bankroll + bets.get("buy4")
+				bets.update({"buy4":0})
+			if takedownbet == "5":
+				bankroll = bankroll + bets.get("buy5")
+				bets.update({"buy5":0})
+			if takedownbet == "6":
+				bankroll = bankroll + bets.get("buy6")
+				bets.update({"buy6":0})
+			if takedownbet == "8":
+				bankroll = bankroll + bets.get("buy8")
+				bets.update({"buy8":0})
+			if takedownbet == "9":
+				bankroll = bankroll + bets.get("buy9")
+				bets.update({"buy9":0})
+			if takedownbet == "10":
+				bankroll = bankroll + bets.get("buy10")
+				bets.update({"buy10":0})
+			print("Your current bankroll is: $" + str(bankroll))
+			break
+		#Get bet amount
+		print("Enter bet amount: ")
+		placebet = 0
+		while not int(buybet) in range(1, bankroll+1):
+			if buybet > bankroll:
+				print("You do not have that much.")
+				print("Your current bankroll is: $" + str(bankroll))
+				print("Enter a bet amount: ")
+			try:
+				buybet = int(input())
+			except ValueError:
+				print("Error: Invalid entry. Please enter a number.")
+				continue
+		print("You chose " + str(buybet))
+		#Take buy bet and based on number chosen update betting dictionary
+		#for that number
+		bankroll = bankroll - buybet
+		os.system("clear")
+		print("Your current bankroll is: $" + str(bankroll))
+		save(users_dict)
+		if buybet_location == "4":
+			buyselect[0] = 4	
+			bets.update({"buy4":(buybet + bets.get("buy4"))})
+			buybet_location = "0"
+		if buybet_location == "5":
+			buyselect[1] = 5	
+			bets.update({"buy5":(buybet + bets.get("buy5"))})
+			buybet_location = "0"
+		if buybet_location == "6":
+			buyselect[2] = 6	
+			bets.update({"buy6":(buybet + bets.get("buy6"))})
+			buybet_location = "0"
+		if buybet_location == "8":
+			buyselect[3] = 8	
+			bets.update({"buy8":(buybet + bets.get("buy8"))})
+			buybet_location = "0"
+		if buybet_location == "9":
+			buyselect[4] = 9	
+			bets.update({"buy9":(buybet + bets.get("buy9"))})
+			buybet_location = "0"
+		if buybet_location == "10":
+			buyselect[5] = 10	
+			bets.update({"buy10":(buybet + bets.get("buy10"))})
+			buybet_location = "0"
+		table()
+	print("You chose " + buybet_location)
+	table()
+	return bets
 
 
 #Function defining Lay Bets
 def lay(bets):
-	#LAY BET FUNCTION
-    return bets
+	global bankroll
+	#Check for out of money and return if so
+	if bankroll == 0:
+		print("You have no more money available to bet.")
+		input()
+		table()
+		return(bets)
+	global layselect
+	print("Your current bankroll is: $" + str(bankroll))
+	laybet_location = "0"
+	#The only way to get out of the Lay bet submenu is to type B or b for Back as
+	#many players will bet on multiple numbers here allowing you to place every number
+	#desired and then go back to main bet menu when finished.
+	#Also includes a Takedown option as a seven will wipe all these bets and they are
+	#not contract bets (bets you are stuck with once you make them (Pass and Come bets))
+	#so players can choose to takedown or turn off these bets at any point to protect it
+	#from the inevitable shooter Sevening Out
+	while laybet_location != "B" or laybet_location != "b":
+		while laybet_location not in ("Q","q","B","b","T","t","4","5","6","8","9","10"):
+			print("Choose where to place your bet: ")
+			print("4  - Lay 4")
+			print("5  - Lay 5")
+			print("6  - Lay 6")
+			print("8  - Lay 8")
+			print("9  - Lay 9")
+			print("10 - Lay 10")
+			print("T  - Take down a bet")
+			print("B  - Back")
+			print("Q  - Quit Game")
+			print("PLEASE NOTE: There is a 5% commission")
+			print("on Lay bets paid up up front.")
+			laybet_location = input()
+			if laybet_location in ("Q","q","B","b","T","t","4","5","6","8","9","10"):
+				break
+			else:
+				print("Invalid entry!")
+		print("You chose " + laybet_location)
+
+		#Allow for quitting game at every menu but warning player that there are still
+		#live bets on the table and quitting now would surrender those bets to the house
+		if laybet_location == "Q" or laybet_location == "q":
+			confirm = "0"
+			while confirm not in ("Y","N","y","n"):
+				print("Are you sure? (Y/N) All bets on the table will be lost.")
+				confirm = input()
+				if confirm in ("Y","N","y","n"):
+					break
+				else:
+					 print("Invalid entry!")
+			#sending gameover function the 0 signal
+			#to ensure saving
+			if confirm == "Y" or confirm == "y":
+				gameover(0)
+			elif confirm == "N" or confirm == "n":
+				print("Returning to game")
+				table()
+				return(bets)
+
+		#Return if player chooses Back
+		if laybet_location == "B" or laybet_location == "b":
+			table()
+			return(bets)
+
+		#Takedown bets submenu
+		if laybet_location == "T" or laybet_location == "t":
+			print("Which bet do you want to take down?")
+			if bets.get("lay4") != 0:
+				print("4  - Take down Lay 4 bet")
+			if bets.get("lay5") != 0:
+				print("5  - Take down Lay 5 bet")
+			if bets.get("lay6") != 0:
+				print("6  - Take down Lay 6 bet")
+			if bets.get("lay8") != 0:
+				print("8  - Take down Lay 8 bet")
+			if bets.get("lay9") != 0:
+				print("9  - Take down Lay 9 bet")
+			if bets.get("lay10") != 0:
+				print("10 - Take down Lay 10 bet")
+			print("B - Back")
+			#Take user input and takedown relevant bet
+			takedownbet = input()
+			if (takedownbet == "B") or (takedownbet == "B"):
+				return(bets)
+			if takedownbet == "4":
+				bankroll = bankroll + bets.get("lay4")
+				bets.update({"lay4":0})
+			if takedownbet == "5":
+				bankroll = bankroll + bets.get("lay5")
+				bets.update({"lay5":0})
+			if takedownbet == "6":
+				bankroll = bankroll + bets.get("lay6")
+				bets.update({"lay6":0})
+			if takedownbet == "8":
+				bankroll = bankroll + bets.get("lay8")
+				bets.update({"lay8":0})
+			if takedownbet == "9":
+				bankroll = bankroll + bets.get("lay9")
+				bets.update({"lay9":0})
+			if takedownbet == "10":
+				bankroll = bankroll + bets.get("lay10")
+				bets.update({"lay10":0})
+			print("Your current bankroll is: $" + str(bankroll))
+			break
+		#Get bet amount
+		print("Enter bet amount: ")
+		laybet = 0
+		while not int(laybet) in range(1, bankroll+1):
+			if laybet > bankroll:
+				print("You do not have that much.")
+				print("Your current bankroll is: $" + str(bankroll))
+				print("Enter a bet amount: ")
+			try:
+				laybet = int(input())
+			except ValueError:
+				print("Error: Invalid entry. Please enter a number.")
+				continue
+		print("You chose " + str(laybet))
+		#Initializing commission to zero for sanity
+		commission = 0 
+		#Take lay bet plus 5% commision on potential win, 
+		#then update betting dictionary for that number
+		if bets.get("lay4") != 0:
+			commission = (math.ceil(math.ceil(laybet/2) * 0.05))
+			bankroll = bankroll - (laybet + commission)
+		elif bets.get("lay5") != 0:
+			commission = (math.ceil(math.ceil(laybet*(2/3)) * 0.05))
+			bankroll = bankroll - (laybet + commission)
+		elif bets.get("lay6") != 0:
+			commission = (math.ceil(math.ceil(laybet*(5/6)) * 0.05))
+			bankroll = bankroll - (laybet + commission)
+		elif bets.get("lay8") != 0:
+			commission = (math.ceil(math.ceil(laybet*(5/6)) * 0.05))
+			bankroll = bankroll - (laybet + commission)
+		elif bets.get("lay9") != 0:
+			commission = (math.ceil(math.ceil(laybet*(2/3)) * 0.05))
+			bankroll = bankroll - (laybet + commission)
+		elif bets.get("lay10") != 0:
+			commission = (math.ceil(math.ceil(laybet/2) * 0.05))
+			bankroll = bankroll - (laybet + commission)
+
+
+		os.system("clear")
+		print("Your current bankroll is: $" + str(bankroll))
+		save(users_dict)
+		if laybet_location == "4":
+			layselect[0] = 4	
+			bets.update({"lay4":(laybet + bets.get("lay4"))})
+			laybet_location = "0"
+		if laybet_location == "5":
+			layselect[1] = 5	
+			bets.update({"lay5":(laybet + bets.get("lay5"))})
+			laybet_location = "0"
+		if laybet_location == "6":
+			layselect[2] = 6	
+			bets.update({"lay6":(laybet + bets.get("lay6"))})
+			laybet_location = "0"
+		if laybet_location == "8":
+			layselect[3] = 8	
+			bets.update({"lay8":(laybet + bets.get("lay8"))})
+			laybet_location = "0"
+		if laybet_location == "9":
+			layselect[4] = 9	
+			bets.update({"lay9":(laybet + bets.get("lay9"))})
+			laybet_location = "0"
+		if laybet_location == "10":
+			layselect[5] = 10	
+			bets.update({"lay10":(laybet + bets.get("lay10"))})
+			laybet_location = "0"
+		table()
+	print("You chose " + laybet_location)
+	table()
+	return bets
 
 
 ############################################################
@@ -939,15 +1249,19 @@ bankroll = 0
 #1 for Pass, 2 for Don't Pass
 global bet_location
 bet_location = "0"
-#List for Place bets
+#Lists for Place, Buy, and Lay bets
 #Need to check against results
 global placeselect
-placeselect = [0,0,0,0,0,0]
+placeselect =	[0,0,0,0,0,0]
+global buyselect
+buyselect   = 	[0,0,0,0,0,0]
+global layselect
+layselect   =	[0,0,0,0,0,0]
 
 bets = bets_init()
-backup = backup_init()
 
 mature = maturecheck(mature)
+
 username = player()
 print("Welcome " + username + "!!!")
 print("Your bankroll is: $" + str(bankroll))
@@ -1035,10 +1349,38 @@ while quitflag == False:
 			print("Shooter Wins!!!")
 			os.system("mplayer " + applausesound + " > /dev/null 2>&1")
 			os.system("mplayer " + winsound + " > /dev/null 2>&1")
-			#print("bet location is : ", bet_location)
 			if bet_location == 1:
 				bankroll = (bankroll + (bet_amount * 2))
 			save(users_dict)
+
+			#Lay bet payouts on come-out rolls, pays on 7
+			if result == 7:
+				if bets.get("lay4") != 0:
+					bankroll = (bankroll + math.floor(bets.get("lay4")/2) + bets.get("lay4"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"lay4":0})
+				if bets.get("lay5") != 0:
+					bankroll = (bankroll + math.floor((bets.get("lay5") * 2)/3) + bets.get("lay5"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"lay5":0})
+				if bets.get("lay6") != 0:
+					bankroll = (bankroll + math.floor((bets.get("lay6") * 5)/6) + bets.get("lay6"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"lay6":0})
+				if bets.get("lay8") != 0:
+					bankroll = (bankroll + math.floor((bets.get("lay8") * 5)/6) + bets.get("lay8"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"lay8":0})
+				if bets.get("lay9") != 0:
+					bankroll = (bankroll + math.floor((bets.get("lay9") * 2)/3) + bets.get("lay9"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"lay9":0})
+				if bets.get("lay10") != 0:
+					bankroll = (bankroll + math.floor(bets.get("lay10")/2) + bets.get("lay10"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"lay10":0})
+				save(users_dict)
+
 			iscomeout = True
 			point = 0
 			input()
@@ -1069,6 +1411,24 @@ while quitflag == False:
 			iscomeout = False
 			save(users_dict)
 
+
+			#Lay bets lose if their number rolls
+			#before a 7
+			if (bets.get("lay4") != 0) and (result == 4):
+				bets.update({"lay4":0})
+			if (bets.get("lay5") != 0) and (result == 5):
+				bets.update({"lay5":0})
+			if (bets.get("lay6") != 0) and (result == 6):
+				bets.update({"lay6":0})
+			if (bets.get("lay8") != 0) and (result == 8):
+				bets.update({"lay8":0})
+			if (bets.get("lay9") != 0) and (result == 9):
+				bets.update({"lay9":0})
+			if (bets.get("lay10") != 0) and (result == 10):
+				bets.update({"lay10":0})
+			save(users_dict)
+
+
 			input()
 			os.system("clear")
 
@@ -1087,7 +1447,7 @@ while quitflag == False:
 			result = dice()
 
 
-			#Place bet payouts on non come-out rolls, maybe I'll make this a function
+			#Place bet payouts on non come-out rolls, bets are off on come-out rolls
 			if bets.get("place4") != 0:
 				if placeselect[0] == result:
 					bankroll = (bankroll + math.floor((bets.get("place4") * 9)/5) + bets.get("place4"))
@@ -1120,6 +1480,85 @@ while quitflag == False:
 					bets.update({"place10":0})
 			save(users_dict)
 
+
+			#Buy bet payouts on non come-out rolls, bets are off on come-out rolls
+			#Initializing commission to zero for sanity
+			commission = 0
+			if bets.get("buy4") != 0:
+				if buyselect[0] == result:
+					commission = (math.ceil(bets.get("buy4") * 0.05))
+					bankroll = (bankroll + math.floor(math.floor(bets.get("buy4") * 2) - commission) + bets.get("buy4"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"buy4":0})
+			if bets.get("buy5") != 0:
+				if buyselect[1] == result:
+					commission = (math.ceil(bets.get("buy5") * 0.05))
+					bankroll = (bankroll + math.floor(math.floor((bets.get("buy5") * 3)/2) - commission) + bets.get("buy5"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"buy5":0})
+			if bets.get("buy6") != 0:
+				if buyselect[2] == result:
+					commission = (math.ceil(bets.get("buy6") * 0.05))
+					bankroll = (bankroll + math.floor(math.floor((bets.get("buy6") * 6)/5) - commission) + bets.get("buy6"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"buy6":0})
+			if bets.get("buy8") != 0:
+				if buyselect[3] == result:
+					commission = (math.ceil(bets.get("buy8") * 0.05))
+					bankroll = (bankroll + math.floor(math.floor((bets.get("buy8") * 6)/5) - commission) + bets.get("buy8"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"buy8":0})
+			if bets.get("buy9") != 0:
+				if buyselect[4] == result:
+					commission = (math.ceil(bets.get("buy9") * 0.05))
+					bankroll = (bankroll + math.floor(math.floor((bets.get("buy9") * 3)/2) - commission) + bets.get("buy9"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"buy9":0})
+			if bets.get("buy10") != 0:
+				if buyselect[5] == result:
+					commission = (math.ceil(bets.get("buy10") * 0.05))
+					bankroll = (bankroll + math.floor(math.floor(bets.get("buy10") * 2) - commission) + bets.get("buy10"))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"buy10":0})
+			save(users_dict)
+
+
+			#Lay bet payouts on non come-out rolls
+			#Pays on a Seven Out
+			if result == 7:
+				if bets.get("lay4") != 0:
+					if layselect[0] != result:
+						bankroll = (bankroll + math.floor(bets.get("lay4")/2) + bets.get("lay4"))
+						os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+						bets.update({"lay4":0})
+				if bets.get("lay5") != 0:
+					if layselect[1] != result:
+						bankroll = (bankroll + math.floor((bets.get("lay5") * 2)/3) + bets.get("lay5"))
+						os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+						bets.update({"lay5":0})
+				if bets.get("lay6") != 0:
+					if layselect[2] != result:
+						bankroll = (bankroll + math.floor((bets.get("lay6") * 5)/6) + bets.get("lay6"))
+						os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+						bets.update({"lay6":0})
+				if bets.get("lay8") != 0:
+					if layselect[3] != result:
+						bankroll = (bankroll + math.floor((bets.get("lay8") * 5)/6) + bets.get("lay8"))
+						os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+						bets.update({"lay8":0})
+				if bets.get("lay9") != 0:
+					if layselect[4] != result:
+						bankroll = (bankroll + math.floor((bets.get("lay9") * 2)/3) + bets.get("lay9"))
+						os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+						bets.update({"lay9":0})
+				if bets.get("lay10") != 0:
+					if layselect[5] != result:
+						bankroll = (bankroll + math.floor(bets.get("lay10")/2) + bets.get("lay10"))
+						os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+						bets.update({"lay10":0})
+				save(users_dict)
+
+
 			#Field bet payouts
 			if result in (2,3,4,9,10,11,12):
 				if (bets.get("field") != 0):
@@ -1139,6 +1578,24 @@ while quitflag == False:
 			else:
 				bets.update({"field":0})
 			input()
+
+
+			#Lay bets lose if their number rolls
+			#before a 7
+			if (bets.get("lay4") != 0) and (result == 4):
+				bets.update({"lay4":0})
+			if (bets.get("lay5") != 0) and (result == 5):
+				bets.update({"lay5":0})
+			if (bets.get("lay6") != 0) and (result == 6):
+				bets.update({"lay6":0})
+			if (bets.get("lay8") != 0) and (result == 8):
+				bets.update({"lay8":0})
+			if (bets.get("lay9") != 0) and (result == 9):
+				bets.update({"lay9":0})
+			if (bets.get("lay10") != 0) and (result == 10):
+				bets.update({"lay10":0})
+			save(users_dict)
+
 
 			#Payoff for shooter hitting the point
 			if result == point:

@@ -33,7 +33,21 @@ data/sounds/aww.mp3 - sound effect for shooter losing
 
 data/sounds/applause.wav - sound effect for shooter winning
 
+data/sounds/claps.mp3 - sound effect for shooter winning
+
 data/sounds/winsound.wav - sound effect for any other bet winning
+
+data/sounds/chips.mp3 - sound effect for any other bet winning
+
+
+
+01/09/2023
+
+Place, Buy, and Lay bets completed and appears to be working.
+
+Needs some thorough testing to make sure there are no hiccups
+
+anywhere.
 
 
 
@@ -78,11 +92,11 @@ DONE! 12/30/2022 - Free odds bets on Pass/DP
 
 DONE! 01/03/2023 - Field Bets
 
-- Place Bets/Buy Bets/Lay Bets
+DONE! 01/07/2023 - Place Bets/Buy Bets/Lay Bets
 
 - Hardway Bets/Any Craps/Any Seven
 
-- Any other bets or features I might want to add
+- Any other bets or features I might want to add:
 - Big 6 and Big 8
 - C&E Bet (Craps and Eleven)
 - World Bet (C&E plus any seven)
