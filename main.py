@@ -424,6 +424,17 @@ def bets_init():
 	return bets
 
 
+#Function for creating a backup dictionary to dump bets in that would
+# normally turn off on a come out roll, so that real bets dictionary 
+#can be empty on come out roll, then copy back the turned off bets to 
+#the real bets dictionary and clear backup dictionary.
+def backup_init():
+	backup = {}
+	for key, value in bets.items():
+		backup[key] = value
+	return backup
+
+
 #Function to clear out mid game betting
 def clearbets(bets):
 	bets.clear()
@@ -934,6 +945,8 @@ global placeselect
 placeselect = [0,0,0,0,0,0]
 
 bets = bets_init()
+backup = backup_init()
+
 mature = maturecheck(mature)
 username = player()
 print("Welcome " + username + "!!!")
@@ -973,6 +986,7 @@ while quitflag == False:
 		print("1 - Pass Line (Bet with the shooter)")
 		print("2 - Don't Pass Line (Bet with the house)")
 		print("3 - Quit Game")
+		#This variable bet_location only refers to Pass and Don't Pass
 		bet_location = input()
 		if bet_location in ("1","2","3"):
 			break
@@ -987,6 +1001,7 @@ while quitflag == False:
 
 	#Get bet amount
 	print("Enter a bet amount: ")
+	#This variable bet_amount only refers to Pass or Don't Pass bet
 	bet_amount = 0
 	while not int(bet_amount) in range(1, bankroll+1):
 		if bet_amount > bankroll:
@@ -1054,6 +1069,7 @@ while quitflag == False:
 			iscomeout = False
 			save(users_dict)
 
+			'''
 			#Place bet payouts on come-out roll, for previous place bets
 			if bets.get("place4") != 0:
 				if placeselect[0] == result:
@@ -1080,6 +1096,7 @@ while quitflag == False:
 					bankroll = (bankroll + math.floor((bets.get("place10") * 9)/5) + bets.get("place10"))
 					bets.update({"place10":0})
 			save(users_dict)
+			'''
 
 			input()
 			os.system("clear")
