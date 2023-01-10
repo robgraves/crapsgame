@@ -197,13 +197,17 @@ def save(users_dict):
 #Function to check if player wants mature content
 def maturecheck(mature):
 	choice = "0"
-	while choice not in ("1","2"):
+	while choice not in ("1","2",""):
 		print("Do you want to play with G rated or Mature Content?")
 		print("1 - G-rated")
 		print("2 - Mature")
 		choice = input()
-		if choice not in ("1","2"):
+		if choice not in ("1","2",""):
 			print("ERROR: Bad choice! Invalid entry!")
+	#If just hit enter, defaults to G-rated content
+	if choice == "":
+		mature = 0
+		return mature
 	if choice == "1":
 		mature = 0
 		return mature
