@@ -199,6 +199,7 @@ def maturecheck(mature):
 	choice = "0"
 	while choice not in ("1","2",""):
 		print("Do you want to play with G rated or Mature Content?")
+		print("(Default is G-rated)")
 		print("1 - G-rated")
 		print("2 - Mature")
 		choice = input()
@@ -1136,6 +1137,29 @@ def placebuylay(bets):
 	print("You chose " + pblbet_location)
 	return bets
 
+#Function for Come and Don't Come bets
+def comedc(bets):
+	pass
+	return bets
+
+
+#Function for Free Odds on Come/DC points
+def freeodds_comedc(bets):
+	pass
+	return bets
+
+
+#Function for Hardways and Horn bets
+def hardwayhorn(bets):
+	pass
+	return bets
+
+
+#Function for any other miscelaneous bets
+def otherbets(bets):
+	pass
+	return bets
+
 
 #Function for mid game betting
 def midgamebet(bets):
@@ -1199,16 +1223,12 @@ def midgamebet(bets):
 		#Choosing 4 allows player to bet on Come or Don't Come
 		if midbet_location == 4:
 			#Come and Don't Come
-			print("Come/Don't Come bets here") #Deleting when written
-			#DOING LAST
-			#bets = comedc(bets)
+			bets = comedc(bets)
 		#Choosing 5 allows player to bet Odds on Come points or
 		#Don't Come points 
 		if midbet_location == 5:
 			#Free Odds on Come/Don't Come
-			print("Free Odds onCome/Don't Come bets here") #Deleting when written
-			#DOING LAST
-			#bets = freeodds_comedc(bets)
+			bets = freeodds_comedc(bets)
 		#Choosing 6 allows player to bet on place numbers, buy numbers,
 		#or lay numbers
 		if midbet_location == 6:
@@ -1217,14 +1237,12 @@ def midgamebet(bets):
 		#Choosing 7 allows player to bet on the Hardways or Horn Bets
 		if midbet_location == 7:
 			#Hardway and Horn
-			print("Hardway and Horn bets here") #Deleting when written
-			#bets = hardwayhorn(bets)
+			bets = hardwayhorn(bets)
 		#Choosing 8 allows players to make other bets (Big6, Big8, C&E, World,
 		#and anything else I come up with or think about)
 		if midbet_location == 8:
 			#Miscellaneous Bets
-			print("Other bets here") #Deleting when written
-			#bets = otherbets(bets)
+			bets = otherbets(bets)
 	return bets
 
 
