@@ -247,7 +247,9 @@ def table():
 	freeoddsbet = 0
 	os.system("clear")
 	print("Your current bankroll is: $" + str(bankroll))
-	if point == 4:
+	if point == 0:
+		graphics.crapstable()
+	elif point == 4:
 		graphics.crapstable4()
 	elif point == 5:
 		graphics.crapstable5()
@@ -1403,15 +1405,23 @@ def proposition(bets):
 	save(users_dict)
 	if prop_location == "2":
 		bets.update({"two":(propbet + bets.get("two"))})
+		bankroll = bankroll - propbet
+		propbet = 0
 		prop_location = "0"
 	if prop_location == "3":
 		bets.update({"three":(propbet + bets.get("three"))})
+		bankroll = bankroll - propbet
+		propbet = 0
 		prop_location = "0"
 	if prop_location == "11":
 		bets.update({"eleven":(propbet + bets.get("eleven"))})
+		bankroll = bankroll - propbet
+		propbet = 0
 		prop_location = "0"
 	if prop_location == "12":
 		bets.update({"twelve":(propbet + bets.get("twelve"))})
+		bankroll = bankroll - propbet
+		propbet = 0
 		prop_location = "0"
 	if prop_location == "6":
 		propbet = math.floor(propbet/4)
@@ -1419,12 +1429,18 @@ def proposition(bets):
 		bets.update({"three":(propbet + bets.get("three"))})
 		bets.update({"eleven":(propbet + bets.get("eleven"))})
 		bets.update({"twelve":(propbet + bets.get("twelve"))})
+		bankroll = bankroll - propbet
+		propbet = 0
 		prop_location = "0"
 	if prop_location == "7":
 		bets.update({"anyseven":(propbet + bets.get("anyseven"))})
+		bankroll = bankroll - propbet
+		propbet = 0
 		prop_location = "0"
 	if prop_location == "C" or prop_location == "c":
 		bets.update({"anycraps":(propbet + bets.get("anycraps"))})
+		bankroll = bankroll - propbet
+		propbet = 0
 		prop_location = "0"
 	table()
 
@@ -1453,6 +1469,7 @@ def midgamebet(bets):
 	#Main Menu for mid-game betting (not the Come-Out roll)
 	while midbet_location != "1":
 		while midbet_location not in ("1","2","3","4","5","6","7","8","9",""):
+			print("Your bankroll is: $" + str(bankroll))
 			print("Enter a bet location: ")
 			print("1 - No More Bets - Roll Dice")
 			print("2 - Free Odds Bets on Pass or Don't Pass")
@@ -1593,7 +1610,8 @@ while quitflag == False:
 		break
 	#Get bet location
 	bet_location = "0"
-	graphics.crapstable()
+	#graphics.crapstable()
+	table()
 	#checking for easter egg if user chose mature content at start
 	if bankroll == 0:
 		if mature == 1:
@@ -1648,7 +1666,8 @@ while quitflag == False:
     #########################################
 	iscomeout = True
 	while iscomeout == True:
-		graphics.crapstable()
+		#graphics.crapstable()
+		table()
 		print("Press any key to roll.")
 		input()
 		result = dice()
@@ -1800,12 +1819,12 @@ while quitflag == False:
 				os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 				bets.update({"hardway6":0})
 				hardway = 0
-			if bets.get("hardway8") != 0:
+			if bets.get("hardway8") != 0 and (hardway == 8):
 				bankroll = (bankroll + (bets.get("hardway8") * 9) + bets.get("hardway8"))
 				os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 				bets.update({"hardway8":0})
 				hardway = 0
-			if bets.get("hardway10") != 0:
+			if bets.get("hardway10") != 0 and (hardway == 10):
 				bankroll = (bankroll + (bets.get("hardway10") * 7) + bets.get("hardway10"))
 				os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 				bets.update({"hardway10":0})
@@ -1909,6 +1928,7 @@ while quitflag == False:
 						bets.update({"field":0})
 			else:
 				bets.update({"field":0})
+			save(users_dict)
 			input()
 			
 
@@ -1918,35 +1938,48 @@ while quitflag == False:
 				if (bets.get("two") != 0):
 					bankroll = (bankroll + (bets.get("two") * 30)) 			
 					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"two":0})
 				if (bets.get("anycraps") != 0):
 					bankroll = (bankroll + (bets.get("anycraps") * 7)) 			
 					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"two":0})
 			if result == 3:
 				print("Pay the Three!")
 				if (bets.get("three") != 0):
 					bankroll = (bankroll + (bets.get("three") * 15)) 			
 					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"three":0})
 				if (bets.get("anycraps") != 0):
 					bankroll = (bankroll + (bets.get("anycraps") * 7)) 			
 					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"three":0})
 			if result == 11:
 				print("YO-Eleven!!!")
 				if (bets.get("eleven") != 0):
 					bankroll = (bankroll + (bets.get("eleven") * 15)) 			
 					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"eleven":0})
 			if result == 12:
 				print("Box Cars!")
 				if (bets.get("twelve") != 0):
 					bankroll = (bankroll + (bets.get("twelve") * 30)) 			
 					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"twelve":0})
 				if (bets.get("anycraps") != 0):
 					bankroll = (bankroll + (bets.get("anycraps") * 7)) 			
 					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"twelve":0})
 			if result == 7:
 				if (bets.get("anyseven") != 0):
 					bankroll = (bankroll + (bets.get("anyseven") * 4)) 			
 					print("Big Red!!!")
 					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"anyseven":0})
+					bets.update({"anycraps":0})
+					bets.update({"two":0})
+					bets.update({"three":0})
+					bets.update({"eleven":0})
+					bets.update({"twelve":0})
 			#Resetting Propositions bets (minus Hardways) afer payouts or if loss
 			bets.update({"two":0})
 			bets.update({"three":0})
@@ -1954,6 +1987,7 @@ while quitflag == False:
 			bets.update({"twelve":0})
 			bets.update({"anyseven":0})
 			bets.update({"anycraps":0})
+			save(users_dict)
 			
 			
 			#Clearing hardway bets if number rolls soft (not same number)
