@@ -330,6 +330,10 @@ def table():
 		print("Prop - Any Seven: $" + str(bets.get("anyseven")))
 	if (bets.get("anycraps") !=0):
 		print("Prop - Any Craps: $" + str(bets.get("anycraps")))
+	if (bets.get("C&E") !=0):
+		print("Prop - Craps & Eleven: $" + str(bets.get("C&E")))
+	if (bets.get("world") !=0):
+		print("Prop - World: $" + str(bets.get("world") * 5))
 
 
 #Function for implementing Mike's idea for ways to make
@@ -467,7 +471,7 @@ def bets_init():
 	"hardway10":0,			#odds 7 to 1
 	"anyseven":0,			#odds 4 to 1
 	"anycraps":0,			#odds 7 to 1
-	"horn":0,				#odds same as next 4 bets
+	"horn":0,				#odds same as next 4 bets/this never is actually used
 	"eleven":0,				#odds 15 to 1 YO-leven!!!
 	"twelve":0,				#odds 30 to 1
 	"three":0,				#odds 15 to 1
@@ -1444,12 +1448,6 @@ def proposition(bets):
 		prop_location = "0"
 	table()
 
-	#Allow user to back out without committing to any of
-	#these bets
-	#if prop_location == "B" or prop_location == "b":
-	#	table()
-	#	return(bets)
-
 	print("You chose " + prop_location)
 	table()
 	return bets
@@ -1457,7 +1455,116 @@ def proposition(bets):
 
 #Function for any other miscellaneous bets
 def otherbets(bets):
-	pass
+	global bankroll
+	#Check for out of money and return if so
+	if bankroll == 0:
+		print("You have no more money available to bet.")
+		input()
+		table()
+		return(bets)
+	print("Your current bankroll is: $" + str(bankroll))
+	otherbet_location = "0"
+	#The only way to get out of the miscellaneous bet submenu is to type B or b for Back
+	#Also includes a Takedown option as a seven will wipe all these bets and they are
+	#not contract bets (bets you are stuck with once you make them (Pass and Come bets))
+	#so players can choose to takedown or turn off these bets at any point to protect it
+	#from the inevitable shooter Sevening Out
+	while otherbet_location != "B" or otherbet_location != "b":
+		while otherbet_location not in ("Q","q","B","b","T","t","C","c","6","8","W","w"):
+			print("Choose where to place your bet: ")
+			print("6  - Big 6")
+			print("8  - Big 8")
+			print("C  - C&E (Craps and Eleven")
+			print("W  - World (must be divisible by 5)")
+			print("T  - Take down a bet")
+			print("B  - Back")
+			print("Q  - Quit Game")
+			otherbet_location = input()
+			if otherbet_location in ("Q","q","B","b","T","t","C","c","6","8","W","w"):
+				break
+			else:
+				print("Invalid entry!")
+		print("You chose " + otherbet_location)
+
+		#Allow for quitting game at every menu but warning player that there are still
+		#live bets on the table and quitting now would surrender those bets to the house
+		if otherbet_location == "Q" or otherbet_location == "q":
+			confirm = "0"
+			while confirm not in ("Y","N","y","n"):
+				print("Are you sure? (Y/N) All bets on the table will be lost.")
+				confirm = input()
+				if confirm in ("Y","N","y","n"):
+					break
+				else:
+					 print("Invalid entry!")
+			#sending gameover function the 0 signal
+			#to ensure saving
+			if confirm == "Y" or confirm == "y":
+				gameover(0)
+			elif confirm == "N" or confirm == "n":
+				print("Returning to game")
+				table()
+				return(bets)
+
+		#Return if player chooses Back
+		if otherbet_location == "B" or otherbet_location == "b":
+			table()
+			return(bets)
+
+		#Takedown bets submenu
+		if otherbet_location == "T" or otherbet_location == "t":
+			print("Which bet do you want to take down?")
+			if bets.get("big6") != 0:
+				print("6  - Take down Big 6 bet")
+			if bets.get("big8") != 0:
+				print("8  - Take down Big 8 bet")
+			print("B - Back")
+			#Take user input and takedown relevant bet
+			takedownbet = input()
+			if (takedownbet == "B") or (takedownbet == "B"):
+				return(bets)
+			if takedownbet == "6":
+				bankroll = bankroll + bets.get("big6")
+				bets.update({"big6":0})
+			if takedownbet == "8":
+				bankroll = bankroll + bets.get("big8")
+				bets.update({"big8":0})
+			print("Your current bankroll is: $" + str(bankroll))
+			break
+		#Get bet amount
+		print("Enter bet amount: ")
+		otherbet = 0
+		while not int(otherbet) in range(1, bankroll+1):
+			if otherbet > bankroll:
+				print("You do not have that much.")
+				print("Your current bankroll is: $" + str(bankroll))
+				print("Enter a bet amount: ")
+			try:
+				otherbet = int(input())
+			except ValueError:
+				print("Error: Invalid entry. Please enter a number.")
+				continue
+		print("You chose " + str(otherbet))
+		#Take place bet and based on number chosen update betting dictionary
+		#for that number
+		bankroll = bankroll - otherbet
+		os.system("clear")
+		print("Your current bankroll is: $" + str(bankroll))
+		save(users_dict)
+		if otherbet_location == "6":
+			bets.update({"big6":(otherbet + bets.get("big6"))})
+			otherbet_location = "0"
+		if otherbet_location == "8":
+			bets.update({"big8":(otherbet + bets.get("big8"))})
+			otherbet_location = "0"
+		if otherbet_location == "C" or otherbet_location == "c":
+			bets.update({"C&E":(otherbet + bets.get("C&E"))})
+			otherbet_location = "0"
+		if otherbet_location == "W" or otherbet_location == "w":
+			otherbet = math.floor(otherbet/5)
+			bets.update({"world":(otherbet + bets.get("world"))})
+			otherbet_location = "0"
+		table()
 	return bets
 
 
@@ -1832,6 +1939,18 @@ while quitflag == False:
 			save(users_dict)
 
 
+			#Miscellaneous bet payouts on non come-out rolls, bets are off on come-out rolls
+			#Big 6 and Big 8 only
+			if bets.get("big6") != 0:
+				bankroll = (bankroll + bets.get("big6") * 2)
+				os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+				bets.update({"big6":0})
+			if bets.get("big8") != 0:
+				bankroll = (bankroll + bets.get("big8") * 2)
+				os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+				bets.update({"big8":0})
+			save(users_dict)
+
 			#Buy bet payouts on non come-out rolls, bets are off on come-out rolls
 			#Initializing commission to zero for sanity
 			commission = 0
@@ -1933,6 +2052,7 @@ while quitflag == False:
 			
 
 			#Non-hardway proposition bet payouts
+			#Payouts for Miscellaneous bets, C&E and World bets
 			if result == 2:
 				print("Snake Eyes!")
 				if (bets.get("two") != 0):
@@ -1943,6 +2063,14 @@ while quitflag == False:
 					bankroll = (bankroll + (bets.get("anycraps") * 7)) 			
 					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 					bets.update({"two":0})
+				if (bets.get("C&E") != 0):
+					bankroll = (bankroll + math.floor(bets.get("C&E") * 7)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"C&E":0})
+				if (bets.get("world") != 0):
+					bankroll = (bankroll + math.floor((bets.get("world") * 26)/5)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"world":0})
 			if result == 3:
 				print("Pay the Three!")
 				if (bets.get("three") != 0):
@@ -1953,12 +2081,28 @@ while quitflag == False:
 					bankroll = (bankroll + (bets.get("anycraps") * 7)) 			
 					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 					bets.update({"three":0})
+				if (bets.get("C&E") != 0):
+					bankroll = (bankroll + math.floor(bets.get("C&E") * 7)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"C&E":0})
+				if (bets.get("world") != 0):
+					bankroll = (bankroll + math.floor((bets.get("world") * 11)/5)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"world":0})
 			if result == 11:
 				print("YO-Eleven!!!")
 				if (bets.get("eleven") != 0):
 					bankroll = (bankroll + (bets.get("eleven") * 15)) 			
 					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 					bets.update({"eleven":0})
+				if (bets.get("C&E") != 0):
+					bankroll = (bankroll + math.floor(bets.get("C&E") * 15)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"C&E":0})
+				if (bets.get("world") != 0):
+					bankroll = (bankroll + math.floor((bets.get("world") * 11)/5)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"world":0})
 			if result == 12:
 				print("Box Cars!")
 				if (bets.get("twelve") != 0):
@@ -1969,6 +2113,14 @@ while quitflag == False:
 					bankroll = (bankroll + (bets.get("anycraps") * 7)) 			
 					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 					bets.update({"twelve":0})
+				if (bets.get("C&E") != 0):
+					bankroll = (bankroll + math.floor(bets.get("C&E") * 7)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"C&E":0})
+				if (bets.get("world") != 0):
+					bankroll = (bankroll + math.floor((bets.get("world") * 26)/5)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"world":0})
 			if result == 7:
 				if (bets.get("anyseven") != 0):
 					bankroll = (bankroll + (bets.get("anyseven") * 4)) 			
@@ -1980,6 +2132,11 @@ while quitflag == False:
 					bets.update({"three":0})
 					bets.update({"eleven":0})
 					bets.update({"twelve":0})
+				if (bets.get("world") != 0):
+					#Push
+					bankroll = (bankroll + (bets.get("world"))) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"world":0})
 			#Resetting Propositions bets (minus Hardways) afer payouts or if loss
 			bets.update({"two":0})
 			bets.update({"three":0})
@@ -1988,7 +2145,10 @@ while quitflag == False:
 			bets.update({"anyseven":0})
 			bets.update({"anycraps":0})
 			save(users_dict)
-			
+			#Clearing Miscellaneous bets
+			bets.update({"C&E":0})	
+			bets.update({"world":0})	
+
 			
 			#Clearing hardway bets if number rolls soft (not same number)
 			if (bets.get("hardway4") != 0) and (result == 4) and (hardway == 0):
@@ -2082,6 +2242,10 @@ while quitflag == False:
 				bets.update({"place9":0})
 				bets.update({"place10":0})
 				save(users_dict)
+
+				#Clearing Big 6 and Big 8 on Seven Out
+				bets.update({"big6":0})
+				bets.update({"big8":0})
 
 				#Clearing hardway bets on Seven Out
 				bets.update({"hardway4":0})
