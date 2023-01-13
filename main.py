@@ -59,10 +59,15 @@ pickle.dump(users_dict, open(userdata,"wb"))
 
 #Function that rolls two dice
 def dice():
+	#setup for hardway check
+	global hardway
+	hardway = 0
+
 	if point == 0:
 		print("Point is not set.")
 	else:
 		print("Point is : ", point)
+
 	print("Rolling the dice...")
 	rng = random.SystemRandom()
 	die1 		= rng.randint(1,6)
@@ -100,6 +105,21 @@ def dice():
 		graphics.dieface6()
 	print(str(die1) + " " + str(die2))
 	print("You rolled : ", diceresult)
+	
+	#checking for hardways
+	if (die1 == 2) and (die2 == 2):
+		hardway = 4
+		print("Four! The Hard Way!")
+	if (die1 == 3) and (die2 == 3):
+		hardway = 6
+		print("Six! The Hard Way!")
+	if (die1 == 4) and (die2 == 4):
+		hardway = 8
+		print("Eight! The Hard Way!")
+	if (die1 == 5) and (die2 == 5):
+		hardway = 10
+		print("Ten! The Hard Way!")
+
 	return diceresult
 
 
@@ -239,11 +259,13 @@ def table():
 		graphics.crapstable9()
 	elif point == 10:
 		graphics.crapstable10()
+
 	#Display current Pass or Don't Pass bet
 	if bet_location == 1:
 		print("Pass: $" + str(bet_amount))
 	if bet_location == 2:
 		print("DP: $" + str(bet_amount))
+
 	#Display current Odds bet if there is one
 	if (bets.get('freeodds_pass4o10') != 0) or (bets.get('freeodds_pass5o9') != 0) or (bets.get('freeodds_pass6o8') != 0) or (bets.get('freeodds_dp4o10') != 0) or (bets.get('freeodds_dp5o9') !=0) or (bets.get('freeodds_dp6o8') != 0):
 		if (point == 4) or (point == 10):
@@ -253,9 +275,11 @@ def table():
 		if (point == 6) or (point == 8):
 			freeoddsbet = (bets.get('freeodds_pass6o8') + bets.get('freeodds_dp6o8'))
 		print("Odds: $" + str(freeoddsbet))
+
 	#Display current Field bet if there is one
 	if bets.get("field") != 0:
 		print("Field: $" + str(bets.get("field")))
+
 	#Display numbers you have money on and their 
 	#respective amount of bets 
 	#Not doing these individually because typically
@@ -280,6 +304,30 @@ def table():
 	if  (bets.get("place10") != 0) or (bets.get("buy10") != 0) or (bets.get("lay10") != 0):
 		tentotal = bets.get("place10") + bets.get("buy10") +  bets.get("lay10")
 		print("Ten: $" + str(tentotal))		
+
+	#Display Hardways if you have money on them
+	if (bets.get("hardway4") !=0):
+		print("Hardway 4: $" + str(bets.get("hardway4")))
+	if (bets.get("hardway6") !=0):
+		print("Hardway 6: $" + str(bets.get("hardway6")))
+	if (bets.get("hardway8") !=0):
+		print("Hardway 8: $" + str(bets.get("hardway8")))
+	if (bets.get("hardway10") !=0):
+		print("Hardway 10: $" + str(bets.get("hardway10")))
+
+	#Display Other Proposition bets if you have money on them	
+	if (bets.get("two") !=0):
+		print("Prop - Two: $" + str(bets.get("two")))
+	if (bets.get("three") !=0):
+		print("Prop - Three: $" + str(bets.get("three")))
+	if (bets.get("eleven") !=0):
+		print("Prop - Eleven: $" + str(bets.get("eleven")))
+	if (bets.get("twelve") !=0):
+		print("Prop - Twelve: $" + str(bets.get("twelve")))
+	if (bets.get("anyseven") !=0):
+		print("Prop - Any Seven: $" + str(bets.get("anyseven")))
+	if (bets.get("anycraps") !=0):
+		print("Prop - Any Craps: $" + str(bets.get("anycraps")))
 
 
 #Function for implementing Mike's idea for ways to make
@@ -417,12 +465,14 @@ def bets_init():
 	"hardway10":0,			#odds 7 to 1
 	"anyseven":0,			#odds 4 to 1
 	"anycraps":0,			#odds 7 to 1
-	"horn11":0,				#odds 15 to 1 YO-leven!!!
-	"horn12":0,				#odds 30 to 1
-	"horn3":0,				#odds 15 to 1
-	"horn2":0,				#odds 30 to 1
+	"horn":0,				#odds same as next 4 bets
+	"eleven":0,				#odds 15 to 1 YO-leven!!!
+	"twelve":0,				#odds 30 to 1
+	"three":0,				#odds 15 to 1
+	"two":0,				#odds 30 to 1
     "big6":0,               #some craps tables have these, odds 1 to 1
     "big8":0,               #some craps tables have these, odds 1 to 1
+    "world":0,              #horn plus any seven
     "C&E":0                 #craps-eleven, same as any craps plus 11, pays same as
 	}                       #the individual bets, any craps (7 to 1) & YO11 (15 to 1)
 	return bets
@@ -1149,13 +1199,247 @@ def freeodds_comedc(bets):
 	return bets
 
 
-#Function for Hardways and Horn bets
-def hardwayhorn(bets):
-	pass
+#Function for Hardway Bets
+def hardwaybets(bets):
+	global bankroll
+	#Check for out of money and return if so
+	if bankroll == 0:
+		print("You have no more money available to bet.")
+		input()
+		table()
+		return(bets)
+	print("Your current bankroll is: $" + str(bankroll))
+	hardwaybet_location = "0"
+	#The only way to get out of the Hardway bet submenu is to type B or b for Back
+	#Also includes a Takedown option as a seven will wipe all these bets and they are
+	#not contract bets (bets you are stuck with once you make them (Pass and Come bets))
+	#so players can choose to takedown or turn off these bets at any point to protect it
+	#from the inevitable shooter Sevening Out
+	while hardwaybet_location != "B" or hardwaybet_location != "b":
+		while hardwaybet_location not in ("Q","q","B","b","T","t","4","6","8","10"):
+			print("Choose where to place your bet: ")
+			print("4  - 4 Hardway")
+			print("6  - 6 Hardway")
+			print("8  - 8 Hardway")
+			print("10 - 10 Hardway")
+			print("T  - Take down a bet")
+			print("B  - Back")
+			print("Q  - Quit Game")
+			hardwaybet_location = input()
+			if hardwaybet_location in ("Q","q","B","b","T","t","4","6","8","10"):
+				break
+			else:
+				print("Invalid entry!")
+		print("You chose " + hardwaybet_location)
+
+		#Allow for quitting game at every menu but warning player that there are still
+		#live bets on the table and quitting now would surrender those bets to the house
+		if hardwaybet_location == "Q" or hardwaybet_location == "q":
+			confirm = "0"
+			while confirm not in ("Y","N","y","n"):
+				print("Are you sure? (Y/N) All bets on the table will be lost.")
+				confirm = input()
+				if confirm in ("Y","N","y","n"):
+					break
+				else:
+					 print("Invalid entry!")
+			#sending gameover function the 0 signal
+			#to ensure saving
+			if confirm == "Y" or confirm == "y":
+				gameover(0)
+			elif confirm == "N" or confirm == "n":
+				print("Returning to game")
+				table()
+				return(bets)
+
+		#Return if player chooses Back
+		if hardwaybet_location == "B" or hardwaybet_location == "b":
+			table()
+			return(bets)
+
+		#Takedown bets submenu
+		if hardwaybet_location == "T" or hardwaybet_location == "t":
+			print("Which bet do you want to take down?")
+			if bets.get("hardway4") != 0:
+				print("4  - Take down 4 Hardway bet")
+			if bets.get("hardway6") != 0:
+				print("6  - Take down 6 Hardway bet")
+			if bets.get("hardway8") != 0:
+				print("8  - Take down 8 Hardway bet")
+			if bets.get("hardway10") != 0:
+				print("10 - Take down 10 Hardway bet")
+			print("B - Back")
+			#Take user input and takedown relevant bet
+			takedownbet = input()
+			if (takedownbet == "B") or (takedownbet == "B"):
+				return(bets)
+			if takedownbet == "4":
+				bankroll = bankroll + bets.get("hardway4")
+				bets.update({"hardway4":0})
+			if takedownbet == "6":
+				bankroll = bankroll + bets.get("hardway6")
+				bets.update({"hardway6":0})
+			if takedownbet == "8":
+				bankroll = bankroll + bets.get("hardway8")
+				bets.update({"hardway8":0})
+			if takedownbet == "10":
+				bankroll = bankroll + bets.get("hardway10")
+				bets.update({"hardway10":0})
+			print("Your current bankroll is: $" + str(bankroll))
+			break
+		#Get bet amount
+		print("Enter bet amount: ")
+		hardwaybet = 0
+		while not int(hardwaybet) in range(1, bankroll+1):
+			if hardwaybet > bankroll:
+				print("You do not have that much.")
+				print("Your current bankroll is: $" + str(bankroll))
+				print("Enter a bet amount: ")
+			try:
+				hardwaybet = int(input())
+			except ValueError:
+				print("Error: Invalid entry. Please enter a number.")
+				continue
+		print("You chose " + str(hardwaybet))
+		#Take place bet and based on number chosen update betting dictionary
+		#for that number
+		bankroll = bankroll - hardwaybet
+		os.system("clear")
+		print("Your current bankroll is: $" + str(bankroll))
+		save(users_dict)
+		if hardwaybet_location == "4":
+			bets.update({"hardway4":(hardwaybet + bets.get("hardway4"))})
+			hardwaybet_location = "0"
+		if hardwaybet_location == "6":
+			bets.update({"hardway6":(hardwaybet + bets.get("hardway6"))})
+			hardwaybet_location = "0"
+		if hardwaybet_location == "8":
+			bets.update({"hardway8":(hardwaybet + bets.get("hardway8"))})
+			hardwaybet_location = "0"
+		if hardwaybet_location == "10":
+			bets.update({"hardway10":(hardwaybet + bets.get("hardway10"))})
+			hardwaybet_location = "0"
+		table()
+	print("You chose " + hardwaybet_location)
+	table()
 	return bets
 
 
-#Function for any other miscelaneous bets
+#Function for Proposition bets (Hardways, 2, 3, 12, 11, Horn, Any Craps, and Any Seven)
+def proposition(bets):
+	global bankroll
+	if bankroll == 0:
+		print("You have no more money available to bet.")
+		input()
+		table()
+		return(bets)
+	prop_location = "0"
+	#Submenu to choose Proposition bets
+	while prop_location not in ("1","2","3","11","12","6","7","C","c","B","b","Q","q"):
+		print("Choose one: ")
+		print("1  - Hardways")
+		print("2  - Two           - 30 to 1")
+		print("3  - Three         - 15 to 1")
+		print("11 - Eleven        - 15 to 1")
+		print("12 - Twelve        - 30 to 1")
+		print("6  - Horn Bet (must be divisible by 4)")
+		print("7  - Any Seven Bet - 4 to 1")
+		print("C  - Any Craps Bet - 7 to 1")
+		print("B  - Back")
+		print("Q  - Quit Game")
+		prop_location = input()
+		if prop_location in ("1","2","3","11","12","6","7","C","c","B","b","Q","q"):
+			break
+		else:
+			print("Invalid entry!")
+	#Allow for quitting game at every menu but warning player that there are still
+	#live bets on the table and quitting now would surrender those bets to the house
+	if prop_location == "Q" or prop_location == "q":
+		confirm = "0"
+		while confirm not in ("Y","N","y","n"):
+			print("Are you sure? (Y/N) All bets on the table will be lost.")
+			confirm = input()
+			if confirm in ("Y","N","y","n"):
+				break
+			else:
+				 print("Invalid entry!")
+		if confirm == "Y" or confirm == "y":
+			gameover(0)
+		elif confirm == "N" or confirm == "n":
+			print("Returning to game")
+			table()
+			return(bets)
+
+	#Allow user to back out without committing to any of
+	#these bets
+	if prop_location == "B" or prop_location == "b":
+		table()
+		return(bets)
+
+	#check for hardways submenu
+	if prop_location == "1":
+		bets = hardwaybets(bets)
+		return(bets)
+
+	#Get bet amount
+	print("Enter bet amount: ")
+	propbet = 0
+	while not int(propbet) in range(1, bankroll+1):
+		if propbet > bankroll:
+			print("You do not have that much.")
+			print("Your current bankroll is: $" + str(bankroll))
+			print("Enter a bet amount: ")
+		try:
+			propbet = int(input())
+		except ValueError:
+			print("Error: Invalid entry. Please enter a number.")
+			continue
+	print("You chose " + str(propbet))
+
+	#Depending on user input go to next submenu function
+	#for hardway bets or take bets on other prop bets
+	os.system("clear")
+	print("Your current bankroll is: $" + str(bankroll))
+	save(users_dict)
+	if prop_location == "2":
+		bets.update({"two":(propbet + bets.get("two"))})
+		prop_location = "0"
+	if prop_location == "3":
+		bets.update({"three":(propbet + bets.get("three"))})
+		prop_location = "0"
+	if prop_location == "11":
+		bets.update({"eleven":(propbet + bets.get("eleven"))})
+		prop_location = "0"
+	if prop_location == "12":
+		bets.update({"twelve":(propbet + bets.get("twelve"))})
+		prop_location = "0"
+	if prop_location == "6":
+		propbet = math.floor(propbet/4)
+		bets.update({"two":(propbet + bets.get("two"))})
+		bets.update({"three":(propbet + bets.get("three"))})
+		bets.update({"eleven":(propbet + bets.get("eleven"))})
+		bets.update({"twelve":(propbet + bets.get("twelve"))})
+		prop_location = "0"
+	if prop_location == "7":
+		bets.update({"anyseven":(propbet + bets.get("anyseven"))})
+		prop_location = "0"
+	if prop_location == "C" or prop_location == "c":
+		bets.update({"anycraps":(propbet + bets.get("anycraps"))})
+		prop_location = "0"
+	table()
+
+	#Allow user to back out without committing to any of
+	#these bets
+	#if prop_location == "B" or prop_location == "b":
+	#	table()
+	#	return(bets)
+
+	print("You chose " + prop_location)
+	table()
+	return bets
+
+
+#Function for any other miscellaneous bets
 def otherbets(bets):
 	pass
 	return bets
@@ -1176,7 +1460,7 @@ def midgamebet(bets):
 			print("4 - Come or Don't Come Bets")
 			print("5 - Free Odds Bets on Come or Don't Come")
 			print("6 - Place, Buy, and Lay Bets")
-			print("7 - Hardway & Horn Bets")
+			print("7 - Proposition Bets")
 			print("8 - Miscellaneous Bets")
 			print("9 - Quit Game")
 			midbet_location = input()
@@ -1234,10 +1518,10 @@ def midgamebet(bets):
 		if midbet_location == 6:
 			#Place/Buy/Lay
 			bets = placebuylay(bets)
-		#Choosing 7 allows player to bet on the Hardways or Horn Bets
+		#Choosing 7 allows player to bet on the Proposition Bets
 		if midbet_location == 7:
-			#Hardway and Horn
-			bets = hardwayhorn(bets)
+			#Proposition Bets
+			bets = proposition(bets)
 		#Choosing 8 allows players to make other bets (Big6, Big8, C&E, World,
 		#and anything else I come up with or think about)
 		if midbet_location == 8:
@@ -1279,6 +1563,8 @@ global buyselect
 buyselect   = 	[0,0,0,0,0,0]
 global layselect
 layselect   =	[0,0,0,0,0,0]
+global hardway
+hardway = 0
 
 bets = bets_init()
 
@@ -1503,6 +1789,30 @@ while quitflag == False:
 			save(users_dict)
 
 
+			#Hardway bet payouts
+			if (bets.get("hardway4") != 0) and (hardway == 4):
+				bankroll = (bankroll + (bets.get("hardway4") * 7) + bets.get("hardway4"))
+				os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+				bets.update({"hardway4":0})
+				hardway = 0
+			if (bets.get("hardway6") != 0) and (hardway == 6):
+				bankroll = (bankroll + (bets.get("hardway6") * 9) + bets.get("hardway6"))
+				os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+				bets.update({"hardway6":0})
+				hardway = 0
+			if bets.get("hardway8") != 0:
+				bankroll = (bankroll + (bets.get("hardway8") * 9) + bets.get("hardway8"))
+				os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+				bets.update({"hardway8":0})
+				hardway = 0
+			if bets.get("hardway10") != 0:
+				bankroll = (bankroll + (bets.get("hardway10") * 7) + bets.get("hardway10"))
+				os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+				bets.update({"hardway10":0})
+				hardway = 0
+			save(users_dict)
+
+
 			#Buy bet payouts on non come-out rolls, bets are off on come-out rolls
 			#Initializing commission to zero for sanity
 			commission = 0
@@ -1600,6 +1910,62 @@ while quitflag == False:
 			else:
 				bets.update({"field":0})
 			input()
+			
+
+			#Non-hardway proposition bet payouts
+			if result == 2:
+				print("Snake Eyes!")
+				if (bets.get("two") != 0):
+					bankroll = (bankroll + (bets.get("two") * 30)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+				if (bets.get("anycraps") != 0):
+					bankroll = (bankroll + (bets.get("anycraps") * 7)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+			if result == 3:
+				print("Pay the Three!")
+				if (bets.get("three") != 0):
+					bankroll = (bankroll + (bets.get("three") * 15)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+				if (bets.get("anycraps") != 0):
+					bankroll = (bankroll + (bets.get("anycraps") * 7)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+			if result == 11:
+				print("YO-Eleven!!!")
+				if (bets.get("eleven") != 0):
+					bankroll = (bankroll + (bets.get("eleven") * 15)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+			if result == 12:
+				print("Box Cars!")
+				if (bets.get("twelve") != 0):
+					bankroll = (bankroll + (bets.get("twelve") * 30)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+				if (bets.get("anycraps") != 0):
+					bankroll = (bankroll + (bets.get("anycraps") * 7)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+			if result == 7:
+				if (bets.get("anyseven") != 0):
+					bankroll = (bankroll + (bets.get("anyseven") * 4)) 			
+					print("Big Red!!!")
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+			#Resetting Propositions bets (minus Hardways) afer payouts or if loss
+			bets.update({"two":0})
+			bets.update({"three":0})
+			bets.update({"eleven":0})
+			bets.update({"twelve":0})
+			bets.update({"anyseven":0})
+			bets.update({"anycraps":0})
+			
+			
+			#Clearing hardway bets if number rolls soft (not same number)
+			if (bets.get("hardway4") != 0) and (result == 4) and (hardway == 0):
+				bets.update({"hardway4":0})
+			if (bets.get("hardway6") != 0) and (result == 6) and (hardway == 0):
+				bets.update({"hardway6":0})
+			if (bets.get("hardway8") != 0) and (result == 8) and (hardway == 0):
+				bets.update({"hardway8":0})
+			if (bets.get("hardway10") != 0) and (result == 10) and (hardway == 0):
+				bets.update({"hardway10":0})
+			save(users_dict)
 
 
 			#Lay bets lose if their number rolls
@@ -1681,6 +2047,13 @@ while quitflag == False:
 				bets.update({"place8":0})
 				bets.update({"place9":0})
 				bets.update({"place10":0})
+				save(users_dict)
+
+				#Clearing hardway bets on Seven Out
+				bets.update({"hardway4":0})
+				bets.update({"hardway6":0})
+				bets.update({"hardway8":0})
+				bets.update({"hardway10":0})
 				save(users_dict)
 
 				iscomeout = True
