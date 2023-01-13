@@ -41,6 +41,16 @@ data/sounds/chips.mp3 - sound effect for any other bet winning
 
 
 
+01/13/2023
+
+Propositions bets appear to be working, this includes 2,3,11,12, 
+
+also the hardways for 4,6,8,10, as well as any seven, and any craps
+
+Works but needs more rigorous testing to ensure accuracy.
+
+
+
 01/09/2023
 
 Place, Buy, and Lay bets completed and appears to be working.
@@ -94,7 +104,7 @@ DONE! 01/03/2023 - Field Bets
 
 DONE! 01/07/2023 - Place Bets/Buy Bets/Lay Bets
 
-- Hardway Bets/Any Craps/Any Seven
+DONE! 01/13/2023 - Propostions bets,Hardway Bets/Any Craps/Any Seven
 
 - Any other bets or features I might want to add:
 - Big 6 and Big 8
