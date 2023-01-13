@@ -47,6 +47,8 @@ Propositions bets appear to be working, this includes 2,3,11,12,
 
 also the hardways for 4,6,8,10, as well as any seven, and any craps
 
+Added Big 6, Big 8, C&E, and World bets under Miscellaneous bets
+
 Works but needs more rigorous testing to ensure accuracy.
 
 
@@ -107,9 +109,9 @@ DONE! 01/07/2023 - Place Bets/Buy Bets/Lay Bets
 DONE! 01/13/2023 - Propostions bets,Hardway Bets/Any Craps/Any Seven
 
 - Any other bets or features I might want to add:
-- Big 6 and Big 8
-- C&E Bet (Craps and Eleven)
-- World Bet (C&E plus any seven)
+DONE! 01/13/2023 - Big 6 and Big 8
+DONE! 01/13/2023 - C&E Bet (Craps and Eleven)
+DONE! 01/13/2023 - World Bet (C&E plus any seven)
 
 
 
