@@ -445,7 +445,19 @@ def bets_init():
 	"freeodds_dc9":0,		#can be made after point established, odds 2 to 3
 	"freeodds_dc10":0,		#can be made after point established, odds 1 to 2
 	"come":0,				#acts like pass line, but bet turns into buy bet sort of
+	"come4":0,				#come point 4
+	"come5":0,				#come point 5
+	"come6":0,				#come point 6
+	"come8":0,				#come point 8
+	"come9":0,				#come point 9
+	"come10":0,				#come point 10
 	"dc":0,					#acts like don't pass line, but bet turns into lay bet sort of
+	"dc4":0,				#don't come point 4
+	"dc5":0,				#don't come point 5
+	"dc6":0,				#don't come point 6
+	"dc8":0,				#don't come point 8
+	"dc9":0,				#don't come point 9
+	"dc10":0,				#don't come point 10
 	"field":0,				#roll 2 is 2 to 1, roll 12 is 3 to 1, everything else is 1 to 1
     "place4":0,             #hit 4 before shooter loses, odds 9 to 5
     "place5":0,             #hit 5 before shooter loses, odds 7 to 5
