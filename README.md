@@ -41,6 +41,16 @@ data/sounds/chips.mp3 - sound effect for any other bet winning
 
 
 
+01/16/2023
+
+Added the ability to NOT bet on Pass or Don't Pass on come out
+
+roll.  Also limited Free Odds bets to 5x the pass/dp bet.
+
+Also changed Field Bet payout for 12 from 3x to 2x to match the 2.
+
+
+
 01/13/2023
 
 Propositions bets appear to be working, this includes 2,3,11,12, 

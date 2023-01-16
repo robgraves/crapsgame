@@ -263,9 +263,9 @@ def table():
 		graphics.crapstable10()
 
 	#Display current Pass or Don't Pass bet
-	if bet_location == 1:
+	if bet_location == "1":
 		print("Pass: $" + str(bet_amount))
-	if bet_location == 2:
+	if bet_location == "2":
 		print("DP: $" + str(bet_amount))
 
 	#Display current Odds bet if there is one
@@ -444,20 +444,20 @@ def bets_init():
 	"freeodds_dc8":0,		#can be made after point established, odds 5 to 6
 	"freeodds_dc9":0,		#can be made after point established, odds 2 to 3
 	"freeodds_dc10":0,		#can be made after point established, odds 1 to 2
-	"come":0,				#acts like pass line, but bet turns into buy bet sort of
-	"come4":0,				#come point 4
-	"come5":0,				#come point 5
-	"come6":0,				#come point 6
-	"come8":0,				#come point 8
-	"come9":0,				#come point 9
-	"come10":0,				#come point 10
-	"dc":0,					#acts like don't pass line, but bet turns into lay bet sort of
-	"dc4":0,				#don't come point 4
-	"dc5":0,				#don't come point 5
-	"dc6":0,				#don't come point 6
-	"dc8":0,				#don't come point 8
-	"dc9":0,				#don't come point 9
-	"dc10":0,				#don't come point 10
+	"come":0,				#acts like pass line, pays 1 to 1
+	"come4":0,				#come point 4, pays 1 to 1
+	"come5":0,				#come point 5, pays 1 to 1
+	"come6":0,				#come point 6, pays 1 to 1
+	"come8":0,				#come point 8, pays 1 to 1
+	"come9":0,				#come point 9, pays 1 to 1
+	"come10":0,				#come point 10, pays 1 to 1
+	"dc":0,					#acts like don't pass, pays 1 to 1
+	"dc4":0,				#don't come point 4, pays 1 to 1
+	"dc5":0,				#don't come point 5, pays 1 to 1
+	"dc6":0,				#don't come point 6, pays 1 to 1
+	"dc8":0,				#don't come point 8, pays 1 to 1
+	"dc9":0,				#don't come point 9, pays 1 to 1
+	"dc10":0,				#don't come point 10, pays 1 to 1
 	"field":0,				#roll 2 is 2 to 1, roll 12 is 3 to 1, everything else is 1 to 1
     "place4":0,             #hit 4 before shooter loses, odds 9 to 5
     "place5":0,             #hit 5 before shooter loses, odds 7 to 5
@@ -513,6 +513,8 @@ def clearbets(bets):
 ####################################################
 def freeodds_passdp(bets):
 	global bankroll
+	global bet_location
+	global bet_amount
 	#this scenario (point == 0) never happens in the game's current 
 	#state as this function is never called in a come-out roll
 	#but is there for future proofing if ever make it so players
@@ -528,8 +530,16 @@ def freeodds_passdp(bets):
 		table()
 		return(bets)
 	else:
+		#Reject if no money on Pass or Don't Pass
+		if bet_location == "3":
+			print("You cannot take odds on Pass or Don't Pass")
+			print("if you didn't bet on Pass or Don't Pass on")
+			print("the come out roll.")
+			input()
+			table()
+			return(bets)
 		#Odds on Pass Line wager
-		if bet_location == 1:
+		if bet_location == "1":
 			print("Your current bankroll is: $" + str(bankroll))
 			print("point is " + str(point))
 			print("Take odds on Pass Line wager.")
@@ -540,6 +550,15 @@ def freeodds_passdp(bets):
 				if oddsbet > bankroll:
 					print("You do not have that much.")
 					print("Your current bankroll is: $" + str(bankroll))
+					print("Enter a bet amount: ")
+				try:
+					oddsbet = int(input())
+				except ValueError:
+					print("Error: Invalid entry. Please enter a number.")
+					continue
+			while not int(oddsbet) in range(1, (bet_amount*5)+1):
+				if oddsbet > (bet_amount * 5):
+					print("You cannot take more than 5x odds")
 					print("Enter a bet amount: ")
 				try:
 					oddsbet = int(input())
@@ -564,7 +583,7 @@ def freeodds_passdp(bets):
 			#input()						##FOR TESTING
 
 		#Odds on Don't Pass wager
-		if bet_location == 2:
+		if bet_location == "2":
 			print("Your current bankroll is: $" + str(bankroll))
 			print("point is " + str(point))
 			print("Take odds on Don't Pass wager.")
@@ -575,6 +594,15 @@ def freeodds_passdp(bets):
 				if oddsbet > bankroll:
 					print("You do not have that much.")
 					print("Your current bankroll is: $" + str(bankroll))
+					print("Enter a bet amount: ")
+				try:
+					oddsbet = int(input())
+				except ValueError:
+					print("Error: Invalid entry. Please enter a number.")
+					continue
+			while not int(oddsbet) in range(1, (bet_amount*5)+1):
+				if oddsbet > (bet_amount * 5):
+					print("You cannot take more than 5x odds")
 					print("Enter a bet amount: ")
 				try:
 					oddsbet = int(input())
@@ -1691,6 +1719,7 @@ bankroll = 0
 #1 for Pass, 2 for Don't Pass
 global bet_location
 bet_location = "0"
+bet_amount = 0
 #Lists for Place, Buy, and Lay bets
 #Need to check against results
 global placeselect
@@ -1740,40 +1769,43 @@ while quitflag == False:
 	if bankroll == 0:
 		gameover(0)
 		break
-	while bet_location not in ("1","2","3"):
+	while bet_location not in ("1","2","3","Q","q"):
 		print("Enter a bet location: ")
 		print("1 - Pass Line (Bet with the shooter)")
-		print("2 - Don't Pass Line (Bet with the house)")
-		print("3 - Quit Game")
+		print("2 - Don't Pass Line (The Dark Side)")
+		print("3 - Skip betting on come out roll")
+		print("Q - Quit Game")
 		#This variable bet_location only refers to Pass and Don't Pass
 		bet_location = input()
-		if bet_location in ("1","2","3"):
+		if bet_location in ("1","2","3","Q","q"):
 			break
 		else:
 			print("Invalid entry!")
-	if bet_location == "3":
+	if bet_location == "Q" or bet_location == "q":
 		quitflag = True
 		gameover(0)
 		break
+		
 	print("You chose " + bet_location)
-	bet_location = int(bet_location)
+	#bet_location = int(bet_location)
 
-	#Get bet amount
-	print("Enter a bet amount: ")
-	#This variable bet_amount only refers to Pass or Don't Pass bet
-	bet_amount = 0
-	while not int(bet_amount) in range(1, bankroll+1):
-		if bet_amount > bankroll:
-			print("You do not have that much.")
-			print("Your current bankroll is: $" + str(bankroll))
-			print("Enter a bet amount: ")
-		try:
-			bet_amount = int(input())
-		except ValueError:
-			print("Error: Invalid entry. Please enter a number.")
-			continue
-	print("You chose " + str(bet_amount))
-	bankroll = bankroll - bet_amount
+	if bet_location == "1" or bet_location == "2":
+		#Get bet amount
+		print("Enter a bet amount: ")
+		#This variable bet_amount only refers to Pass or Don't Pass bet
+		bet_amount = 0
+		while not int(bet_amount) in range(1, bankroll+1):
+			if bet_amount > bankroll:
+				print("You do not have that much.")
+				print("Your current bankroll is: $" + str(bankroll))
+				print("Enter a bet amount: ")
+			try:
+				bet_amount = int(input())
+			except ValueError:
+				print("Error: Invalid entry. Please enter a number.")
+				continue
+		print("You chose " + str(bet_amount))
+		bankroll = bankroll - bet_amount
 	os.system("clear")
 	print("Your current bankroll is: $" + str(bankroll))
 	save(users_dict)
@@ -1795,7 +1827,7 @@ while quitflag == False:
 			print("Shooter Wins!!!")
 			os.system("mplayer " + applausesound + " > /dev/null 2>&1")
 			os.system("mplayer " + winsound + " > /dev/null 2>&1")
-			if bet_location == 1:
+			if bet_location == "1":
 				bankroll = (bankroll + (bet_amount * 2))
 			save(users_dict)
 
@@ -1838,7 +1870,7 @@ while quitflag == False:
 			print("Shooter Craps Out!")
 			os.system("mplayer " + awwsound + " > /dev/null 2>&1 &")
 			#print("bet location is : ", bet_location)
-			if bet_location == 2:
+			if bet_location == "2":
 				if result == 2 or result == 3:
 					bankroll = (bankroll + (bet_amount * 2))
 				if result == 12:
@@ -2050,7 +2082,9 @@ while quitflag == False:
 						bankroll = (bankroll + (bets.get("field") * 3))
 						bets.update({"field":0})
 					elif result == 12:
-						bankroll = (bankroll + (bets.get("field") * 4))
+						#pay triple on 12 or just double ??? Not sure yet
+						#bankroll = (bankroll + (bets.get("field") * 4))
+						bankroll = (bankroll + (bets.get("field") * 3))
 						bets.update({"field":0})
 					elif result in (3,4,9,10,11):
 						bankroll = (bankroll + (bets.get("field") * 2))
@@ -2198,7 +2232,7 @@ while quitflag == False:
 				os.system("mplayer " + applausesound + " > /dev/null 2>&1")
 				os.system("mplayer " + winsound + " > /dev/null 2>&1")
 				#print("bet location is : ", bet_location)
-				if bet_location == 1:
+				if bet_location == "1":
 					bankroll = (bankroll + (bet_amount * 2))
 					#Checking for free odds bets on passline points and payouts
 					if bets.get("freeodds_pass4o10") != 0:
@@ -2227,7 +2261,7 @@ while quitflag == False:
 				print("Pay the Don't Pass.")
 				os.system("mplayer " + awwsound + " > /dev/null 2>&1 &")
 				#print("bet location is : ", bet_location)
-				if bet_location == 2:
+				if bet_location == "2":
 					bankroll = (bankroll + (bet_amount * 2))
 					#Checking for free odds bets on don't pass points and payouts
 					if bets.get("freeodds_dp4o10") != 0:
