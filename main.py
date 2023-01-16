@@ -1468,12 +1468,12 @@ def proposition(bets):
 		propbet = 0
 		prop_location = "0"
 	if prop_location == "6":
+		bankroll = bankroll - propbet
 		propbet = math.floor(propbet/4)
 		bets.update({"two":(propbet + bets.get("two"))})
 		bets.update({"three":(propbet + bets.get("three"))})
 		bets.update({"eleven":(propbet + bets.get("eleven"))})
 		bets.update({"twelve":(propbet + bets.get("twelve"))})
-		bankroll = bankroll - propbet
 		propbet = 0
 		prop_location = "0"
 	if prop_location == "7":
@@ -1769,14 +1769,17 @@ while quitflag == False:
 	if bankroll == 0:
 		gameover(0)
 		break
-	while bet_location not in ("1","2","3","Q","q"):
+	while bet_location not in ("1","2","3","4","Q","q"):
 		print("Enter a bet location: ")
 		print("1 - Pass Line (Bet with the shooter)")
 		print("2 - Don't Pass Line (The Dark Side)")
-		print("3 - Skip betting on come out roll")
+		print("3 - Done betting/Skip Betting")
+		print("4 - Other bets")
 		print("Q - Quit Game")
 		#This variable bet_location only refers to Pass and Don't Pass
 		bet_location = input()
+		if bet_location == "4":
+			bets = midgamebet(bets)	
 		if bet_location in ("1","2","3","Q","q"):
 			break
 		else:
@@ -1785,6 +1788,7 @@ while quitflag == False:
 		quitflag = True
 		gameover(0)
 		break
+
 		
 	print("You chose " + bet_location)
 	#bet_location = int(bet_location)
@@ -1826,9 +1830,9 @@ while quitflag == False:
 		if result == 7 or result == 11:
 			print("Shooter Wins!!!")
 			os.system("mplayer " + applausesound + " > /dev/null 2>&1")
-			os.system("mplayer " + winsound + " > /dev/null 2>&1")
 			if bet_location == "1":
 				bankroll = (bankroll + (bet_amount * 2))
+				os.system("mplayer " + winsound + " > /dev/null 2>&1")
 			save(users_dict)
 
 			#Lay bet payouts on come-out rolls, pays on 7
@@ -1873,6 +1877,7 @@ while quitflag == False:
 			if bet_location == "2":
 				if result == 2 or result == 3:
 					bankroll = (bankroll + (bet_amount * 2))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1")
 				if result == 12:
 					bankroll = (bankroll + bet_amount)
 			save(users_dict)
@@ -1905,6 +1910,116 @@ while quitflag == False:
 			if (bets.get("lay10") != 0) and (result == 10):
 				bets.update({"lay10":0})
 			save(users_dict)
+
+			#Field bet payouts
+			if result in (2,3,4,9,10,11,12):
+				if (bets.get("field") != 0):
+					print("Field bet Winner!!!")
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					if result == 2:
+						bankroll = (bankroll + (bets.get("field") * 3))
+						bets.update({"field":0})
+					elif result == 12:
+						#pay triple on 12 or just double ??? Not sure yet
+						#bankroll = (bankroll + (bets.get("field") * 4))
+						bankroll = (bankroll + (bets.get("field") * 3))
+						bets.update({"field":0})
+					elif result in (3,4,9,10,11):
+						bankroll = (bankroll + (bets.get("field") * 2))
+						bets.update({"field":0})
+					else:
+						bets.update({"field":0})
+			else:
+				bets.update({"field":0})
+			save(users_dict)
+
+		
+			#Non-hardway proposition bet payouts
+			#Payouts for Miscellaneous bets, C&E and World bets
+			if result == 2:
+				print("Snake Eyes!")
+				if (bets.get("two") != 0):
+					bankroll = (bankroll + (bets.get("two") * 30)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"two":0})
+				if (bets.get("anycraps") != 0):
+					bankroll = (bankroll + (bets.get("anycraps") * 7)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"two":0})
+				if (bets.get("C&E") != 0):
+					bankroll = (bankroll + math.floor(bets.get("C&E") * 7)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"C&E":0})
+				if (bets.get("world") != 0):
+					bankroll = (bankroll + math.floor((bets.get("world") * 26)/5)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"world":0})
+			if result == 3:
+				print("Pay the Three!")
+				if (bets.get("three") != 0):
+					bankroll = (bankroll + (bets.get("three") * 15)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"three":0})
+				if (bets.get("anycraps") != 0):
+					bankroll = (bankroll + (bets.get("anycraps") * 7)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"three":0})
+				if (bets.get("C&E") != 0):
+					bankroll = (bankroll + math.floor(bets.get("C&E") * 7)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"C&E":0})
+				if (bets.get("world") != 0):
+					bankroll = (bankroll + math.floor((bets.get("world") * 11)/5)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"world":0})
+			if result == 11:
+				print("YO-Eleven!!!")
+				if (bets.get("eleven") != 0):
+					bankroll = (bankroll + (bets.get("eleven") * 15)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"eleven":0})
+				if (bets.get("C&E") != 0):
+					bankroll = (bankroll + math.floor(bets.get("C&E") * 15)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"C&E":0})
+				if (bets.get("world") != 0):
+					bankroll = (bankroll + math.floor((bets.get("world") * 11)/5)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"world":0})
+			if result == 12:
+				print("Box Cars!")
+				if (bets.get("twelve") != 0):
+					bankroll = (bankroll + (bets.get("twelve") * 30)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"twelve":0})
+				if (bets.get("anycraps") != 0):
+					bankroll = (bankroll + (bets.get("anycraps") * 7)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"twelve":0})
+				if (bets.get("C&E") != 0):
+					bankroll = (bankroll + math.floor(bets.get("C&E") * 7)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"C&E":0})
+				if (bets.get("world") != 0):
+					bankroll = (bankroll + math.floor((bets.get("world") * 26)/5)) 			
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+					bets.update({"world":0})
+			if result == 7:
+				if (bets.get("anyseven") != 0):
+					bankroll = (bankroll + (bets.get("anyseven") * 4)) 			
+					print("Big Red!!!")
+					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
+			#Resetting Propositions bets (minus Hardways) afer payouts or if loss
+			bets.update({"two":0})
+			bets.update({"three":0})
+			bets.update({"eleven":0})
+			bets.update({"twelve":0})
+			bets.update({"anyseven":0})
+			bets.update({"anycraps":0})
+			save(users_dict)
+			#Clearing Miscellaneous bets
+			bets.update({"C&E":0})	
+			bets.update({"world":0})	
 
 
 			input()
