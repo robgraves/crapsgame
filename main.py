@@ -282,6 +282,62 @@ def table():
 	if bets.get("field") != 0:
 		print("Field: $" + str(bets.get("field")))
 
+	#Display come or don't come along with come points or don't come points
+	if bets.get("come") != 0:
+		print("Come: $" + str(bets.get("come")))
+	if bets.get("dc") != 0:
+		print("Don't Come: $" + str(bets.get("dc")))
+	if bets.get("come4") != 0:
+		print("Come Point 4: $" + str(bets.get("come4")))
+	if bets.get("come5") != 0:
+		print("Come Point 5: $" + str(bets.get("come5")))
+	if bets.get("come6") != 0:
+		print("Come Point 6: $" + str(bets.get("come6")))
+	if bets.get("come8") != 0:
+		print("Come Point 8: $" + str(bets.get("come8")))
+	if bets.get("come9") != 0:
+		print("Come Point 9: $" + str(bets.get("come9")))
+	if bets.get("come10") != 0:
+		print("Come Point 10: $" + str(bets.get("come10")))
+	if bets.get("dc4") != 0:
+		print("Don't Come Point 4: $" + str(bets.get("dc4")))
+	if bets.get("dc5") != 0:
+		print("Don't Come Point 5: $" + str(bets.get("dc5")))
+	if bets.get("dc6") != 0:
+		print("Don't Come Point 6: $" + str(bets.get("dc6")))
+	if bets.get("dc8") != 0:
+		print("Don't Come Point 8: $" + str(bets.get("dc8")))
+	if bets.get("dc9") != 0:
+		print("Don't Come Point 9: $" + str(bets.get("dc9")))
+	if bets.get("dc10") != 0:
+		print("Don't Come Point 10: $" + str(bets.get("dc10")))
+
+	#Display Free odds bets on Come points or Don't Come points
+	if bets.get("freeodds_come4") != 0:
+		print("Odds on Come Point 4: $" + str(bets.get("freeodds_come4")))
+	if bets.get("freeodds_come5") != 0:
+		print("Odds on Come Point 5: $" + str(bets.get("freeodds_come5")))
+	if bets.get("freeodds_come6") != 0:
+		print("Odds on Come Point 6: $" + str(bets.get("freeodds_come6")))
+	if bets.get("freeodds_come8") != 0:
+		print("Odds on Come Point 8: $" + str(bets.get("freeodds_come8")))
+	if bets.get("freeodds_come9") != 0:
+		print("Odds on Come Point 9: $" + str(bets.get("freeodds_come9")))
+	if bets.get("freeodds_come10") != 0:
+		print("Odds on Come Point 10: $" + str(bets.get("freeodds_come10")))
+	if bets.get("freeodds_dc4") != 0:
+		print("Odds on Don't Come Point 4: $" + str(bets.get("freeodds_dc4")))
+	if bets.get("freeodds_dc5") != 0:
+		print("Odds on Don't Come Point 5: $" + str(bets.get("freeodds_dc5")))
+	if bets.get("freeodds_dc6") != 0:
+		print("Odds on Don't Come Point 6: $" + str(bets.get("freeodds_dc6")))
+	if bets.get("freeodds_dc8") != 0:
+		print("Odds on Don't Come Point 8: $" + str(bets.get("freeodds_dc8")))
+	if bets.get("freeodds_dc9") != 0:
+		print("Odds on Don't Come Point 9: $" + str(bets.get("freeodds_dc9")))
+	if bets.get("freeodds_dc10") != 0:
+		print("Odds on Don't Come Point 10: $" + str(bets.get("freeodds_dc10")))
+
 	#Display numbers you have money on and their 
 	#respective amount of bets 
 	#Not doing these individually because typically
@@ -1235,7 +1291,110 @@ def placebuylay(bets):
 
 #Function for Come and Don't Come bets
 def comedc(bets):
-	pass
+	global bankroll
+	comebet = 0
+
+	#Check for come out roll, block if so
+	if point == 0:
+		print("You cannot bet on Come or Don't Come")
+		print("on the Come Out roll.")
+		input()
+		table()
+				
+	#Check for out of money and return if so
+	if bankroll == 0:
+		print("You have no more money available to bet.")
+		input()
+		table()
+		return(bets)
+
+	print("Your current bankroll is: $" + str(bankroll))
+	comebet_location = "0"
+	#Come bet submenu
+	#while comebet_location not in ("B","b","Q","q"):
+	while comebet_location != "B" or comebet_location != "b": 
+		while comebet_location not in ("Q","q","B","b","C","c","D","d"):
+			print("Choose where to place your bet: ")
+			print("C  - Come")
+			print("D  - Don't Come (Bar 12)")
+			print("B  - Back")
+			print("Q  - Quit Game")
+			comebet_location = input()
+			if comebet_location in ("Q","q","B","b","C","c","D","d"):
+				break
+			else:
+				print("Invalid entry!")
+			#Return if player chooses Back
+			#if comebet_location == "B" or comebet_location == "b":
+			#	table()
+				#print("we are in the comebet_loc check for B")
+				#print(comebet_location)
+				#input()
+			#	break
+				#pass
+			#	return(bets)
+		print("You chose " + comebet_location)
+
+		#Return if player chooses Back
+		if comebet_location == "B" or comebet_location == "b":
+			table()
+			#print("we are in the comebet_loc check for B")
+			#print(comebet_location)
+			#input()
+			#break
+			return(bets)
+
+		#Allow for quitting game at every menu but warning player that there are still
+		#live bets on the table and quitting now would surrender those bets to the house
+		if comebet_location == "Q" or comebet_location == "q":
+			confirm = "0"
+			while confirm not in ("Y","N","y","n"):
+				print("Are you sure? (Y/N) All bets on the table will be lost.")
+				confirm = input()
+				if confirm in ("Y","N","y","n"):
+					break
+				else:
+					 print("Invalid entry!")
+			#sending gameover function the 0 signal
+			#to ensure saving
+			if confirm == "Y" or confirm == "y":
+				gameover(0)
+			elif confirm == "N" or confirm == "n":
+				print("Returning to game")
+				table()
+				return(bets)
+
+
+		#Get bet amount
+		print("Enter bet amount: ")
+		comebet = 0
+		while not int(comebet) in range(1, bankroll+1):
+			if comebet > bankroll:
+				print("You do not have that much.")
+				print("Your current bankroll is: $" + str(bankroll))
+				print("Enter a bet amount: ")
+			try:
+				comebet = int(input())
+			except ValueError:
+				print("Error: Invalid entry. Please enter a number.")
+				continue
+		print("You chose " + str(comebet))
+		#Take come bet or don't come bet and update betting dictionary
+		bankroll = bankroll - comebet
+		if comebet_location == "C" or comebet_location == "c":
+			bets.update({"come":(bets.get("come") + comebet)})
+			table()
+			return(bets)
+		if comebet_location == "D" or comebet_location == "d":
+			bets.update({"dc":(bets.get("dc") + comebet)})
+			table()
+			return(bets)
+		comebet = 0
+		os.system("clear")
+	print("Your current bankroll is: $" + str(bankroll))
+
+	save(users_dict)
+	table()
 	return bets
 
 
@@ -1610,6 +1769,7 @@ def otherbets(bets):
 
 #Function for mid game betting
 def midgamebet(bets):
+	global bankroll
 	midbet_location = "0"
 	#print(bets)   					##FOR TESTING
 	#input()						##FOR TESTING
@@ -1708,18 +1868,32 @@ graphics.intro()
 #mature content is off by default
 mature = 0
 
+#Result of two d6 dice being thrown
+#global result
+#result = 0
+
 #Established point if there is one
 #Can be 4, 5, 6, 8, 9 or 10
 global point
 point = 0
+
 #Player's bankroll
 global bankroll
 bankroll = 0
+
 #bet_location is Pass/Don't Pass bet
 #1 for Pass, 2 for Don't Pass
 global bet_location
 bet_location = "0"
+
+#Mid Game submenu selection
+midbet_location = "0"
+
+#Bet_amount variable is amount
+#bet on Pass or Don't Pass on
+#Come out roll.
 bet_amount = 0
+
 #Lists for Place, Buy, and Lay bets
 #Need to check against results
 global placeselect
@@ -1728,16 +1902,24 @@ global buyselect
 buyselect   = 	[0,0,0,0,0,0]
 global layselect
 layselect   =	[0,0,0,0,0,0]
+
+#Variable to track whether a hardway
+#is thrown: 0 means no hardway
+#other oprions are 4,6,8, and 10.
 global hardway
 hardway = 0
 
+#Set up betting dictionary
 bets = bets_init()
 
+#Check for mature content
 mature = maturecheck(mature)
 
+#Set up user, whether new or loading old user
 username = player()
 print("Welcome " + username + "!!!")
 print("Your bankroll is: $" + str(bankroll))
+
 save(users_dict)
 os.system("clear")
 
@@ -1823,7 +2005,7 @@ while quitflag == False:
 	while iscomeout == True:
 		#graphics.crapstable()
 		table()
-		print("Press any key to roll.")
+		print("Press Enter to roll.")
 		input()
 		result = dice()
 		#If 7 or 11 Pass bettors win, Don't Pass loses
@@ -1863,6 +2045,17 @@ while quitflag == False:
 					bets.update({"lay10":0})
 				save(users_dict)
 
+
+			#Clearing out come points on 7 on come out roll
+			if result == 7:
+				bets.update({"come4":0})
+				bets.update({"come5":0})
+				bets.update({"come6":0})
+				bets.update({"come8":0})
+				bets.update({"come9":0})
+				bets.update({"come10":0})
+			save(users_dict)
+
 			iscomeout = True
 			point = 0
 			input()
@@ -1892,6 +2085,47 @@ while quitflag == False:
 			print("The point is now " + str(point))
 			#If point is established we change come-out roll state
 			iscomeout = False
+			save(users_dict)
+
+			#Payouts if dice result matches come point	
+			#Losses for don't come points
+			if bets.get("come4") != 0 and result == 4:
+				os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				bankroll = bankroll + (bets.get("come4") * 2)
+				bets.update({"come4":0})
+			if bets.get("come5") != 0 and result == 5:
+				os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				bankroll = bankroll + (bets.get("come5") * 2)
+				bets.update({"come5":0})
+			if bets.get("come6") != 0 and result == 6:
+				os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				bankroll = bankroll + (bets.get("come6") * 2)
+				bets.update({"come6":0})
+			if bets.get("come8") != 0 and result == 8:
+				os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				bankroll = bankroll + (bets.get("come8") * 2)
+				bets.update({"come8":0})
+			if bets.get("come9") != 0 and result == 9:
+				os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				bankroll = bankroll + (bets.get("come9") * 2)
+				bets.update({"come9":0})
+			if bets.get("come10") != 0 and result == 10:
+				os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				bankroll = bankroll + (bets.get("come10") * 2)
+				bets.update({"come10":0})
+			save(users_dict)
+			if bets.get("dc4") != 0 and result == 4:
+				bets.update({"dc4":0})
+			if bets.get("dc5") != 0 and result == 5:
+				bets.update({"dc5":0})
+			if bets.get("dc6") != 0 and result == 6:
+				bets.update({"dc6":0})
+			if bets.get("dc8") != 0 and result == 8:
+				bets.update({"dc8":0})
+			if bets.get("dc9") != 0 and result == 9:
+				bets.update({"dc9":0})
+			if bets.get("dc10") != 0 and result == 10:
+				bets.update({"dc10":0})
 			save(users_dict)
 
 
@@ -2020,6 +2254,7 @@ while quitflag == False:
 			#Clearing Miscellaneous bets
 			bets.update({"C&E":0})	
 			bets.update({"world":0})	
+			save(users_dict)
 
 
 			input()
@@ -2035,9 +2270,130 @@ while quitflag == False:
 			print("You rolled " + str(result))
 			bets = midgamebet(bets)
 			table()
-			print("Press any key to roll again.")
-			input()
+			#THAT EXTRA PAUSE IN THE GAME, next 2 lines
+			#print("Press Enter to roll again.")
+			#input()
 			result = dice()
+
+			#Payouts if dice result matches come point	
+			#Losses for don't come points
+			if bets.get("come4") != 0 and result == 4:
+				os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				bankroll = bankroll + (bets.get("come4") * 2)
+				bets.update({"come4":0})
+				bets.update({"dc4":0})
+			if bets.get("come5") != 0 and result == 5:
+				os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				bankroll = bankroll + (bets.get("come5") * 2)
+				bets.update({"come5":0})
+				bets.update({"dc5":0})
+			if bets.get("come6") != 0 and result == 6:
+				os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				bankroll = bankroll + (bets.get("come6") * 2)
+				bets.update({"come6":0})
+				bets.update({"dc6":0})
+			if bets.get("come8") != 0 and result == 8:
+				os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				bankroll = bankroll + (bets.get("come8") * 2)
+				bets.update({"come8":0})
+				bets.update({"dc8":0})
+			if bets.get("come9") != 0 and result == 9:
+				os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				bankroll = bankroll + (bets.get("come9") * 2)
+				bets.update({"come9":0})
+				bets.update({"dc9":0})
+			if bets.get("come10") != 0 and result == 10:
+				os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				bankroll = bankroll + (bets.get("come10") * 2)
+				bets.update({"come10":0})
+				bets.update({"dc10":0})
+		
+			if bets.get("dc4") != 0 and result == 4:
+				bets.update({"dc4":0})
+			if bets.get("dc5") != 0 and result == 5:
+				bets.update({"dc5":0})
+			if bets.get("dc6") != 0 and result == 6:
+				bets.update({"dc6":0})
+			if bets.get("dc8") != 0 and result == 8:
+				bets.update({"dc8":0})
+			if bets.get("dc9") != 0 and result == 9:
+				bets.update({"dc9":0})
+			if bets.get("dc10") != 0 and result == 10:
+				bets.update({"dc10":0})
+
+
+					
+
+			#Handling Existing Come Bet
+			if bets.get("come") != 0:
+				#Come bet wins on 7 or 11
+				if result == 7 or result == 11:
+					print("Come Bet Winner!!!")
+					os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					comebet = bets.get("come")
+					bets.update({"come":0})
+					bankroll = bankroll + (comebet * 2)		
+					comebet = 0
+				if result == 2 or result == 3 or result == 12:
+					bets.update({"come":0})
+				if result == 4:
+					bets.update({"come4":(bets.get("come"))})
+					bets.update({"come":0})
+				if result == 5:
+					bets.update({"come5":(bets.get("come"))})
+					bets.update({"come":0})
+				if result == 6:
+					bets.update({"come6":(bets.get("come"))})
+					bets.update({"come":0})
+				if result == 8:
+					bets.update({"come8":(bets.get("come"))})
+					bets.update({"come":0})
+				if result == 9:
+					bets.update({"come9":(bets.get("come"))})
+					bets.update({"come":0})
+				if result == 10:
+					bets.update({"come10":(bets.get("come"))})
+					bets.update({"come":0})
+
+			#Handling Exisitng Don't Come Bet
+			if bets.get("dc") != 0:
+				#Don't Come bet wins on 2 or 3
+				if result == 2 or result == 3:
+					print("Pay the Don't Come!!!")
+					os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					comebet = bets.get("dc")
+					bets.update({"dc":0})
+					bankroll = bankroll + (comebet * 2)		
+					comebet = 0
+				#Loss on 7 or 11
+				elif result == 7 or result == 11:
+					bets.update({"dc":0})
+				#Push if roll is 12
+				elif result == 12:
+					comebet = bets.get("dc")
+					bets.update({"dc":0})
+					bankroll = bankroll + comebet
+					comebet = 0
+				else:
+					if result == 4:
+						bets.update({"dc4":(bets.get("dc"))})
+						bets.update({"dc":0})
+					if result == 5:
+						bets.update({"dc5":(bets.get("dc"))})
+						bets.update({"dc":0})
+					if result == 6:
+						bets.update({"dc6":(bets.get("dc"))})
+						bets.update({"dc":0})
+					if result == 8:
+						bets.update({"dc8":(bets.get("dc"))})
+						bets.update({"dc":0})
+					if result == 9:
+						bets.update({"dc9":(bets.get("dc"))})
+						bets.update({"dc":0})
+					if result == 10:
+						bets.update({"dc10":(bets.get("dc"))})
+						bets.update({"dc":0})
+			
 
 
 			#Place bet payouts on non come-out rolls, bets are off on come-out rolls
@@ -2320,7 +2676,6 @@ while quitflag == False:
 				bets.update({"hardway8":0})
 			if (bets.get("hardway10") != 0) and (result == 10) and (hardway == 0):
 				bets.update({"hardway10":0})
-			save(users_dict)
 
 
 			#Lay bets lose if their number rolls
@@ -2345,10 +2700,10 @@ while quitflag == False:
 				print("Shooter hits the point!!!")
 				print("Front Line Winner!!!")
 				os.system("mplayer " + applausesound + " > /dev/null 2>&1")
-				os.system("mplayer " + winsound + " > /dev/null 2>&1")
 				#print("bet location is : ", bet_location)
 				if bet_location == "1":
 					bankroll = (bankroll + (bet_amount * 2))
+					os.system("mplayer " + winsound + " > /dev/null 2>&1")
 					#Checking for free odds bets on passline points and payouts
 					if bets.get("freeodds_pass4o10") != 0:
 						bankroll = (bankroll + math.floor((bets.get("freeodds_pass4o10") * 2)/1) + bets.get("freeodds_pass4o10"))
@@ -2363,7 +2718,23 @@ while quitflag == False:
 				bets.update({"freeodds_dp4o10":0})
 				bets.update({"freeodds_dp5o9":0})
 				bets.update({"freeodds_dp6o8":0})
+
+				#Losses for Don't Come on hitting 	
+				#don't come point
+				if bets.get("dc4") != 0 and result == 4:
+					bets.update({"dc4":0})
+				if bets.get("dc5") != 0 and result == 5:
+					bets.update({"dc5":0})
+				if bets.get("dc6") != 0 and result == 6:
+					bets.update({"dc6":0})
+				if bets.get("dc8") != 0 and result == 8:
+					bets.update({"dc8":0})
+				if bets.get("dc9") != 0 and result == 9:
+					bets.update({"dc9":0})
+				if bets.get("dc10") != 0 and result == 10:
+					bets.update({"dc10":0})
 				save(users_dict)
+
 				iscomeout = True
 				point = 0
 				input()
@@ -2393,7 +2764,47 @@ while quitflag == False:
 				bets.update({"freeodds_pass4o10":0})
 				bets.update({"freeodds_pass5o9":0})
 				bets.update({"freeodds_pass6o8":0})
-				save(users_dict)
+
+				#Payouts for Don't Come on Seven Out	
+				#Losses for come points
+				if bets.get("dc4") != 0:
+					os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					bankroll = bankroll + (bets.get("dc4") * 2)
+					bets.update({"dc4":0})
+					bets.update({"come4":0})
+				if bets.get("dc5") != 0:
+					os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					bankroll = bankroll + (bets.get("dc5") * 2)
+					bets.update({"dc5":0})
+					bets.update({"come5":0})
+				if bets.get("dc6") != 0:
+					os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					bankroll = bankroll + (bets.get("dc6") * 2)
+					bets.update({"dc6":0})
+					bets.update({"come6":0})
+				if bets.get("dc8") != 0:
+					os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					bankroll = bankroll + (bets.get("dc8") * 2)
+					bets.update({"dc8":0})
+					bets.update({"come8":0})
+				if bets.get("dc9") != 0:
+					os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					bankroll = bankroll + (bets.get("dc9") * 2)
+					bets.update({"dc9":0})
+					bets.update({"come9":0})
+				if bets.get("dc10") != 0:
+					os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					bankroll = bankroll + (bets.get("dc10") * 2)
+					bets.update({"dc10":0})
+					bets.update({"come10":0})
+
+				#Clearing out come points on Seven Out
+				bets.update({"come4":0})
+				bets.update({"come5":0})
+				bets.update({"come6":0})
+				bets.update({"come8":0})
+				bets.update({"come9":0})
+				bets.update({"come10":0})
 
 				#Clearing place bets on Seven Out
 				bets.update({"place4":0})
@@ -2402,7 +2813,6 @@ while quitflag == False:
 				bets.update({"place8":0})
 				bets.update({"place9":0})
 				bets.update({"place10":0})
-				save(users_dict)
 
 				#Clearing Big 6 and Big 8 on Seven Out
 				bets.update({"big6":0})
