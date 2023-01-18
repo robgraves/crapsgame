@@ -213,7 +213,6 @@ def save(users_dict):
 	users_dict[username] = bankroll
 	pickle.dump(users_dict, open(userdata,"wb"))
 
-
 #Function to check if player wants mature content
 def maturecheck(mature):
 	choice = "0"
@@ -1894,6 +1893,11 @@ midbet_location = "0"
 #Come out roll.
 bet_amount = 0
 
+#Trying to control if a DC point is
+#new or old to prevent clearing
+#with newdcbet initialized to 0
+newdcbet = 0
+
 #Lists for Place, Buy, and Lay bets
 #Need to check against results
 global placeselect
@@ -1951,7 +1955,7 @@ while quitflag == False:
 	if bankroll == 0:
 		gameover(0)
 		break
-	while bet_location not in ("1","2","3","4","Q","q"):
+	while bet_location not in ("1","2","3","4","Q","q",""):
 		print("Enter a bet location: ")
 		print("1 - Pass Line (Bet with the shooter)")
 		print("2 - Don't Pass Line (The Dark Side)")
@@ -1962,7 +1966,7 @@ while quitflag == False:
 		bet_location = input()
 		if bet_location == "4":
 			bets = midgamebet(bets)	
-		if bet_location in ("1","2","3","Q","q"):
+		if bet_location in ("1","2","3","Q","q",""):
 			break
 		else:
 			print("Invalid entry!")
@@ -2087,6 +2091,82 @@ while quitflag == False:
 			iscomeout = False
 			save(users_dict)
 
+			#Handling Existing Come Bet
+			if bets.get("come") != 0:
+				#Come bet wins on 7 or 11
+				if result == 7 or result == 11:
+					print("Come Bet Winner!!!")
+					os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					comebet = bets.get("come")
+					bets.update({"come":0})
+					bankroll = bankroll + (comebet * 2)		
+					comebet = 0
+				if result == 2 or result == 3 or result == 12:
+					bets.update({"come":0})
+				if result == 4:
+					bets.update({"come4":(bets.get("come"))})
+					bets.update({"come":0})
+				if result == 5:
+					bets.update({"come5":(bets.get("come"))})
+					bets.update({"come":0})
+				if result == 6:
+					bets.update({"come6":(bets.get("come"))})
+					bets.update({"come":0})
+				if result == 8:
+					bets.update({"come8":(bets.get("come"))})
+					bets.update({"come":0})
+				if result == 9:
+					bets.update({"come9":(bets.get("come"))})
+					bets.update({"come":0})
+				if result == 10:
+					bets.update({"come10":(bets.get("come"))})
+					bets.update({"come":0})
+			#Handling Exisitng Don't Come Bet
+			if bets.get("dc") != 0:
+				#Don't Come bet wins on 2 or 3
+				if result == 2 or result == 3:
+					print("Pay the Don't Come!!!")
+					os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					comebet = bets.get("dc")
+					bets.update({"dc":0})
+					bankroll = bankroll + (comebet * 2)		
+					comebet = 0
+				#Loss on 7 or 11
+				elif result == 7 or result == 11:
+					bets.update({"dc":0})
+				#Push if roll is 12
+				elif result == 12:
+					comebet = bets.get("dc")
+					bets.update({"dc":0})
+					bankroll = bankroll + comebet
+					comebet = 0
+				else:
+					if result == 4:
+						bets.update({"dc4":(bets.get("dc"))})
+						bets.update({"dc":0})
+						newdcbet = 1
+					if result == 5:
+						bets.update({"dc5":(bets.get("dc"))})
+						bets.update({"dc":0})
+						newdcbet = 1
+					if result == 6:
+						bets.update({"dc6":(bets.get("dc"))})
+						bets.update({"dc":0})
+						newdcbet = 1
+					if result == 8:
+						bets.update({"dc8":(bets.get("dc"))})
+						bets.update({"dc":0})
+						newdcbet = 1
+					if result == 9:
+						bets.update({"dc9":(bets.get("dc"))})
+						bets.update({"dc":0})
+						newdcbet = 1
+					if result == 10:
+						bets.update({"dc10":(bets.get("dc"))})
+						bets.update({"dc":0})
+						newdcbet = 1
+			
+
 			#Payouts if dice result matches come point	
 			#Losses for don't come points
 			if bets.get("come4") != 0 and result == 4:
@@ -2114,20 +2194,21 @@ while quitflag == False:
 				bankroll = bankroll + (bets.get("come10") * 2)
 				bets.update({"come10":0})
 			save(users_dict)
-			if bets.get("dc4") != 0 and result == 4:
-				bets.update({"dc4":0})
-			if bets.get("dc5") != 0 and result == 5:
-				bets.update({"dc5":0})
-			if bets.get("dc6") != 0 and result == 6:
-				bets.update({"dc6":0})
-			if bets.get("dc8") != 0 and result == 8:
-				bets.update({"dc8":0})
-			if bets.get("dc9") != 0 and result == 9:
-				bets.update({"dc9":0})
-			if bets.get("dc10") != 0 and result == 10:
-				bets.update({"dc10":0})
-			save(users_dict)
-
+			if newdcbet == 0:
+				if bets.get("dc4") != 0 and result == 4:
+					bets.update({"dc4":0})
+				if bets.get("dc5") != 0 and result == 5:
+					bets.update({"dc5":0})
+				if bets.get("dc6") != 0 and result == 6:
+					bets.update({"dc6":0})
+				if bets.get("dc8") != 0 and result == 8:
+					bets.update({"dc8":0})
+				if bets.get("dc9") != 0 and result == 9:
+					bets.update({"dc9":0})
+				if bets.get("dc10") != 0 and result == 10:
+					bets.update({"dc10":0})
+				save(users_dict)
+			newdcbet = 0
 
 			#Lay bets lose if their number rolls
 			#before a 7
