@@ -633,7 +633,7 @@ def freeodds_passdp(bets):
 				bets.update({"freeodds_pass6o8":(oddsbet + bets.get("freeodds_pass6o8"))})
 			os.system("clear")
 			print("Your current bankroll is: $" + str(bankroll))
-			save(users_dict)
+			#save(users_dict)
 			#print(bets)   					##FOR TESTING
 			#input()						##FOR TESTING
 
@@ -677,7 +677,7 @@ def freeodds_passdp(bets):
 				bets.update({"freeodds_dp6o8":(oddsbet + bets.get("freeodds_dp6o8"))})
 			os.system("clear")
 			print("Your current bankroll is: $" + str(bankroll))
-			save(users_dict)
+			#save(users_dict)
 			#print(bets)   					##FOR TESTING
 			#input()						##FOR TESTING
 	table()
@@ -720,7 +720,7 @@ def fieldbet(bets):
 	bets.update({"field":(fieldbet + bets.get("field"))})
 	os.system("clear")
 	print("Your current bankroll is: $" + str(bankroll))
-	save(users_dict)
+	#save(users_dict)
 	#print(bets)   					##FOR TESTING
 	#input()						##FOR TESTING
 	table()
@@ -849,7 +849,7 @@ def place(bets):
 		bankroll = bankroll - placebet
 		os.system("clear")
 		print("Your current bankroll is: $" + str(bankroll))
-		save(users_dict)
+		#save(users_dict)
 		if placebet_location == "4":
 			placeselect[0] = 4	
 			bets.update({"place4":(placebet + bets.get("place4"))})
@@ -1004,7 +1004,7 @@ def buy(bets):
 		bankroll = bankroll - buybet
 		os.system("clear")
 		print("Your current bankroll is: $" + str(bankroll))
-		save(users_dict)
+		#save(users_dict)
 		if buybet_location == "4":
 			buyselect[0] = 4	
 			bets.update({"buy4":(buybet + bets.get("buy4"))})
@@ -1180,7 +1180,7 @@ def lay(bets):
 
 		os.system("clear")
 		print("Your current bankroll is: $" + str(bankroll))
-		save(users_dict)
+		#save(users_dict)
 		if laybet_location == "4":
 			layselect[0] = 4	
 			bets.update({"lay4":(laybet + bets.get("lay4"))})
@@ -1392,7 +1392,7 @@ def comedc(bets):
 		os.system("clear")
 	print("Your current bankroll is: $" + str(bankroll))
 
-	save(users_dict)
+	#save(users_dict)
 	table()
 	return bets
 
@@ -1510,7 +1510,7 @@ def hardwaybets(bets):
 		bankroll = bankroll - hardwaybet
 		os.system("clear")
 		print("Your current bankroll is: $" + str(bankroll))
-		save(users_dict)
+		#save(users_dict)
 		if hardwaybet_location == "4":
 			bets.update({"hardway4":(hardwaybet + bets.get("hardway4"))})
 			hardwaybet_location = "0"
@@ -1604,7 +1604,7 @@ def proposition(bets):
 	#for hardway bets or take bets on other prop bets
 	os.system("clear")
 	print("Your current bankroll is: $" + str(bankroll))
-	save(users_dict)
+	#save(users_dict)
 	if prop_location == "2":
 		bets.update({"two":(propbet + bets.get("two"))})
 		bankroll = bankroll - propbet
@@ -1746,9 +1746,9 @@ def otherbets(bets):
 		#Take place bet and based on number chosen update betting dictionary
 		#for that number
 		bankroll = bankroll - otherbet
-		os.system("clear")
+		#os.system("clear")
 		print("Your current bankroll is: $" + str(bankroll))
-		save(users_dict)
+		#save(users_dict)
 		if otherbet_location == "6":
 			bets.update({"big6":(otherbet + bets.get("big6"))})
 			otherbet_location = "0"

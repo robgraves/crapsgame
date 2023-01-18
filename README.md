@@ -41,6 +41,46 @@ data/sounds/chips.mp3 - sound effect for any other bet winning
 
 
 
+01/18/2023
+
+Finished function for Come and Don't Come bets that mostly work
+
+but there do seem to be some erroneous payouts, or rather not
+
+paying out when it should and/or not taking the bet when it should.
+
+Additionally I have a nasty bug that happens occasionally within the 
+
+Come/Don't Come function that causes the game to hang for 10 to 20 
+
+seconds.  
+
+I think the solutions to both of these problems is some further 
+
+reorganization and restructuring of the code as I have payouts
+
+and bet losses all handled outside of a function that has repeated
+
+sections of code, so I plan to move all the payouts/losses into 
+
+function(s).  The other plan is to make all the functions take
+
+and return multiple variables, which I didn't realize you could do
+
+in Python, so I can eliminate all of my global variables, and then chop
+
+up all my functions into seperate files, so that the main function ends up
+
+being mostly just a series of function calls so I can scan through it
+
+quicker to find bugs in the game flow.
+
+That's the plan anyway.  Unsure the timespan to accomplish the above,
+
+but starting that soon.
+
+
+
 01/16/2023
 
 Added the ability to NOT bet on Pass or Don't Pass on come out
