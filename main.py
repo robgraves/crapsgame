@@ -2019,7 +2019,6 @@ while quitflag == False:
 			if bet_location == "1":
 				bankroll = (bankroll + (bet_amount * 2))
 				os.system("mplayer " + winsound + " > /dev/null 2>&1")
-			save(users_dict)
 
 			#Lay bet payouts on come-out rolls, pays on 7
 			if result == 7:
@@ -2459,21 +2458,27 @@ while quitflag == False:
 					if result == 4:
 						bets.update({"dc4":(bets.get("dc"))})
 						bets.update({"dc":0})
+						newdcbet = 1
 					if result == 5:
 						bets.update({"dc5":(bets.get("dc"))})
 						bets.update({"dc":0})
+						newdcbet = 1
 					if result == 6:
 						bets.update({"dc6":(bets.get("dc"))})
 						bets.update({"dc":0})
+						newdcbet = 1
 					if result == 8:
 						bets.update({"dc8":(bets.get("dc"))})
 						bets.update({"dc":0})
+						newdcbet = 1
 					if result == 9:
 						bets.update({"dc9":(bets.get("dc"))})
 						bets.update({"dc":0})
+						newdcbet = 1
 					if result == 10:
 						bets.update({"dc10":(bets.get("dc"))})
 						bets.update({"dc":0})
+						newdcbet = 1
 			
 
 
@@ -2508,7 +2513,6 @@ while quitflag == False:
 					bankroll = (bankroll + math.floor((bets.get("place10") * 9)/5) + bets.get("place10"))
 					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 					bets.update({"place10":0})
-			save(users_dict)
 
 
 			#Hardway bet payouts
@@ -2532,7 +2536,6 @@ while quitflag == False:
 				os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 				bets.update({"hardway10":0})
 				hardway = 0
-			save(users_dict)
 
 
 			#Miscellaneous bet payouts on non come-out rolls, bets are off on come-out rolls
@@ -2545,7 +2548,6 @@ while quitflag == False:
 				bankroll = (bankroll + bets.get("big8") * 2)
 				os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 				bets.update({"big8":0})
-			save(users_dict)
 
 			#Buy bet payouts on non come-out rolls, bets are off on come-out rolls
 			#Initializing commission to zero for sanity
@@ -2586,7 +2588,6 @@ while quitflag == False:
 					bankroll = (bankroll + math.floor(math.floor(bets.get("buy10") * 2) - commission) + bets.get("buy10"))
 					os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 					bets.update({"buy10":0})
-			save(users_dict)
 
 
 			#Lay bet payouts on non come-out rolls
@@ -2622,7 +2623,7 @@ while quitflag == False:
 						bankroll = (bankroll + math.floor(bets.get("lay10")/2) + bets.get("lay10"))
 						os.system("mplayer " + winsound + " > /dev/null 2>&1 &")
 						bets.update({"lay10":0})
-				save(users_dict)
+
 
 
 			#Field bet payouts
@@ -2645,7 +2646,6 @@ while quitflag == False:
 						bets.update({"field":0})
 			else:
 				bets.update({"field":0})
-			save(users_dict)
 			input()
 			
 
@@ -2742,7 +2742,6 @@ while quitflag == False:
 			bets.update({"twelve":0})
 			bets.update({"anyseven":0})
 			bets.update({"anycraps":0})
-			save(users_dict)
 			#Clearing Miscellaneous bets
 			bets.update({"C&E":0})	
 			bets.update({"world":0})	
@@ -2773,6 +2772,7 @@ while quitflag == False:
 				bets.update({"lay9":0})
 			if (bets.get("lay10") != 0) and (result == 10):
 				bets.update({"lay10":0})
+			
 			save(users_dict)
 
 
@@ -2799,21 +2799,99 @@ while quitflag == False:
 				bets.update({"freeodds_dp4o10":0})
 				bets.update({"freeodds_dp5o9":0})
 				bets.update({"freeodds_dp6o8":0})
+				#Handling Existing Come Bet
+				if bets.get("come") != 0:
+					#Come bet wins on 7 or 11
+					if result == 7 or result == 11:
+						print("Come Bet Winner!!!")
+						os.system("mplayer " + winsound + " > /dev/null 2>&1")
+						comebet = bets.get("come")
+						bets.update({"come":0})
+						bankroll = bankroll + (comebet * 2)		
+						comebet = 0
+					if result == 2 or result == 3 or result == 12:
+						bets.update({"come":0})
+					if result == 4:
+						bets.update({"come4":(bets.get("come"))})
+						bets.update({"come":0})
+					if result == 5:
+						bets.update({"come5":(bets.get("come"))})
+						bets.update({"come":0})
+					if result == 6:
+						bets.update({"come6":(bets.get("come"))})
+						bets.update({"come":0})
+					if result == 8:
+						bets.update({"come8":(bets.get("come"))})
+						bets.update({"come":0})
+					if result == 9:
+						bets.update({"come9":(bets.get("come"))})
+						bets.update({"come":0})
+					if result == 10:
+						bets.update({"come10":(bets.get("come"))})
+						bets.update({"come":0})
+
+				#Handling Exisitng Don't Come Bet
+				if bets.get("dc") != 0:
+					#Don't Come bet wins on 2 or 3
+					if result == 2 or result == 3:
+						print("Pay the Don't Come!!!")
+						os.system("mplayer " + winsound + " > /dev/null 2>&1")
+						comebet = bets.get("dc")
+						bets.update({"dc":0})
+						bankroll = bankroll + (comebet * 2)		
+						comebet = 0
+					#Loss on 7 or 11
+					elif result == 7 or result == 11:
+						bets.update({"dc":0})
+					#Push if roll is 12
+					elif result == 12:
+						comebet = bets.get("dc")
+						bets.update({"dc":0})
+						bankroll = bankroll + comebet
+						comebet = 0
+					else:
+						if result == 4:
+							bets.update({"dc4":(bets.get("dc"))})
+							bets.update({"dc":0})
+							newdcbet = 1
+						if result == 5:
+							bets.update({"dc5":(bets.get("dc"))})
+							bets.update({"dc":0})
+							newdcbet = 1
+						if result == 6:
+							bets.update({"dc6":(bets.get("dc"))})
+							bets.update({"dc":0})
+							newdcbet = 1
+						if result == 8:
+							bets.update({"dc8":(bets.get("dc"))})
+							bets.update({"dc":0})
+							newdcbet = 1
+						if result == 9:
+							bets.update({"dc9":(bets.get("dc"))})
+							bets.update({"dc":0})
+							newdcbet = 1
+						if result == 10:
+							bets.update({"dc10":(bets.get("dc"))})
+							bets.update({"dc":0})
+							newdcbet = 1
 
 				#Losses for Don't Come on hitting 	
 				#don't come point
-				if bets.get("dc4") != 0 and result == 4:
-					bets.update({"dc4":0})
-				if bets.get("dc5") != 0 and result == 5:
-					bets.update({"dc5":0})
-				if bets.get("dc6") != 0 and result == 6:
-					bets.update({"dc6":0})
-				if bets.get("dc8") != 0 and result == 8:
-					bets.update({"dc8":0})
-				if bets.get("dc9") != 0 and result == 9:
-					bets.update({"dc9":0})
-				if bets.get("dc10") != 0 and result == 10:
-					bets.update({"dc10":0})
+				if newdcbet == 0:
+					if bets.get("dc4") != 0 and result == 4:
+						bets.update({"dc4":0})
+					if bets.get("dc5") != 0 and result == 5:
+						bets.update({"dc5":0})
+					if bets.get("dc6") != 0 and result == 6:
+						bets.update({"dc6":0})
+					if bets.get("dc8") != 0 and result == 8:
+						bets.update({"dc8":0})
+					if bets.get("dc9") != 0 and result == 9:
+						bets.update({"dc9":0})
+					if bets.get("dc10") != 0 and result == 10:
+						bets.update({"dc10":0})
+				newdcbet = 0
+				
 				save(users_dict)
 
 				iscomeout = True
@@ -2904,6 +2982,7 @@ while quitflag == False:
 				bets.update({"hardway6":0})
 				bets.update({"hardway8":0})
 				bets.update({"hardway10":0})
+				
 				save(users_dict)
 
 				iscomeout = True
