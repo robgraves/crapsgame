@@ -2066,6 +2066,45 @@ while quitflag == False:
 
 			#Clearing out come points on 7 on come out roll
 			if result == 7:
+				#Payouts for Don't Come on Seven Out	
+				#Losses for come points
+				if bets.get("dc4") != 0:
+					#os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					winflag = 1
+					bankroll = bankroll + (bets.get("dc4") * 2)
+					bets.update({"dc4":0})
+					bets.update({"come4":0})
+				if bets.get("dc5") != 0:
+					#os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					winflag = 1
+					bankroll = bankroll + (bets.get("dc5") * 2)
+					bets.update({"dc5":0})
+					bets.update({"come5":0})
+				if bets.get("dc6") != 0:
+					#os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					winflag = 1
+					bankroll = bankroll + (bets.get("dc6") * 2)
+					bets.update({"dc6":0})
+					bets.update({"come6":0})
+				if bets.get("dc8") != 0:
+					#os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					winflag = 1
+					bankroll = bankroll + (bets.get("dc8") * 2)
+					bets.update({"dc8":0})
+					bets.update({"come8":0})
+				if bets.get("dc9") != 0:
+					#os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					winflag = 1
+					bankroll = bankroll + (bets.get("dc9") * 2)
+					bets.update({"dc9":0})
+					bets.update({"come9":0})
+				if bets.get("dc10") != 0:
+					#os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					winflag = 1
+					bankroll = bankroll + (bets.get("dc10") * 2)
+					bets.update({"dc10":0})
+					bets.update({"come10":0})
+
 				bets.update({"come4":0})
 				bets.update({"come5":0})
 				bets.update({"come6":0})
