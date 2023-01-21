@@ -41,6 +41,36 @@ data/sounds/chips.mp3 - sound effect for any other bet winning
 
 
 
+01/20/2023
+
+I may have found the hanging bug I had from the previous couple of 
+
+commits.  My initial thought was that it had something to do with
+
+my save function, which calls pickle as I had/have it saving multiple
+
+times in a round of gameplay.  I also had read online that pickle was
+
+slow and people were suggesting JSON, which I may still switch over to.
+
+But it is currently my thought that it was my sound files that were
+
+causing the bottleneck as I call a certain soundfile to be played anytime
+
+a bet wins, but that could be multiple bets winning simultaneously which means
+
+I could have a ton of system calls to play the same exact winning sound every
+
+time, so I switched all those sound calls to just switching a variable from a 
+
+0 to a 1, and then at the end of each stage checking that variable if it's 1 to
+
+play the win sound.  Only further extensive testing will tell if I'm right, but
+
+it appears to be fixed.
+
+
+
 01/18/2023
 
 Finished function for Come and Don't Come bets that mostly work
