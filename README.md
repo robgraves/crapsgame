@@ -184,7 +184,7 @@ All other betting options:
 
 DONE! 12/30/2022 - Free odds bets on Pass/DP
 
-- Come bet/Don't Come Bets
+DONE! 01/21/2023 - Come bet/Don't Come Bets
 
 - Free odds bets on Come/Don't Come
 
