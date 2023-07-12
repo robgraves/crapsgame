@@ -11,10 +11,6 @@ INSTRUCTIONS:
 
 `python3 main.py`
 
--To have sound install mplayer package on your Linux distribution
-
-if it isn't already on your system.
-
 
 
 FILES:
@@ -38,6 +34,16 @@ data/sounds/claps.wav - sound effect for shooter winning
 data/sounds/winsound.wav - sound effect for any other bet winning
 
 data/sounds/chips.wav - sound effect for any other bet winning
+
+
+07/12/2023
+
+Removed Linux dependence on mplayer for sound, switching to aplay
+from ALSA package which is probably on most Linux desktops.
+Also added potentially MacOS support in addition to the recent adding
+of Windows support.  Have tested and played both the Windows and Linux
+versions, but am not sure how well or if it works properly in MacOS as
+I don't own any Mac systems.
 
 
 07/11/2023
