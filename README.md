@@ -27,18 +27,24 @@ data/save/userdata.p  -  user data is stored here
 
 data/graphics/graphics.py - ASCII art for game
 
-data/sounds/diceroll.mp3 - sound effect for dice rolls
+data/sounds/diceroll.wav - sound effect for dice rolls
 
-data/sounds/aww.mp3 - sound effect for shooter losing
+data/sounds/aww.wav - sound effect for shooter losing
 
 data/sounds/applause.wav - sound effect for shooter winning
 
-data/sounds/claps.mp3 - sound effect for shooter winning
+data/sounds/claps.wav - sound effect for shooter winning
 
 data/sounds/winsound.wav - sound effect for any other bet winning
 
-data/sounds/chips.mp3 - sound effect for any other bet winning
+data/sounds/chips.wav - sound effect for any other bet winning
 
+
+07/11/2023
+
+Adapted the craps game to work in Windows.  To do this 
+effectively, I had to convert all sound files into WAV 
+files, no big deal.
 
 
 01/20/2023
