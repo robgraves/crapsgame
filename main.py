@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Matthew Page 07/02/2019, 12/26/2022
+# Matthew Page 07/02/2019, 12/26/2022, 07/11/2023
 #
 # main.py	-	My first attempt at making a command line
 #				craps game.
@@ -22,20 +22,37 @@
 ############################################
 import sys
 import os
+import platform
 import math
 import random
 import pickle
 import data.graphics.graphics
 from data.graphics import graphics
 
+#Check for OS type
+operating = platform.system()
+#print(operating)
+#input()
 
 #path for files used
-userdata 		= "data/save/userdata.p"
-dicesound 		= "data/sounds/diceroll.mp3"
-awwsound		= "data/sounds/aww.mp3"
-applausesound	= "data/sounds/claps.mp3"
-winsound		= "data/sounds/chips.mp3"
-gruntsound 		= "data/sounds/grunt.mp3"
+if operating == "Linux":
+	userdata             = "data/save/userdata.p"
+	dicesound           = "data/sounds/diceroll.wav"
+	awwsound          = "data/sounds/aww.wav"
+	applausesound   = "data/sounds/claps.wav"
+	winsound           = "data/sounds/chips.wav"
+	gruntsound        = "data/sounds/grunt.wav"
+elif operating == "Windows":
+	userdata           = "data\\save\\userdata.p"
+	dicesound         = "data\\sounds\\diceroll.wav"
+	awwsound         = "data\\sounds\\aww.wav"
+	applausesound  = "data\\sounds\\claps.wav"
+	winsound          = "data\\sounds\\chips.wav"
+	gruntsound       = "data\\sounds\\grunt.wav"
+elif operating == "Darwin":
+	print("Sorry, this game currently doesn't work on MacOS.")
+else:
+	print("ERROR: Unrecognized Operating System!")	
 
 #Initializing the user database and loading if it exists,
 #forcing creation of file if it doesn't exist to solve
@@ -44,8 +61,13 @@ users_dict = {}
 if os.path.exists(userdata):
 	users_dict = pickle.load(open(userdata,"rb"))
 else:
-	os.system("mkdir -p data/save")
-	users_dict = {"dealer":1000000}
+	if operating == "Linux":
+		os.system("mkdir -p data/save")
+	elif operating == "Windows":
+		os.system("mkdir data\\save")
+	else:
+		print("ERROR: Unknown Operating System!")
+	users_dict = {"dealer":1000000000}
 pickle.dump(users_dict, open(userdata,"wb"))
 
 
@@ -75,7 +97,12 @@ def dice():
 	diceresult 	= die1 + die2
 
     #Play dice rolling sound
-	os.system("mplayer " + dicesound + " > /dev/null 2>&1")
+	if operating == "Linux":
+		os.system("mplayer " + dicesound + " > /dev/null 2>&1")
+	elif operating == "Windows":
+		os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\diceroll.wav').PlaySync();")
+	else:
+		print("ERROR: Unknown Operating System!")
 
 	#Display proper ASCII art for each dieface for die 1
 	if die1 == 1:
@@ -244,7 +271,14 @@ def table():
 	global bet_amount
 	global point
 	freeoddsbet = 0
-	os.system("clear")
+	
+	if operating == "Linux":
+		os.system("clear")
+	elif operating == "Windows":
+		os.system("cls")
+	else:
+		print("ERROR: Unknown Operating System!")
+		
 	print("Your current bankroll is: $" + str(bankroll))
 	if point == 0:
 		graphics.crapstable()
@@ -395,7 +429,12 @@ def table():
 #money if you go broke, only works if you chose M-rated
 #at the start of game.
 def shady():
-	os.system("clear")
+	if operating == "Linux":
+		os.system("clear")
+	elif operating == "Windows":
+		os.system("cls")
+	else:
+		print("ERROR: Unknown Operating System!")
 	print("A shady looking middle-aged man approaches")
 	print('you and he says, "I notice you are broke."')
 	print("                                          ")
@@ -417,13 +456,23 @@ def shady():
 	if choice == "1":
 		print("The man has you go behind the dumpster")
 		print("with him and he drops his pants...    ")
-		os.system("mplayer " + gruntsound + " > /dev/null 2>&1")
+		if operating == "Linux":
+			os.system("mplayer " + gruntsound + " > /dev/null 2>&1")
+		elif operating == "Windows":
+			os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\grunt.wav').PlaySync();")
+		else:
+			print("ERROR: Unknown Operating System!")
 		input()
 		print("...15 minutes later")
 		print("You have made 20 dollars")
 		bankroll = 20
 		input()
-		os.system("clear")
+		if operating == "Linux":
+			os.system("clear")
+		elif operating == "Windows":
+			os.system("cls")
+		else:
+			print("ERROR: Unknown Operating System!")
 		return bankroll
 	if choice == "2":
 		print("You decide not to follow the man.")
@@ -433,7 +482,12 @@ def shady():
 #Function for endgame/gameover if bankroll hits 0
 #0 to save, 1 to not save as input to function
 def gameover(int):
-	os.system("clear")
+	if operating == "Linux":
+		os.system("clear")
+	elif operating == "Windows":
+		os.system("cls")
+	else:
+		print("ERROR: Unknown Operating System!")
 	print("******************************\n\n")
 	if bankroll == 0:
 		print("       You are broke!\n\n")
@@ -631,7 +685,12 @@ def freeodds_passdp(bets):
 				bets.update({"freeodds_pass5o9":(oddsbet + bets.get("freeodds_pass5o9"))})
 			if point == 6 or point == 8:
 				bets.update({"freeodds_pass6o8":(oddsbet + bets.get("freeodds_pass6o8"))})
-			os.system("clear")
+			if operating == "Linux":
+				os.system("clear")
+			elif operating == "Windows":
+				os.system("cls")
+			else:
+				print("ERROR: Unknown Operating System!")
 			print("Your current bankroll is: $" + str(bankroll))
 			#save(users_dict)
 			#print(bets)   					##FOR TESTING
@@ -675,7 +734,12 @@ def freeodds_passdp(bets):
 				bets.update({"freeodds_dp5o9":(oddsbet + bets.get("freeodds_dp5o9"))})
 			if point == 6 or point == 8:
 				bets.update({"freeodds_dp6o8":(oddsbet + bets.get("freeodds_dp6o8"))})
-			os.system("clear")
+			if operating == "Linux":
+				os.system("clear")
+			elif operating == "Windows":
+				os.system("cls")
+			else:
+				print("ERROR: Unknown Operating System!")
 			print("Your current bankroll is: $" + str(bankroll))
 			#save(users_dict)
 			#print(bets)   					##FOR TESTING
@@ -718,7 +782,12 @@ def fieldbet(bets):
 	#Take field bet from bankroll and updating the bet dictionary
 	bankroll = bankroll - fieldbet
 	bets.update({"field":(fieldbet + bets.get("field"))})
-	os.system("clear")
+	if operating == "Linux":
+		os.system("clear")
+	elif operating == "Windows":
+		os.system("cls")
+	else:
+		print("ERROR: Unknown Operating System!")
 	print("Your current bankroll is: $" + str(bankroll))
 	#save(users_dict)
 	#print(bets)   					##FOR TESTING
@@ -847,7 +916,12 @@ def place(bets):
 		#Take place bet and based on number chosen update betting dictionary
 		#for that number
 		bankroll = bankroll - placebet
-		os.system("clear")
+		if operating == "Linux":
+			os.system("clear")
+		elif operating == "Windows":
+			os.system("cls")
+		else:
+			print("ERROR: Unknown Operating System!")
 		print("Your current bankroll is: $" + str(bankroll))
 		#save(users_dict)
 		if placebet_location == "4":
@@ -1002,7 +1076,12 @@ def buy(bets):
 		#Take buy bet and based on number chosen update betting dictionary
 		#for that number
 		bankroll = bankroll - buybet
-		os.system("clear")
+		if operating == "Linux":
+			os.system("clear")
+		elif operating == "Windows":
+			os.system("cls")
+		else:
+			print("ERROR: Unknown Operating System!")
 		print("Your current bankroll is: $" + str(bankroll))
 		#save(users_dict)
 		if buybet_location == "4":
@@ -1178,7 +1257,13 @@ def lay(bets):
 			bankroll = bankroll - (laybet + commission)
 
 
-		os.system("clear")
+		if operating == "Linux":
+			os.system("clear")
+		elif operating == "Windows":
+			os.system("cls")
+		else:
+			print("ERROR: Unknown Operating System!")
+			
 		print("Your current bankroll is: $" + str(bankroll))
 		#save(users_dict)
 		if laybet_location == "4":
@@ -1389,7 +1474,12 @@ def comedc(bets):
 			table()
 			return(bets)
 		comebet = 0
-		os.system("clear")
+		if operating == "Linux":
+			os.system("clear")
+		elif operating == "Windows":
+			os.system("cls")
+		else:
+			print("ERROR: Unknown Operating System!")
 	print("Your current bankroll is: $" + str(bankroll))
 
 	#save(users_dict)
@@ -1508,7 +1598,12 @@ def hardwaybets(bets):
 		#Take place bet and based on number chosen update betting dictionary
 		#for that number
 		bankroll = bankroll - hardwaybet
-		os.system("clear")
+		if operating == "Linux":
+			os.system("clear")
+		elif operating == "Windows":
+			os.system("cls")
+		else:
+			print("ERROR: Unknown Operating System!")
 		print("Your current bankroll is: $" + str(bankroll))
 		#save(users_dict)
 		if hardwaybet_location == "4":
@@ -1602,7 +1697,12 @@ def proposition(bets):
 
 	#Depending on user input go to next submenu function
 	#for hardway bets or take bets on other prop bets
-	os.system("clear")
+	if operating == "Linux":
+		os.system("clear")
+	elif operating == "Windows":
+		os.system("cls")
+	else:
+		print("ERROR: Unknown Operating System!")
 	print("Your current bankroll is: $" + str(bankroll))
 	#save(users_dict)
 	if prop_location == "2":
@@ -1746,7 +1846,12 @@ def otherbets(bets):
 		#Take place bet and based on number chosen update betting dictionary
 		#for that number
 		bankroll = bankroll - otherbet
-		#os.system("clear")
+		#if operating == "Linux":
+		#	os.system("clear")
+		#elif operating == "Windows":
+		#	os.system("cls")
+		#else:
+		#	print("ERROR: Unknown Operating System!")
 		print("Your current bankroll is: $" + str(bankroll))
 		#save(users_dict)
 		if otherbet_location == "6":
@@ -1861,7 +1966,12 @@ def midgamebet(bets):
 #
 #############################################
 
-os.system("clear")
+if operating == "Linux":
+	os.system("clear")
+elif operating == "Windows":
+	os.system("cls")
+else:
+	print("ERROR: Unknown Operating System!")
 graphics.intro()
 
 #mature content is off by default
@@ -1933,7 +2043,12 @@ print("Welcome " + username + "!!!")
 print("Your bankroll is: $" + str(bankroll))
 
 save(users_dict)
-os.system("clear")
+if operating == "Linux":
+	os.system("clear")
+elif operating == "Windows":
+	os.system("cls")
+else:
+	print("ERROR: Unknown Operating System!")
 
 #############################################
 #
@@ -2004,7 +2119,12 @@ while quitflag == False:
 				continue
 		print("You chose " + str(bet_amount))
 		bankroll = bankroll - bet_amount
-	os.system("clear")
+	if operating == "Linux":
+		os.system("clear")
+	elif operating == "Windows":
+		os.system("cls")
+	else:
+		print("ERROR: Unknown Operating System!")
 	print("Your current bankroll is: $" + str(bankroll))
 	save(users_dict)
 
@@ -2023,7 +2143,12 @@ while quitflag == False:
 		#If 7 or 11 Pass bettors win, Don't Pass loses
 		if result == 7 or result == 11:
 			print("Shooter Wins!!!")
-			os.system("mplayer " + applausesound + " > /dev/null 2>&1")
+			if operating == "Linux":
+				os.system("mplayer " + applausesound + " > /dev/null 2>&1")
+			elif operating == "Windows":
+				os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\claps.wav').PlaySync();")
+			else:
+				print("ERROR: Unknown Operating System!")
 			if bet_location == "1":
 				bankroll = (bankroll + (bet_amount * 2))
 				winflag = 1
@@ -2100,7 +2225,12 @@ while quitflag == False:
 				bets.update({"come10":0})
 
 			if winflag == 1:
-				os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				if operating == "Linux":
+					os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				elif operating == "Windows":
+					os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
+				else:
+					print("ERROR: Unknown Operating System!")
 				winflag = 0	
 
 			save(users_dict)
@@ -2108,13 +2238,23 @@ while quitflag == False:
 			iscomeout = True
 			point = 0
 			input()
-			os.system("clear")
+			if operating == "Linux":
+				os.system("clear")
+			elif operating == "Windows":
+				os.system("cls")
+			else:
+				print("ERROR: Unknown Operating System!")
 			break
 		#If 2, 3, or 12 Pass bettors lose, Don't Pass wins
         #on 2 or 3, pushes if rolls 12 (BAR 12)
 		elif result == 2 or result == 3 or result == 12:
 			print("Shooter Craps Out!")
-			os.system("mplayer " + awwsound + " > /dev/null 2>&1")
+			if operating == "Linux":
+				os.system("mplayer " + awwsound + " > /dev/null 2>&1")
+			elif operating == "Windows":
+				os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\aww.wav').PlaySync();")
+			else:
+				print("ERROR: Unknown Operating System!")
 			#print("bet location is : ", bet_location)
 			if bet_location == "2":
 				if result == 2 or result == 3:
@@ -2124,14 +2264,24 @@ while quitflag == False:
 					bankroll = (bankroll + bet_amount)
 
 			if winflag == 1:
-				os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				if operating == "Linux":
+					os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				elif operating == "Windows":
+					os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
+				else:
+					print("ERROR: Unknown Operating System!")
 				winflag = 0	
 
 			save(users_dict)
 			iscomeout = True
 			point = 0
 			input()
-			os.system("clear")
+			if operating == "Linux":
+				os.system("clear")
+			elif operating == "Windows":
+				os.system("cls")
+			else:
+				print("ERROR: Unknown Operating System!")
 			break
 		#####################################################
 		#
@@ -2391,13 +2541,23 @@ while quitflag == False:
 			bets.update({"world":0})	
 
 			if winflag == 1:
-				os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				if operating == "Linux":
+					os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				elif operating == "Windows":
+					os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
+				else:
+					print("ERROR: Unknown Operating System!")
 				winflag = 0	
 
 			save(users_dict)
 
 			input()
-			os.system("clear")
+			if operating == "Linux":
+				os.system("clear")
+			elif operating == "Windows":
+				os.system("cls")
+			else:
+				print("ERROR: Unknown Operating System!")
 
         #########################################
         #
@@ -2833,7 +2993,12 @@ while quitflag == False:
 				bets.update({"lay10":0})
 
 			if winflag == 1:
-				os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				if operating == "Linux":
+					os.system("mplayer " + winsound + " > /dev/null 2>&1")
+				elif operating == "Windows":
+					os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
+				else:
+					print("ERROR: Unknown Operating System!")
 				winflag = 0	
 			
 			save(users_dict)
@@ -2846,7 +3011,12 @@ while quitflag == False:
 			if result == point:
 				print("Shooter hits the point!!!")
 				print("Front Line Winner!!!")
-				os.system("mplayer " + applausesound + " > /dev/null 2>&1")
+				if operating == "Linux":
+					os.system("mplayer " + applausesound + " > /dev/null 2>&1")
+				elif operating == "Windows":
+					os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\claps.wav').PlaySync();")
+				else:
+					print("ERROR: Unknown Operating System!")
 				#print("bet location is : ", bet_location)
 				if bet_location == "1":
 					bankroll = (bankroll + (bet_amount * 2))
@@ -2959,7 +3129,12 @@ while quitflag == False:
 				newdcbet = 0
 				
 				if winflag == 1:
-					os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					if operating == "Linux":
+						os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					elif operating == "Windows":
+						os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
+					else:
+						print("ERROR: Unknown Operating System!")
 					winflag = 0	
 
 				save(users_dict)
@@ -2967,7 +3142,12 @@ while quitflag == False:
 				iscomeout = True
 				point = 0
 				input()
-				os.system("clear")
+				if operating == "Linux":
+					os.system("clear")
+				elif operating == "Windows":
+					os.system("cls")
+				else:
+					print("ERROR: Unknown Operating System!")
 				break
 			###########################################
 			#
@@ -2977,7 +3157,12 @@ while quitflag == False:
 			elif result == 7:
 				print("Big Red!!! Shooter sevens out!")
 				print("Pay the Don't Pass.")
-				os.system("mplayer " + awwsound + " > /dev/null 2>&1")
+				if operating == "Linux":
+					os.system("mplayer " + awwsound + " > /dev/null 2>&1")
+				elif operating == "Windows":
+					os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\aww.wav').PlaySync();")
+				else:
+					print("ERROR: Unknown Operating System!")
 				#print("bet location is : ", bet_location)
 				if bet_location == "2":
 					bankroll = (bankroll + (bet_amount * 2))
@@ -3057,7 +3242,12 @@ while quitflag == False:
 				bets.update({"hardway10":0})
 
 				if winflag == 1:
-					os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					if operating == "Linux":
+						os.system("mplayer " + winsound + " > /dev/null 2>&1")
+					elif operating == "Windows":
+						os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
+					else:
+						print("ERROR: Unknown Operating System!")
 					winflag = 0	
 				
 				save(users_dict)
@@ -3065,7 +3255,12 @@ while quitflag == False:
 				iscomeout = True
 				point = 0
 				input()
-				os.system("clear")
+				if operating == "Linux":
+					os.system("clear")
+				elif operating == "Windows":
+					os.system("cls")
+				else:
+					print("ERROR: Unknown Operating System!")
 				break
 		break
 
