@@ -36,6 +36,12 @@ data/sounds/winsound.wav - sound effect for any other bet winning
 data/sounds/chips.wav - sound effect for any other bet winning
 
 
+07/13/2023
+
+Simple modification, changed ASCII graphics to stagger
+the two dice to make it more aesthetically pleasing.
+
+
 07/12/2023
 
 Removed Linux dependence on mplayer for sound, switching to aplay
