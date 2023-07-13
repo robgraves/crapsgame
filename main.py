@@ -56,7 +56,6 @@ elif operating == "Darwin":
 	applausesound   = "data/sounds/claps.wav"
 	winsound           = "data/sounds/chips.wav"
 	gruntsound        = "data/sounds/grunt.wav"
-	#print("Sorry, this game currently doesn't work on MacOS.")
 else:
 	print("ERROR: Unrecognized Operating System!")	
 
