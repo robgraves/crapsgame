@@ -116,30 +116,30 @@ def dice():
 
 	#Display proper ASCII art for each dieface for die 1
 	if die1 == 1:
-		graphics.dieface1()
+		graphics.die1face1()
 	elif die1 == 2:
-		graphics.dieface2()
+		graphics.die1face2()
 	elif die1 == 3:
-		graphics.dieface3()
+		graphics.die1face3()
 	elif die1 == 4:
-		graphics.dieface4()
+		graphics.die1face4()
 	elif die1 == 5:
-		graphics.dieface5()
+		graphics.die1face5()
 	elif die1 == 6:
-		graphics.dieface6()
+		graphics.die1face6()
 	#Display proper ASCII art for each dieface for die 2
 	if die2 == 1:
-		graphics.dieface1()
+		graphics.die2face1()
 	elif die2 == 2:
-		graphics.dieface2()
+		graphics.die2face2()
 	elif die2 == 3:
-		graphics.dieface3()
+		graphics.die2face3()
 	elif die2 == 4:
-		graphics.dieface4()
+		graphics.die2face4()
 	elif die2 == 5:
-		graphics.dieface5()
+		graphics.die2face5()
 	elif die2 == 6:
-		graphics.dieface6()
+		graphics.die2face6()
 	print(str(die1) + " " + str(die2))
 	print("You rolled : ", diceresult)
 	

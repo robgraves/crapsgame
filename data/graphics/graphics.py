@@ -170,16 +170,16 @@ def crapstable10():
 	print("                               +---------------+   ")
 
 
-def dieface1():
-	'''Function to display a one on a die in ASCII'''
+def die1face1():
+	'''Function to display a one on a die1 in ASCII'''
 	print("     ___     ")
 	print("    |   |    ")
 	print("    | o |    ")
 	print("    |___|    ")
 	print("             ")
 
-def dieface2():
-	'''Function to display a two on a die in ASCII'''
+def die1face2():
+	'''Function to display a two on a die1 in ASCII'''
 	print("     ___     ")
 	print("    |o  |    ")
 	print("    |   |    ")
@@ -187,8 +187,8 @@ def dieface2():
 	print("             ")
 
 
-def dieface3():
-	'''Function to display a three on a die in ASCII'''
+def die1face3():
+	'''Function to display a three on a die1 in ASCII'''
 	print("     ___     ")
 	print("    |o  |    ")
 	print("    | o |    ")
@@ -196,8 +196,8 @@ def dieface3():
 	print("             ")
 
 
-def dieface4():
-	'''Function to display a four on a die in ASCII'''
+def die1face4():
+	'''Function to display a four on a die1 in ASCII'''
 	print("     ___     ")
 	print("    |o o|    ")
 	print("    |   |    ")
@@ -205,8 +205,8 @@ def dieface4():
 	print("             ")
 
 
-def dieface5():
-	'''Function to display a five on a die in ASCII'''
+def die1face5():
+	'''Function to display a five on a die1 in ASCII'''
 	print("     ___     ")
 	print("    |o o|    ")
 	print("    | o |    ")
@@ -214,13 +214,67 @@ def dieface5():
 	print("             ")
 
 
-def dieface6():
-	'''Function to display a six on a die in ASCII'''
+def die1face6():
+	'''Function to display a six on a die1 in ASCII'''
 	print("     ___     ")
 	print("    |o o|    ")
 	print("    |o o|    ")
 	print("    |o_o|    ")
 	print("             ")
+ 
+
+def die2face1():
+	'''Function to display a one on a die2 in ASCII'''
+	print("           ___     ")
+	print("          |   |    ")
+	print("          | o |    ")
+	print("          |___|    ")
+	print("                   ")
+
+
+def die2face2():
+	'''Function to display a two on a die2 in ASCII'''
+	print("           ___     ")
+	print("          |o  |    ")
+	print("          |   |    ")
+	print("          |__o|    ")
+	print("                   ")
+
+
+def die2face3():
+	'''Function to display a three on a die2 in ASCII'''
+	print("           ___     ")
+	print("          |o  |    ")
+	print("          | o |    ")
+	print("          |__o|    ")
+	print("                   ")
+
+
+def die2face4():
+	'''Function to display a four on a die2 in ASCII'''
+	print("           ___     ")
+	print("          |o o|    ")
+	print("          |   |    ")
+	print("          |o_o|    ")
+	print("                   ")
+
+
+def die2face5():
+	'''Function to display a five on a die2 in ASCII'''
+	print("           ___     ")
+	print("          |o o|    ")
+	print("          | o |    ")
+	print("          |o_o|    ")
+	print("                   ")
+
+
+def die2face6():
+	'''Function to display a six on a die2 in ASCII'''
+	print("           ___     ")
+	print("          |o o|    ")
+	print("          |o o|    ")
+	print("          |o_o|    ")
+	print("                   ")
 
 
 def cactus():
