@@ -40,6 +40,13 @@ data/sounds/chips.wav - sound effect for any other bet winning
 
 Simple modification, changed ASCII graphics to stagger
 the two dice to make it more aesthetically pleasing.
+Wrote betting for Odds on Come and Don't Come but haven't 
+implemented payouts or losses yet.  
+Also noting I want to implement at bare minimum a 5x odds on
+a come odds bet.  But ideally a 5x-4x-3x for 6/8,5/9,4/10 respectively
+and then change my current universal 5x limit on odds for pass and 
+don't pass to 5x-4x-3x as well for same point numbers.
+Currently the whole function is a Work In Progress.
 
 
 07/12/2023

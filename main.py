@@ -902,7 +902,7 @@ def place(bets):
 			print("B - Back")
 			#Take user input and takedown relevant bet
 			takedownbet = input()
-			if (takedownbet == "B") or (takedownbet == "B"):
+			if (takedownbet == "B") or (takedownbet == "b"):
 				return(bets)
 			if takedownbet == "4":
 				bankroll = bankroll + bets.get("place4")
@@ -1064,7 +1064,7 @@ def buy(bets):
 			print("B - Back")
 			#Take user input and takedown relevant bet
 			takedownbet = input()
-			if (takedownbet == "B") or (takedownbet == "B"):
+			if (takedownbet == "B") or (takedownbet == "b"):
 				return(bets)
 			if takedownbet == "4":
 				bankroll = bankroll + bets.get("buy4")
@@ -1226,7 +1226,7 @@ def lay(bets):
 			print("B - Back")
 			#Take user input and takedown relevant bet
 			takedownbet = input()
-			if (takedownbet == "B") or (takedownbet == "B"):
+			if (takedownbet == "B") or (takedownbet == "b"):
 				return(bets)
 			if takedownbet == "4":
 				bankroll = bankroll + bets.get("lay4")
@@ -1522,7 +1522,179 @@ def comedc(bets):
 
 #Function for Free Odds on Come/DC points
 def freeodds_comedc(bets):
-	pass
+	global bankroll
+	#this scenario (point == 0) never happens in the game's current 
+	#state as this function is never called in a come-out roll
+	#but is there for future proofing if ever make it so players
+	#have all bets available as choices at all times in the game
+	if point == 0:
+		print("You cannot take free odds bets on a come out roll.")
+		input()
+		return(bets)
+	#Check for out of money
+	elif bankroll == 0:
+		print("You have no more money available to bet.")
+		input()
+		table()
+		return(bets)
+	else:
+		#Reject if no money on Come or Don't Come points
+		if bets.get("come4") == 0 and bets.get("come5") == 0 and bets.get("come6") == 0 and bets.get("come8") == 0 and bets.get("come9") == 0 and bets.get("come10") == 0 and bets.get("dc4") == 0 and bets.get("dc5") == 0 and bets.get("dc6") == 0 and bets.get("dc8") == 0 and bets.get("dc9") == 0 and bets.get("dc10") == 0:
+			print("You cannot take odds on Come or Don't Come")
+			print("points if you don't have any Come or Don't Come")
+			print("point bets.")
+			input()
+			table()
+			return(bets)
+		else:
+			oddsbet = 0
+			oddsbet_location = "0" 
+			while oddsbet_location != "B" or oddsbet_location != "b":
+				while oddsbet_location not in ("B","b","C4","C5","C6","C8","C9","C10","c4","c5","c6","c8","c9","c10","D4","D5","D6","D8","D9","D10","d4","d5","d6","d8","d9","d10"):
+					print("Choose where to take Come or Don't Come Odds: ")
+					if bets.get("come4") != 0:
+						print("C4  - Odds on Come 4")
+					if bets.get("dc4") != 0:
+						print("D4  - Odds on Don't Come 4")
+					if bets.get("come5") != 0:
+						print("C5  - Odds on Come 5")
+					if bets.get("dc5") != 0:
+						print("D5  - Odds on Don't Come 5")   
+					if bets.get("come6") != 0:
+						print("C6  - Odds on Come 6")
+					if bets.get("dc6") != 0:
+						print("D6  - Odds on Don't Come 6")   
+					if bets.get("come8") != 0:
+						print("C8  - Odds on Come 8")
+					if bets.get("dc8") != 0:
+						print("D8  - Odds on Don't Come 8")   
+					if bets.get("come9") != 0:
+						print("C9  - Odds on Come 9")
+					if bets.get("dc9") != 0:
+						print("D9  - Odds on Don't Come 9")   
+					if bets.get("come10") != 0:
+						print("C10  - Odds on Come 10")
+					if bets.get("dc10") != 0:
+						print("D10  - Odds on Don't Come 10")
+					print("B - Back")   
+					oddsbet_location = input()
+					if (oddsbet_location == "B") or (oddsbet_location == "b"):
+						return(bets)
+					#Get bet amount
+					print("Enter bet amount: ")
+					oddsbet = 0
+					while not int(oddsbet) in range(1,bankroll+1):
+						if oddsbet > bankroll:
+							print("You do not have that much.")
+							print("Your current bankroll is: $" + str(bankroll))
+							print("Enter bet amount: ")
+						try:
+							oddsbet = int(input())
+						except ValueError:
+							print("Error: Invalid entry.  Please enter a number.")
+							continue
+						#Put in 5x limit or 5-4-3 limit on odds bet for the future
+						print("You chose " + str(oddsbet))
+						#Take oddsbet and place it on come or don't come point chosen
+						#and update the betting dictionary.
+						bankroll = bankroll - oddsbet
+						if operating == "Linux":
+							os.system("clear")
+						elif operating == "Windows":
+							os.system("cls")
+						elif operating == "Darwin":
+							os.system("clear")
+						else:
+							print("ERROR: Unknown Operating System!")
+						
+						if oddsbet_location == "C4" or oddsbet_location == "c4":
+							if bets.get("come4") == 0:
+								print("You have no bets here.")
+								table()
+								return(bets)
+							bets.update({"freeodds_come4":(oddsbet + bets.get("freeodds_come4"))})
+							return(bets)
+						if oddsbet_location == "D4" or oddsbet_location == "d4":
+							if bets.get("dc4") == 0:
+								print("You have no bets here.")
+								table()
+								return(bets)
+							bets.update({"freeodds_dc4":(oddsbet + bets.get("freeodds_dc4"))})
+							return(bets)
+						if oddsbet_location == "C5" or oddsbet_location == "c5":
+							if bets.get("come5") == 0:
+								print("You have no bets here.")
+								table()
+								return(bets)
+							bets.update({"freeodds_come5":(oddsbet + bets.get("freeodds_come5"))})
+							return(bets)
+						if oddsbet_location == "D5" or oddsbet_location == "d5":
+							if bets.get("dc5") == 0:
+								print("You have no bets here.")
+								table()
+								return(bets)
+							bets.update({"freeodds_dc5":(oddsbet + bets.get("freeodds_dc5"))})
+							return(bets)
+						if oddsbet_location == "C6" or oddsbet_location == "c6":
+							if bets.get("come6") == 0:
+								print("You have no bets here.")
+								table()
+								return(bets)
+							bets.update({"freeodds_come6":(oddsbet + bets.get("freeodds_come6"))})
+							return(bets)
+						if oddsbet_location == "D6" or oddsbet_location == "d6":
+							if bets.get("dc6") == 0:
+								print("You have no bets here.")
+								table()
+								return(bets)
+							bets.update({"freeodds_dc6":(oddsbet + bets.get("freeodds_dc6"))})
+							return(bets)
+						if oddsbet_location == "C8" or oddsbet_location == "c8":
+							if bets.get("come8") == 0:
+								print("You have no bets here.")
+								table()
+								return(bets)
+							bets.update({"freeodds_come8":(oddsbet + bets.get("freeodds_come8"))})
+							return(bets)
+						if oddsbet_location == "D8" or oddsbet_location == "d8":
+							if bets.get("dc8") == 0:
+								print("You have no bets here.")
+								table()
+								return(bets)
+							bets.update({"freeodds_dc8":(oddsbet + bets.get("freeodds_dc8"))})
+							return(bets)
+						if oddsbet_location == "C9" or oddsbet_location == "c9":
+							if bets.get("come9") == 0:
+								print("You have no bets here.")
+								table()
+								return(bets)
+							bets.update({"freeodds_come9":(oddsbet + bets.get("freeodds_come9"))})
+							return(bets)
+						if oddsbet_location == "D9" or oddsbet_location == "d9":
+							if bets.get("dc9") == 0:
+								print("You have no bets here.")
+								table()
+								return(bets)
+							bets.update({"freeodds_dc9":(oddsbet + bets.get("freeodds_dc9"))})
+							return(bets)
+						if oddsbet_location == "C10" or oddsbet_location == "c10":
+							if bets.get("come10") == 0:
+								print("You have no bets here.")
+								table()
+								return(bets)
+							bets.update({"freeodds_come10":(oddsbet + bets.get("freeodds_come10"))})
+							return(bets)
+						if oddsbet_location == "D10" or oddsbet_location == "d10":
+							if bets.get("dc10") == 0:
+								print("You have no bets here.")
+								table()
+								return(bets)
+							bets.update({"freeodds_dc10":(oddsbet + bets.get("freeodds_dc10"))})
+							return(bets)
+
+			#input()
+
+	table()
 	return bets
 
 
