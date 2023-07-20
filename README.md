@@ -36,13 +36,21 @@ data/sounds/winsound.wav - sound effect for any other bet winning
 data/sounds/chips.wav - sound effect for any other bet winning
 
 
+07/20/2023
+
+It appears as if Odds on Come and Don't Come bets are working.
+Needs some thorough testing.  But this would mean officially I
+have a full functioning craps game, maybe still some bugs here
+and there, but the game works and has all of the bets functioning.
+
+
 07/13/2023
 
 Simple modification, changed ASCII graphics to stagger
 the two dice to make it more aesthetically pleasing.
 Wrote betting for Odds on Come and Don't Come but haven't 
 implemented payouts or losses yet.  
-Also noting I want to implement at bare minimum a 5x odds on
+Also noting I want to implement at bare minimum a 5x odds limit on
 a come odds bet.  But ideally a 5x-4x-3x for 6/8,5/9,4/10 respectively
 and then change my current universal 5x limit on odds for pass and 
 don't pass to 5x-4x-3x as well for same point numbers.

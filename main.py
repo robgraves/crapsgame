@@ -1606,6 +1606,7 @@ def freeodds_comedc(bets):
 							os.system("clear")
 						else:
 							print("ERROR: Unknown Operating System!")
+						#table()
 						
 						if oddsbet_location == "C4" or oddsbet_location == "c4":
 							if bets.get("come4") == 0:
@@ -1613,6 +1614,7 @@ def freeodds_comedc(bets):
 								table()
 								return(bets)
 							bets.update({"freeodds_come4":(oddsbet + bets.get("freeodds_come4"))})
+							table()
 							return(bets)
 						if oddsbet_location == "D4" or oddsbet_location == "d4":
 							if bets.get("dc4") == 0:
@@ -1620,6 +1622,7 @@ def freeodds_comedc(bets):
 								table()
 								return(bets)
 							bets.update({"freeodds_dc4":(oddsbet + bets.get("freeodds_dc4"))})
+							table()
 							return(bets)
 						if oddsbet_location == "C5" or oddsbet_location == "c5":
 							if bets.get("come5") == 0:
@@ -1627,6 +1630,7 @@ def freeodds_comedc(bets):
 								table()
 								return(bets)
 							bets.update({"freeodds_come5":(oddsbet + bets.get("freeodds_come5"))})
+							table()
 							return(bets)
 						if oddsbet_location == "D5" or oddsbet_location == "d5":
 							if bets.get("dc5") == 0:
@@ -1634,6 +1638,7 @@ def freeodds_comedc(bets):
 								table()
 								return(bets)
 							bets.update({"freeodds_dc5":(oddsbet + bets.get("freeodds_dc5"))})
+							table()
 							return(bets)
 						if oddsbet_location == "C6" or oddsbet_location == "c6":
 							if bets.get("come6") == 0:
@@ -1641,6 +1646,7 @@ def freeodds_comedc(bets):
 								table()
 								return(bets)
 							bets.update({"freeodds_come6":(oddsbet + bets.get("freeodds_come6"))})
+							table()
 							return(bets)
 						if oddsbet_location == "D6" or oddsbet_location == "d6":
 							if bets.get("dc6") == 0:
@@ -1648,6 +1654,7 @@ def freeodds_comedc(bets):
 								table()
 								return(bets)
 							bets.update({"freeodds_dc6":(oddsbet + bets.get("freeodds_dc6"))})
+							table()
 							return(bets)
 						if oddsbet_location == "C8" or oddsbet_location == "c8":
 							if bets.get("come8") == 0:
@@ -1655,6 +1662,7 @@ def freeodds_comedc(bets):
 								table()
 								return(bets)
 							bets.update({"freeodds_come8":(oddsbet + bets.get("freeodds_come8"))})
+							table()
 							return(bets)
 						if oddsbet_location == "D8" or oddsbet_location == "d8":
 							if bets.get("dc8") == 0:
@@ -1662,6 +1670,7 @@ def freeodds_comedc(bets):
 								table()
 								return(bets)
 							bets.update({"freeodds_dc8":(oddsbet + bets.get("freeodds_dc8"))})
+							table()
 							return(bets)
 						if oddsbet_location == "C9" or oddsbet_location == "c9":
 							if bets.get("come9") == 0:
@@ -1669,6 +1678,7 @@ def freeodds_comedc(bets):
 								table()
 								return(bets)
 							bets.update({"freeodds_come9":(oddsbet + bets.get("freeodds_come9"))})
+							table()
 							return(bets)
 						if oddsbet_location == "D9" or oddsbet_location == "d9":
 							if bets.get("dc9") == 0:
@@ -1676,6 +1686,7 @@ def freeodds_comedc(bets):
 								table()
 								return(bets)
 							bets.update({"freeodds_dc9":(oddsbet + bets.get("freeodds_dc9"))})
+							table()
 							return(bets)
 						if oddsbet_location == "C10" or oddsbet_location == "c10":
 							if bets.get("come10") == 0:
@@ -1683,6 +1694,7 @@ def freeodds_comedc(bets):
 								table()
 								return(bets)
 							bets.update({"freeodds_come10":(oddsbet + bets.get("freeodds_come10"))})
+							table()
 							return(bets)
 						if oddsbet_location == "D10" or oddsbet_location == "d10":
 							if bets.get("dc10") == 0:
@@ -1690,6 +1702,7 @@ def freeodds_comedc(bets):
 								table()
 								return(bets)
 							bets.update({"freeodds_dc10":(oddsbet + bets.get("freeodds_dc10"))})
+							table()
 							return(bets)
 
 			#input()
@@ -2166,6 +2179,7 @@ def midgamebet(bets):
 		if midbet_location == 8:
 			#Miscellaneous Bets
 			bets = otherbets(bets)
+	table()
 	return bets
 
 
@@ -2435,6 +2449,38 @@ while quitflag == False:
 					bankroll = bankroll + (bets.get("dc10") * 2)
 					bets.update({"dc10":0})
 					bets.update({"come10":0})
+				#Payouts for Don't Come Odds on Seven Out	
+				#Losses for come point odds
+				if bets.get("freeodds_dc4") != 0:
+					winflag = 1
+					bankroll = bankroll + math.floor(((bets.get("freeodds_dc4") * 1)/2) + bets.get("freeodds_dc4"))
+					bets.update({"freeodds_dc4":0})
+					bets.update({"freeodds_come4":0})
+				if bets.get("freeodds_dc5") != 0:
+					winflag = 1
+					bankroll = bankroll + math.floor(((bets.get("freeodds_dc5") * 2)/3) + bets.get("freeodds_dc5"))
+					bets.update({"freeodds_dc5":0})
+					bets.update({"freeodds_come5":0})
+				if bets.get("freeodds_dc6") != 0:
+					winflag = 1
+					bankroll = bankroll + math.floor(((bets.get("freeodds_dc6") * 5)/6) + bets.get("freeodds_dc6"))
+					bets.update({"freeodds_dc6":0})
+					bets.update({"freeodds_come6":0})
+				if bets.get("freeodds_dc8") != 0:
+					winflag = 1
+					bankroll = bankroll + math.floor(((bets.get("freeodds_dc8") * 5)/6) + bets.get("freeodds_dc8"))
+					bets.update({"freeodds_dc8":0})
+					bets.update({"freeodds_come8":0})
+				if bets.get("freeodds_dc9") != 0:
+					winflag = 1
+					bankroll = bankroll + math.floor(((bets.get("freeodds_dc9") * 2)/3) + bets.get("freeodds_dc9"))
+					bets.update({"freeodds_dc9":0})
+					bets.update({"freeodds_come9":0})
+				if bets.get("freeodds_dc10") != 0:
+					winflag = 1
+					bankroll = bankroll + math.floor(((bets.get("freeodds_dc10") * 1)/2) + bets.get("freeodds_dc10"))
+					bets.update({"freeodds_dc10":0})
+					bets.update({"freeodds_come10":0})
 
 				bets.update({"come4":0})
 				bets.update({"come5":0})
@@ -2640,6 +2686,54 @@ while quitflag == False:
 					bets.update({"dc9":0})
 				if bets.get("dc10") != 0 and result == 10:
 					bets.update({"dc10":0})
+				save(users_dict)
+			newdcbet = 0
+			#Payouts for odds if dice result matches come point	
+			#Losses for odds on don't come points
+			if bets.get("freeodds_come4") != 0 and result == 4:
+				winflag = 1
+				bankroll = bankroll + math.floor((bets.get("freeodds_come4") * 2)/1)
+				bets.update({"freeodds_come4":0})
+				bets.update({"freeodds_dc4":0})
+			if bets.get("freeodds_come5") != 0 and result == 5:
+				winflag = 1
+				bankroll = bankroll + math.floor((bets.get("freeodds_come5") * 3)/2)
+				bets.update({"freeodds_come5":0})
+				bets.update({"freeodds_dc5":0})
+			if bets.get("freeodds_come6") != 0 and result == 6:
+				winflag = 1
+				bankroll = bankroll + math.floor((bets.get("freeodds_come6") * 6)/5)
+				bets.update({"freeodds_come6":0})
+				bets.update({"freeodds_dc6":0})
+			if bets.get("freeodds_come8") != 0 and result == 8:
+				winflag = 1
+				bankroll = bankroll + math.floor((bets.get("freeodds_come8") * 6)/5)
+				bets.update({"freeodds_come8":0})
+				bets.update({"freeodds_dc8":0})
+			if bets.get("freeodds_come9") != 0 and result == 9:
+				winflag = 1
+				bankroll = bankroll + math.floor((bets.get("freeodds_come9") * 3)/2)
+				bets.update({"freeodds_come9":0})
+				bets.update({"freeodds_dc9":0})
+			if bets.get("freeodds_come10") != 0 and result == 10:
+				winflag = 1
+				bankroll = bankroll + math.floor((bets.get("freeodds_come10") * 2)/1)
+				bets.update({"freeodds_come10":0})
+				bets.update({"freeodds_dc10":0})
+			save(users_dict)
+			if newdcbet == 0:
+				if bets.get("freeodds_dc4") != 0 and result == 4:
+					bets.update({"freeodds_dc4":0})
+				if bets.get("freeodds_dc5") != 0 and result == 5:
+					bets.update({"freeodds_dc5":0})
+				if bets.get("freeodds_dc6") != 0 and result == 6:
+					bets.update({"freeodds_dc6":0})
+				if bets.get("freeodds_dc8") != 0 and result == 8:
+					bets.update({"freeodds_dc8":0})
+				if bets.get("freeodds_dc9") != 0 and result == 9:
+					bets.update({"freeodds_dc9":0})
+				if bets.get("freeodds_dc10") != 0 and result == 10:
+					bets.update({"freeodds_dc10":0})
 				save(users_dict)
 			newdcbet = 0
 
@@ -2852,6 +2946,54 @@ while quitflag == False:
 				bets.update({"dc9":0})
 			if bets.get("dc10") != 0 and result == 10:
 				bets.update({"dc10":0})
+			#Payouts for odds if dice result matches come point	
+			#Losses for odds on don't come points
+			if bets.get("freeodds_come4") != 0 and result == 4:
+				winflag = 1
+				bankroll = bankroll + math.floor((bets.get("freeodds_come4") * 2)/1)
+				bets.update({"freeodds_come4":0})
+				bets.update({"freeodds_dc4":0})
+			if bets.get("freeodds_come5") != 0 and result == 5:
+				winflag = 1
+				bankroll = bankroll + math.floor((bets.get("freeodds_come5") * 3)/2)
+				bets.update({"freeodds_come5":0})
+				bets.update({"freeodds_dc5":0})
+			if bets.get("freeodds_come6") != 0 and result == 6:
+				winflag = 1
+				bankroll = bankroll + math.floor((bets.get("freeodds_come6") * 6)/5)
+				bets.update({"freeodds_come6":0})
+				bets.update({"freeodds_dc6":0})
+			if bets.get("freeodds_come8") != 0 and result == 8:
+				winflag = 1
+				bankroll = bankroll + math.floor((bets.get("freeodds_come8") * 6)/5)
+				bets.update({"freeodds_come8":0})
+				bets.update({"freeodds_dc8":0})
+			if bets.get("freeodds_come9") != 0 and result == 9:
+				winflag = 1
+				bankroll = bankroll + math.floor((bets.get("freeodds_come9") * 3)/2)
+				bets.update({"freeodds_come9":0})
+				bets.update({"freeodds_dc9":0})
+			if bets.get("freeodds_come10") != 0 and result == 10:
+				winflag = 1
+				bankroll = bankroll + math.floor((bets.get("freeodds_come10") * 2)/1)
+				bets.update({"freeodds_come10":0})
+				bets.update({"freeodds_dc10":0})
+			save(users_dict)
+			if newdcbet == 0:
+				if bets.get("freeodds_dc4") != 0 and result == 4:
+					bets.update({"freeodds_dc4":0})
+				if bets.get("freeodds_dc5") != 0 and result == 5:
+					bets.update({"freeodds_dc5":0})
+				if bets.get("freeodds_dc6") != 0 and result == 6:
+					bets.update({"freeodds_dc6":0})
+				if bets.get("freeodds_dc8") != 0 and result == 8:
+					bets.update({"freeodds_dc8":0})
+				if bets.get("freeodds_dc9") != 0 and result == 9:
+					bets.update({"freeodds_dc9":0})
+				if bets.get("freeodds_dc10") != 0 and result == 10:
+					bets.update({"freeodds_dc10":0})
+				save(users_dict)
+			newdcbet = 0
 
 
 					
@@ -3364,6 +3506,20 @@ while quitflag == False:
 					if bets.get("dc10") != 0 and result == 10:
 						bets.update({"dc10":0})
 				newdcbet = 0
+				if newdcbet == 0:
+					if bets.get("freeodds_dc4") != 0 and result == 4:
+						bets.update({"freeodds_dc4":0})
+					if bets.get("freeodds_dc5") != 0 and result == 5:
+						bets.update({"freeodds_dc5":0})
+					if bets.get("freeodds_dc6") != 0 and result == 6:
+						bets.update({"freeodds_dc6":0})
+					if bets.get("freeodds_dc8") != 0 and result == 8:
+						bets.update({"freeodds_dc8":0})
+					if bets.get("freeodds_dc9") != 0 and result == 9:
+						bets.update({"freeodds_dc9":0})
+					if bets.get("freeodds_dc10") != 0 and result == 10:
+						bets.update({"freeodds_dc10":0})
+				newdcbet = 0
 				
 				if winflag == 1:
 					if operating == "Linux":
@@ -3457,6 +3613,38 @@ while quitflag == False:
 					bankroll = bankroll + (bets.get("dc10") * 2)
 					bets.update({"dc10":0})
 					bets.update({"come10":0})
+				#Payouts for Don't Come Odds on Seven Out	
+				#Losses for come point odds
+				if bets.get("freeodds_dc4") != 0:
+					winflag = 1
+					bankroll = bankroll + math.floor(((bets.get("freeodds_dc4") * 1)/2) + bets.get("freeodds_dc4"))
+					bets.update({"freeodds_dc4":0})
+					bets.update({"freeodds_come4":0})
+				if bets.get("freeodds_dc5") != 0:
+					winflag = 1
+					bankroll = bankroll + math.floor(((bets.get("freeodds_dc5") * 2)/3) + bets.get("freeodds_dc5"))
+					bets.update({"freeodds_dc5":0})
+					bets.update({"freeodds_come5":0})
+				if bets.get("freeodds_dc6") != 0:
+					winflag = 1
+					bankroll = bankroll + math.floor(((bets.get("freeodds_dc6") * 5)/6) + bets.get("freeodds_dc6"))
+					bets.update({"freeodds_dc6":0})
+					bets.update({"freeodds_come6":0})
+				if bets.get("freeodds_dc8") != 0:
+					winflag = 1
+					bankroll = bankroll + math.floor(((bets.get("freeodds_dc8") * 5)/6) + bets.get("freeodds_dc8"))
+					bets.update({"freeodds_dc8":0})
+					bets.update({"freeodds_come8":0})
+				if bets.get("freeodds_dc9") != 0:
+					winflag = 1
+					bankroll = bankroll + math.floor(((bets.get("freeodds_dc9") * 2)/3) + bets.get("freeodds_dc9"))
+					bets.update({"freeodds_dc9":0})
+					bets.update({"freeodds_come9":0})
+				if bets.get("freeodds_dc10") != 0:
+					winflag = 1
+					bankroll = bankroll + math.floor(((bets.get("freeodds_dc10") * 1)/2) + bets.get("freeodds_dc10"))
+					bets.update({"freeodds_dc10":0})
+					bets.update({"freeodds_come10":0})
 
 				#Clearing out come points on Seven Out
 				bets.update({"come4":0})
@@ -3465,6 +3653,13 @@ while quitflag == False:
 				bets.update({"come8":0})
 				bets.update({"come9":0})
 				bets.update({"come10":0})
+				#Clearing out come points odds on Seven Out
+				bets.update({"freeodds_come4":0})
+				bets.update({"freeodds_come5":0})
+				bets.update({"freeodds_come6":0})
+				bets.update({"freeodds_come8":0})
+				bets.update({"freeodds_come9":0})
+				bets.update({"freeodds_come10":0})
 
 				#Clearing place bets on Seven Out
 				bets.update({"place4":0})
