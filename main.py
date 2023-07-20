@@ -1593,117 +1593,126 @@ def freeodds_comedc(bets):
 						except ValueError:
 							print("Error: Invalid entry.  Please enter a number.")
 							continue
-						#Put in 5x limit or 5-4-3 limit on odds bet for the future
-						print("You chose " + str(oddsbet))
-						#Take oddsbet and place it on come or don't come point chosen
-						#and update the betting dictionary.
-						bankroll = bankroll - oddsbet
-						if operating == "Linux":
-							os.system("clear")
-						elif operating == "Windows":
-							os.system("cls")
-						elif operating == "Darwin":
-							os.system("clear")
-						else:
-							print("ERROR: Unknown Operating System!")
-						#table()
-						
-						if oddsbet_location == "C4" or oddsbet_location == "c4":
-							if bets.get("come4") == 0:
-								print("You have no bets here.")
-								table()
-								return(bets)
-							bets.update({"freeodds_come4":(oddsbet + bets.get("freeodds_come4"))})
+					while not int(oddsbet) in range(1, (bet_amount*5)+1):
+						if oddsbet > (bet_amount * 5):
+							print("You cannot take more than 5x odds")
+							print("Enter a bet amount: ")
+						try:
+							oddsbet = int(input())
+						except ValueError:
+							print("Error: Invalid entry. Please enter a number.")
+							continue
+					#Put in 5x limit or 5-4-3 limit on odds bet for the future
+					print("You chose " + str(oddsbet))
+					#Take oddsbet and place it on come or don't come point chosen
+					#and update the betting dictionary.
+					bankroll = bankroll - oddsbet
+					if operating == "Linux":
+						os.system("clear")
+					elif operating == "Windows":
+						os.system("cls")
+					elif operating == "Darwin":
+						os.system("clear")
+					else:
+						print("ERROR: Unknown Operating System!")
+					#table()
+					
+					if oddsbet_location == "C4" or oddsbet_location == "c4":
+						if bets.get("come4") == 0:
+							print("You have no bets here.")
 							table()
 							return(bets)
-						if oddsbet_location == "D4" or oddsbet_location == "d4":
-							if bets.get("dc4") == 0:
-								print("You have no bets here.")
-								table()
-								return(bets)
-							bets.update({"freeodds_dc4":(oddsbet + bets.get("freeodds_dc4"))})
+						bets.update({"freeodds_come4":(oddsbet + bets.get("freeodds_come4"))})
+						table()
+						return(bets)
+					if oddsbet_location == "D4" or oddsbet_location == "d4":
+						if bets.get("dc4") == 0:
+							print("You have no bets here.")
 							table()
 							return(bets)
-						if oddsbet_location == "C5" or oddsbet_location == "c5":
-							if bets.get("come5") == 0:
-								print("You have no bets here.")
-								table()
-								return(bets)
-							bets.update({"freeodds_come5":(oddsbet + bets.get("freeodds_come5"))})
+						bets.update({"freeodds_dc4":(oddsbet + bets.get("freeodds_dc4"))})
+						table()
+						return(bets)
+					if oddsbet_location == "C5" or oddsbet_location == "c5":
+						if bets.get("come5") == 0:
+							print("You have no bets here.")
 							table()
 							return(bets)
-						if oddsbet_location == "D5" or oddsbet_location == "d5":
-							if bets.get("dc5") == 0:
-								print("You have no bets here.")
-								table()
-								return(bets)
-							bets.update({"freeodds_dc5":(oddsbet + bets.get("freeodds_dc5"))})
+						bets.update({"freeodds_come5":(oddsbet + bets.get("freeodds_come5"))})
+						table()
+						return(bets)
+					if oddsbet_location == "D5" or oddsbet_location == "d5":
+						if bets.get("dc5") == 0:
+							print("You have no bets here.")
 							table()
 							return(bets)
-						if oddsbet_location == "C6" or oddsbet_location == "c6":
-							if bets.get("come6") == 0:
-								print("You have no bets here.")
-								table()
-								return(bets)
-							bets.update({"freeodds_come6":(oddsbet + bets.get("freeodds_come6"))})
+						bets.update({"freeodds_dc5":(oddsbet + bets.get("freeodds_dc5"))})
+						table()
+						return(bets)
+					if oddsbet_location == "C6" or oddsbet_location == "c6":
+						if bets.get("come6") == 0:
+							print("You have no bets here.")
 							table()
 							return(bets)
-						if oddsbet_location == "D6" or oddsbet_location == "d6":
-							if bets.get("dc6") == 0:
-								print("You have no bets here.")
-								table()
-								return(bets)
-							bets.update({"freeodds_dc6":(oddsbet + bets.get("freeodds_dc6"))})
+						bets.update({"freeodds_come6":(oddsbet + bets.get("freeodds_come6"))})
+						table()
+						return(bets)
+					if oddsbet_location == "D6" or oddsbet_location == "d6":
+						if bets.get("dc6") == 0:
+							print("You have no bets here.")
 							table()
 							return(bets)
-						if oddsbet_location == "C8" or oddsbet_location == "c8":
-							if bets.get("come8") == 0:
-								print("You have no bets here.")
-								table()
-								return(bets)
-							bets.update({"freeodds_come8":(oddsbet + bets.get("freeodds_come8"))})
+						bets.update({"freeodds_dc6":(oddsbet + bets.get("freeodds_dc6"))})
+						table()
+						return(bets)
+					if oddsbet_location == "C8" or oddsbet_location == "c8":
+						if bets.get("come8") == 0:
+							print("You have no bets here.")
 							table()
 							return(bets)
-						if oddsbet_location == "D8" or oddsbet_location == "d8":
-							if bets.get("dc8") == 0:
-								print("You have no bets here.")
-								table()
-								return(bets)
-							bets.update({"freeodds_dc8":(oddsbet + bets.get("freeodds_dc8"))})
+						bets.update({"freeodds_come8":(oddsbet + bets.get("freeodds_come8"))})
+						table()
+						return(bets)
+					if oddsbet_location == "D8" or oddsbet_location == "d8":
+						if bets.get("dc8") == 0:
+							print("You have no bets here.")
 							table()
 							return(bets)
-						if oddsbet_location == "C9" or oddsbet_location == "c9":
-							if bets.get("come9") == 0:
-								print("You have no bets here.")
-								table()
-								return(bets)
-							bets.update({"freeodds_come9":(oddsbet + bets.get("freeodds_come9"))})
+						bets.update({"freeodds_dc8":(oddsbet + bets.get("freeodds_dc8"))})
+						table()
+						return(bets)
+					if oddsbet_location == "C9" or oddsbet_location == "c9":
+						if bets.get("come9") == 0:
+							print("You have no bets here.")
 							table()
 							return(bets)
-						if oddsbet_location == "D9" or oddsbet_location == "d9":
-							if bets.get("dc9") == 0:
-								print("You have no bets here.")
-								table()
-								return(bets)
-							bets.update({"freeodds_dc9":(oddsbet + bets.get("freeodds_dc9"))})
+						bets.update({"freeodds_come9":(oddsbet + bets.get("freeodds_come9"))})
+						table()
+						return(bets)
+					if oddsbet_location == "D9" or oddsbet_location == "d9":
+						if bets.get("dc9") == 0:
+							print("You have no bets here.")
 							table()
 							return(bets)
-						if oddsbet_location == "C10" or oddsbet_location == "c10":
-							if bets.get("come10") == 0:
-								print("You have no bets here.")
-								table()
-								return(bets)
-							bets.update({"freeodds_come10":(oddsbet + bets.get("freeodds_come10"))})
+						bets.update({"freeodds_dc9":(oddsbet + bets.get("freeodds_dc9"))})
+						table()
+						return(bets)
+					if oddsbet_location == "C10" or oddsbet_location == "c10":
+						if bets.get("come10") == 0:
+							print("You have no bets here.")
 							table()
 							return(bets)
-						if oddsbet_location == "D10" or oddsbet_location == "d10":
-							if bets.get("dc10") == 0:
-								print("You have no bets here.")
-								table()
-								return(bets)
-							bets.update({"freeodds_dc10":(oddsbet + bets.get("freeodds_dc10"))})
+						bets.update({"freeodds_come10":(oddsbet + bets.get("freeodds_come10"))})
+						table()
+						return(bets)
+					if oddsbet_location == "D10" or oddsbet_location == "d10":
+						if bets.get("dc10") == 0:
+							print("You have no bets here.")
 							table()
 							return(bets)
+						bets.update({"freeodds_dc10":(oddsbet + bets.get("freeodds_dc10"))})
+						table()
+						return(bets)
 
 			#input()
 
