@@ -4,6 +4,8 @@
 
 ![2023-07-20-084649_1366x768_scrot](https://github.com/robgraves/crapsgame/assets/1985693/3a79b7bc-a767-45a5-b01d-c1b8b3778c3c)
 
+![2023-07-20-084514_1366x768_scrot](https://github.com/robgraves/crapsgame/assets/1985693/30bc4190-20a9-4bc6-84d6-c46aace28ffe)
+
 Matthew Page
 
 me@matthewjpage.com
