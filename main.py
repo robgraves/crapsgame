@@ -2987,6 +2987,13 @@ while quitflag == False:
 				bankroll = bankroll + math.floor((bets.get("freeodds_come10") * 2)/1)
 				bets.update({"freeodds_come10":0})
 				bets.update({"freeodds_dc10":0})
+			if result == 7:
+				bets.update({"freeodds_come4":0})
+				bets.update({"freeodds_come5":0})
+				bets.update({"freeodds_come6":0})
+				bets.update({"freeodds_come8":0})
+				bets.update({"freeodds_come9":0})
+				bets.update({"freeodds_come10":0})
 			save(users_dict)
 			if newdcbet == 0:
 				if bets.get("freeodds_dc4") != 0 and result == 4:
