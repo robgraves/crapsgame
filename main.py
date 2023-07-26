@@ -532,6 +532,7 @@ def gameover(int):
 		print("use your saved bankroll.       \n")
 	if int == 0:
 		save(users_dict)
+	input()
 	sys.exit()
 	quitflag = True
 	return quitflag
@@ -2271,7 +2272,8 @@ bets = bets_init()
 winflag = 0
 
 #Check for mature content
-mature = maturecheck(mature)
+#mature = maturecheck(mature)
+mature = 0
 
 #Set up user, whether new or loading old user
 username = player()
