@@ -2555,6 +2555,12 @@ while quitflag == False:
 				bets.update({"come8":0})
 				bets.update({"come9":0})
 				bets.update({"come10":0})
+				bets.update({"freeodds_come4":0})
+				bets.update({"freeodds_come5":0})
+				bets.update({"freeodds_come6":0})
+				bets.update({"freeodds_come8":0})
+				bets.update({"freeodds_come9":0})
+				bets.update({"freeodds_come10":0})
 
 			if winflag == 1:
 				if operating == "Linux":
