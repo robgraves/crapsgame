@@ -2273,7 +2273,6 @@ winflag = 0
 
 #Check for mature content
 #mature = maturecheck(mature)
-mature = 0
 
 #Set up user, whether new or loading old user
 username = player()
