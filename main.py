@@ -148,14 +148,27 @@ def dice():
 	if operating == "Linux":
 		os.system("aplay -q " + dicesound + " > /dev/null 2>&1 &")
 	elif operating == "Windows":
-		os.system("powershell -c (Start-Job -Script-Block{New-Object Media.SoundPlayer 'data\\sounds\\diceroll.wav').PlaySync();}")
+		os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\diceroll.wav').PlaySync();")
 	elif operating == "Darwin":
 		os.system("afplay " + dicesound + " > /dev/null 2>&1 &")
 	else:
 		print("ERROR: Unknown Operating System!")
 
-	animatedice()
-	table()
+	#Play dice animation in Linux and MacOS
+	#This works but is jerky in Windows, not sure why yet.
+	if operating == "Linux":
+		animatedice()
+		table()
+	elif operating == "Windows":
+		table()
+	elif operating == "Darwin":
+		animateddice()
+		table()
+	else:
+		print("ERROR: Unknown Operating System!")
+
+	#animatedice()
+	#table()
 
 	#Display proper ASCII art for each dieface for die 1
 	if die1 == 1:
