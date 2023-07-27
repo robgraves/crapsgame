@@ -122,7 +122,7 @@ def animatedice():
 			graphics.die2face5()
 		elif animatedie2 == 6:
 			graphics.die2face6()
-		time.sleep(0.5)
+		time.sleep(0.2)
 		graphics.die1blank()
 		graphics.die2blank()
 		i=i+1	
@@ -146,11 +146,11 @@ def dice():
 
     #Play dice rolling sound
 	if operating == "Linux":
-		os.system("aplay -q " + dicesound + " > /dev/null 2>&1")
+		os.system("aplay -q " + dicesound + " > /dev/null 2>&1 &")
 	elif operating == "Windows":
-		os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\diceroll.wav').PlaySync();")
+		os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\diceroll.wav').PlaySync(); &")
 	elif operating == "Darwin":
-		os.system("afplay " + dicesound + " > /dev/null 2>&1")
+		os.system("afplay " + dicesound + " > /dev/null 2>&1 &")
 	else:
 		print("ERROR: Unknown Operating System!")
 
