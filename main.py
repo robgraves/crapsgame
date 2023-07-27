@@ -148,7 +148,7 @@ def dice():
 	if operating == "Linux":
 		os.system("aplay -q " + dicesound + " > /dev/null 2>&1 &")
 	elif operating == "Windows":
-		os.system("powershell -c (Start-Job New-Object Media.SoundPlayer 'data\\sounds\\diceroll.wav').PlaySync();")
+		os.system("powershell -c (Start-Job -Script-Block{New-Object Media.SoundPlayer 'data\\sounds\\diceroll.wav').PlaySync();}")
 	elif operating == "Darwin":
 		os.system("afplay " + dicesound + " > /dev/null 2>&1 &")
 	else:
