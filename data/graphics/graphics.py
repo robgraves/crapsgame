@@ -221,7 +221,16 @@ def die1face6():
 	print("    |o o|    ")
 	print("    |o_o|    ")
 	print("             ")
+
  
+def die1blank():
+	'''Function to display a six on a die1 in ASCII'''
+	print("             ")
+	print("             ")
+	print("             ")
+	print("             ")
+	print("             ")
+
 
 def die2face1():
 	'''Function to display a one on a die2 in ASCII'''
@@ -274,6 +283,15 @@ def die2face6():
 	print("          |o o|    ")
 	print("          |o o|    ")
 	print("          |o_o|    ")
+	print("                   ")
+
+
+def die2blank():
+	'''Function to display a six on a die2 in ASCII'''
+	print("                   ")
+	print("                   ")
+	print("                   ")
+	print("                   ")
 	print("                   ")
 
 

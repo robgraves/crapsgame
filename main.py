@@ -23,6 +23,7 @@
 import sys
 import os
 import platform
+import time
 import math
 import random
 import pickle
@@ -86,6 +87,46 @@ pickle.dump(users_dict, open(userdata,"wb"))
 #
 #############################################
 
+
+#Function for animating dice rolling
+def animatedice():
+	i = 0
+	rng = random.SystemRandom()
+	while i < 5:
+		table()
+		animatedie1 		= rng.randint(1,6)
+		animatedie2 		= rng.randint(1,6)
+		#Display proper ASCII art for each dieface for die 1
+		if animatedie1 == 1:
+			graphics.die1face1()
+		elif animatedie1 == 2:
+			graphics.die1face2()
+		elif animatedie1 == 3:
+			graphics.die1face3()
+		elif animatedie1 == 4:
+			graphics.die1face4()
+		elif animatedie1 == 5:
+			graphics.die1face5()
+		elif animatedie1 == 6:
+			graphics.die1face6()
+		#Display proper ASCII art for each dieface for die 2
+		if animatedie2 == 1:
+			graphics.die2face1()
+		elif animatedie2 == 2:
+			graphics.die2face2()
+		elif animatedie2 == 3:
+			graphics.die2face3()
+		elif animatedie2 == 4:
+			graphics.die2face4()
+		elif animatedie2 == 5:
+			graphics.die2face5()
+		elif animatedie2 == 6:
+			graphics.die2face6()
+		time.sleep(0.5)
+		graphics.die1blank()
+		graphics.die2blank()
+		i=i+1	
+
 #Function that rolls two dice
 def dice():
 	#setup for hardway check
@@ -112,6 +153,9 @@ def dice():
 		os.system("afplay " + dicesound + " > /dev/null 2>&1")
 	else:
 		print("ERROR: Unknown Operating System!")
+
+	animatedice()
+	table()
 
 	#Display proper ASCII art for each dieface for die 1
 	if die1 == 1:
