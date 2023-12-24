@@ -1,5 +1,6 @@
 data/save/userdata.p
 .this_is_the_github_repo
+.git-credentials
 **/__pycache__
 __pycache__/
 *.py[cod]
