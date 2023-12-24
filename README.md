@@ -47,7 +47,9 @@ data/sounds/chips.wav - sound effect for any other bet winning
 
 12/24/2023 
 
-Testing Github Access Token
+Resuming Testing of Craps Game, definitely need deeper Wrong Bettor
+testing as I usually play Right side and have thus favored testing 
+those bets.
 
 07/20/2023
 
