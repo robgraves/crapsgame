@@ -30,6 +30,12 @@ import pickle
 import data.graphics.graphics
 from data.graphics import graphics
 
+class ansifmt:
+    LGREEN = '\033[38;5;119m'
+    LRED = '\033[38;5;203m'
+    BOLD = '\033[1m'
+    RESET = '\033[0m'
+
 #Check for OS type
 operating = platform.system()
 #print(operating)
@@ -346,8 +352,11 @@ def table():
 		os.system("clear")
 	else:
 		print("ERROR: Unknown Operating System!")
-		
-	print("Your current bankroll is: $" + str(bankroll))
+    
+	bankrollcolor = ansifmt.LGREEN  if bankroll > 0 else ansifmt.LRED
+	bankrollfmtstr = bankrollcolor + f'${str(bankroll)}' + ansifmt.RESET
+	print(f'Your current bankroll is: {bankrollfmtstr}')
+    
 	if point == 0:
 		graphics.crapstable()
 	elif point == 4:
