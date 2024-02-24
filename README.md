@@ -47,7 +47,7 @@ data/sounds/chips.wav - sound effect for any other bet winning
 
 02/24/2024
 
-My coding partner from college nullist (Tyler Mosgrove) contributed color to the bankroll,
+My coding partner from college, nullist (Tyler Mosgrove), contributed color to the bankroll,
 green for anything positive and red for bankrupt.  This inspired me to colorize the whole
 game and make it optional.  Which makes me want to put in a Settings menu to 1) turn on
 or off color, 2) turn on or off sounds, and 3) switch between general gameplay and the
