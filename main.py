@@ -30,6 +30,8 @@ import pickle
 import data.graphics.graphics
 from data.graphics import graphics
 
+
+#Ansi codes set up for colors by nullist
 class ansifmt:
     LGREEN = '\033[38;5;119m'
     LRED = '\033[38;5;203m'
