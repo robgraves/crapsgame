@@ -354,7 +354,8 @@ def table():
 		os.system("clear")
 	else:
 		print("ERROR: Unknown Operating System!")
-    
+   
+	#Code snippet added and modified by nullist to colorize the bankroll 
 	bankrollcolor = ansifmt.LGREEN  if bankroll > 0 else ansifmt.LRED
 	bankrollfmtstr = bankrollcolor + f'${str(bankroll)}' + ansifmt.RESET
 	print(f'Your current bankroll is: {bankrollfmtstr}')
