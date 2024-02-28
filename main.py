@@ -195,14 +195,15 @@ def dice():
 	diceresult 	= die1 + die2
 
     #Play dice rolling sound
-	if operating == "Linux":
-		os.system("aplay -q " + dicesound + " > /dev/null 2>&1 &")
-	elif operating == "Windows":
-		os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\diceroll.wav').PlaySync();")
-	elif operating == "Darwin":
-		os.system("afplay " + dicesound + " > /dev/null 2>&1 &")
-	else:
-		print("ERROR: Unknown Operating System!")
+	if soundfx == 1:
+		if operating == "Linux":
+			os.system("aplay -q " + dicesound + " > /dev/null 2>&1 &")
+		elif operating == "Windows":
+			os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\diceroll.wav').PlaySync();")
+		elif operating == "Darwin":
+			os.system("afplay " + dicesound + " > /dev/null 2>&1 &")
+		else:
+			print("ERROR: Unknown Operating System!")
 
 	#Play dice animation in Linux and MacOS
 	#This works but is jerky in Windows, not sure why yet.
@@ -651,14 +652,15 @@ def shady():
 		else:
 			print(f"{ansifmt.HIWHITE}The man has you go behind the dumpster{ansifmt.RESET}")
 			print(f"{ansifmt.HIWHITE}with him and he drops his pants...    {ansifmt.RESET}")
-		if operating == "Linux":
-			os.system("aplay -q " + gruntsound + " > /dev/null 2>&1")
-		elif operating == "Windows":
-			os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\grunt.wav').PlaySync();")
-		elif operating == "Darwin":
-			os.system("afplay " + gruntsound + " > /dev/null 2>&1")
-		else:
-			print("ERROR: Unknown Operating System!")
+		if soundfx == 1:
+			if operating == "Linux":
+				os.system("aplay -q " + gruntsound + " > /dev/null 2>&1")
+			elif operating == "Windows":
+				os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\grunt.wav').PlaySync();")
+			elif operating == "Darwin":
+				os.system("afplay " + gruntsound + " > /dev/null 2>&1")
+			else:
+				print("ERROR: Unknown Operating System!")
 		input()
 		if colorized == 0:
 			print("...15 minutes later")
@@ -2624,14 +2626,15 @@ while quitflag == False:
 		#If 7 or 11 Pass bettors win, Don't Pass loses
 		if result == 7 or result == 11:
 			print("Shooter Wins!!!")
-			if operating == "Linux":
-				os.system("aplay -q " + applausesound + " > /dev/null 2>&1")
-			elif operating == "Windows":
-				os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\claps.wav').PlaySync();")
-			elif operating == "Darwin":
-				os.system("afplay " + applausesound + " > /dev/null 2>&1")
-			else:
-				print("ERROR: Unknown Operating System!")
+			if soundfx == 1:
+				if operating == "Linux":
+					os.system("aplay -q " + applausesound + " > /dev/null 2>&1")
+				elif operating == "Windows":
+					os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\claps.wav').PlaySync();")
+				elif operating == "Darwin":
+					os.system("afplay " + applausesound + " > /dev/null 2>&1")
+				else:
+					print("ERROR: Unknown Operating System!")
 			if bet_location == "1":
 				bankroll = (bankroll + (bet_amount * 2))
 				winflag = 1
@@ -2746,14 +2749,15 @@ while quitflag == False:
 				bets.update({"freeodds_come10":0})
 
 			if winflag == 1:
-				if operating == "Linux":
-					os.system("aplay -q " + winsound + " > /dev/null 2>&1")
-				elif operating == "Windows":
-					os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
-				elif operating == "Darwin":
-					os.system("afplay " + winsound + " > /dev/null 2>&1")
-				else:
-					print("ERROR: Unknown Operating System!")
+				if soundfx == 1:
+					if operating == "Linux":
+						os.system("aplay -q " + winsound + " > /dev/null 2>&1")
+					elif operating == "Windows":
+						os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
+					elif operating == "Darwin":
+						os.system("afplay " + winsound + " > /dev/null 2>&1")
+					else:
+						print("ERROR: Unknown Operating System!")
 				winflag = 0	
 
 			save(users_dict)
@@ -2774,14 +2778,15 @@ while quitflag == False:
         #on 2 or 3, pushes if rolls 12 (BAR 12)
 		elif result == 2 or result == 3 or result == 12:
 			print("Shooter Craps Out!")
-			if operating == "Linux":
-				os.system("aplay -q " + awwsound + " > /dev/null 2>&1")
-			elif operating == "Windows":
-				os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\aww.wav').PlaySync();")
-			elif operating == "Darwin":
-				os.system("afplay " + awwsound + " > /dev/null 2>&1")
-			else:
-				print("ERROR: Unknown Operating System!")
+			if soundfx == 1:
+				if operating == "Linux":
+					os.system("aplay -q " + awwsound + " > /dev/null 2>&1")
+				elif operating == "Windows":
+					os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\aww.wav').PlaySync();")
+				elif operating == "Darwin":
+					os.system("afplay " + awwsound + " > /dev/null 2>&1")
+				else:
+					print("ERROR: Unknown Operating System!")
 			#print("bet location is : ", bet_location)
 			if bet_location == "2":
 				if result == 2 or result == 3:
@@ -2791,14 +2796,15 @@ while quitflag == False:
 					bankroll = (bankroll + bet_amount)
 
 			if winflag == 1:
-				if operating == "Linux":
-					os.system("aplay -q " + winsound + " > /dev/null 2>&1")
-				elif operating == "Windows":
-					os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
-				elif operating == "Darwin":
-					os.system("afplay " + winsound + " > /dev/null 2>&1")
-				else:
-					print("ERROR: Unknown Operating System!")
+				if soundfx == 1:
+					if operating == "Linux":
+						os.system("aplay -q " + winsound + " > /dev/null 2>&1")
+					elif operating == "Windows":
+						os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
+					elif operating == "Darwin":
+						os.system("afplay " + winsound + " > /dev/null 2>&1")
+					else:
+						print("ERROR: Unknown Operating System!")
 				winflag = 0	
 
 			save(users_dict)
@@ -3120,14 +3126,15 @@ while quitflag == False:
 			bets.update({"world":0})	
 
 			if winflag == 1:
-				if operating == "Linux":
-					os.system("aplay -q " + winsound + " > /dev/null 2>&1")
-				elif operating == "Windows":
-					os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
-				elif operating == "Darwin":
-					os.system("afplay " + winsound + " > /dev/null 2>&1")
-				else:
-					print("ERROR: Unknown Operating System!")
+				if soundfx == 1:
+					if operating == "Linux":
+						os.system("aplay -q " + winsound + " > /dev/null 2>&1")
+					elif operating == "Windows":
+						os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
+					elif operating == "Darwin":
+						os.system("afplay " + winsound + " > /dev/null 2>&1")
+					else:
+						print("ERROR: Unknown Operating System!")
 				winflag = 0	
 
 			save(users_dict)
@@ -3631,14 +3638,15 @@ while quitflag == False:
 				bets.update({"lay10":0})
 
 			if winflag == 1:
-				if operating == "Linux":
-					os.system("aplay -q " + winsound + " > /dev/null 2>&1")
-				elif operating == "Windows":
-					os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
-				elif operating == "Darwin":
-					os.system("afplay " + winsound + " > /dev/null 2>&1")
-				else:
-					print("ERROR: Unknown Operating System!")
+				if soundfx == 1:
+					if operating == "Linux":
+						os.system("aplay -q " + winsound + " > /dev/null 2>&1")
+					elif operating == "Windows":
+						os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
+					elif operating == "Darwin":
+						os.system("afplay " + winsound + " > /dev/null 2>&1")
+					else:
+						print("ERROR: Unknown Operating System!")
 				winflag = 0	
 			
 			save(users_dict)
@@ -3651,14 +3659,15 @@ while quitflag == False:
 			if result == point:
 				print("Shooter hits the point!!!")
 				print("Front Line Winner!!!")
-				if operating == "Linux":
-					os.system("aplay -q " + applausesound + " > /dev/null 2>&1")
-				elif operating == "Windows":
-					os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\claps.wav').PlaySync();")
-				elif operating == "Darwin":
-					os.system("afplay " + applausesound + " > /dev/null 2>&1")
-				else:
-					print("ERROR: Unknown Operating System!")
+				if soundfx == 1:
+					if operating == "Linux":
+						os.system("aplay -q " + applausesound + " > /dev/null 2>&1")
+					elif operating == "Windows":
+						os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\claps.wav').PlaySync();")
+					elif operating == "Darwin":
+						os.system("afplay " + applausesound + " > /dev/null 2>&1")
+					else:
+						print("ERROR: Unknown Operating System!")
 				#print("bet location is : ", bet_location)
 				if bet_location == "1":
 					bankroll = (bankroll + (bet_amount * 2))
@@ -3785,14 +3794,15 @@ while quitflag == False:
 				newdcbet = 0
 				
 				if winflag == 1:
-					if operating == "Linux":
-						os.system("aplay -q " + winsound + " > /dev/null 2>&1")
-					elif operating == "Windows":
-						os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
-					elif operating == "Darwin":
-						os.system("afplay " + winsound + " > /dev/null 2>&1")
-					else:
-						print("ERROR: Unknown Operating System!")
+					if soundfx == 1:
+						if operating == "Linux":
+							os.system("aplay -q " + winsound + " > /dev/null 2>&1")
+						elif operating == "Windows":
+							os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
+						elif operating == "Darwin":
+							os.system("afplay " + winsound + " > /dev/null 2>&1")
+						else:
+							print("ERROR: Unknown Operating System!")
 					winflag = 0	
 
 				save(users_dict)
@@ -3817,14 +3827,15 @@ while quitflag == False:
 			elif result == 7:
 				print("Big Red!!! Shooter sevens out!")
 				print("Pay the Don't Pass.")
-				if operating == "Linux":
-					os.system("aplay -q " + awwsound + " > /dev/null 2>&1")
-				elif operating == "Windows":
-					os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\aww.wav').PlaySync();")
-				elif operating == "Darwin":
-					os.system("afplay " + awwsound + " > /dev/null 2>&1")
-				else:
-					print("ERROR: Unknown Operating System!")
+				if soundfx == 1:
+					if operating == "Linux":
+						os.system("aplay -q " + awwsound + " > /dev/null 2>&1")
+					elif operating == "Windows":
+						os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\aww.wav').PlaySync();")
+					elif operating == "Darwin":
+						os.system("afplay " + awwsound + " > /dev/null 2>&1")
+					else:
+						print("ERROR: Unknown Operating System!")
 				#print("bet location is : ", bet_location)
 				if bet_location == "2":
 					bankroll = (bankroll + (bet_amount * 2))
@@ -3943,14 +3954,15 @@ while quitflag == False:
 				bets.update({"hardway10":0})
 
 				if winflag == 1:
-					if operating == "Linux":
-						os.system("aplay -q " + winsound + " > /dev/null 2>&1")
-					elif operating == "Windows":
-						os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
-					elif operating == "Darwin":
-						os.system("afplay " + winsound + " > /dev/null 2>&1")
-					else:
-						print("ERROR: Unknown Operating System!")
+					if soundfx == 1:
+						if operating == "Linux":
+							os.system("aplay -q " + winsound + " > /dev/null 2>&1")
+						elif operating == "Windows":
+							os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\chips.wav').PlaySync();")
+						elif operating == "Darwin":
+							os.system("afplay " + winsound + " > /dev/null 2>&1")
+						else:
+							print("ERROR: Unknown Operating System!")
 					winflag = 0	
 				
 				save(users_dict)
