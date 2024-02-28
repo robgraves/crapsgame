@@ -35,10 +35,13 @@ from data.graphics import graphics
 class ansifmt:
 	LGREEN		= '\033[38;5;119m'
 	HIGREEN		= '\033[1;92m'
+	GREEN		= '\033[0;32m'
 	HIYELLOW	= '\033[1;93m'
+	YELLOW		= '\033[0;33m'
 	HIRED		= '\033[1;91m'
 	HIWHITE		= '\033[1;97m'
 	HIBLUE		= '\033[1;94m'
+	HIBLACK		= '\033[1;90m'
 	LRED		= '\033[38;5;203m'
 	BOLD		= '\033[1m'
 	RESET		= '\033[0m'
@@ -2400,6 +2403,10 @@ if colorized == 0:
 	graphics.intro()
 else:
 	graphics.color_intro()
+
+#TESTING
+graphics.color_crapstable()
+#END TESTING
 
 #Result of two d6 dice being thrown
 #global result
