@@ -31,12 +31,17 @@ import data.graphics.graphics
 from data.graphics import graphics
 
 
-#Ansi codes set up for colors by nullist
+#Ansi codes set up for colors
 class ansifmt:
-    LGREEN = '\033[38;5;119m'
-    LRED = '\033[38;5;203m'
-    BOLD = '\033[1m'
-    RESET = '\033[0m'
+	LGREEN		= '\033[38;5;119m'
+	HIGREEN		= '\033[1;92m'
+	HIYELLOW	= '\033[1;93m'
+	HIRED		= '\033[1;91m'
+	HIWHITE		= '\033[1;97m'
+	HIBLUE		= '\033[1;94m'
+	LRED		= '\033[38;5;203m'
+	BOLD		= '\033[1m'
+	RESET		= '\033[0m'
 
 #Check for OS type
 operating = platform.system()
@@ -633,6 +638,7 @@ def shady():
 #Function for endgame/gameover if bankroll hits 0
 #0 to save, 1 to not save as input to function
 def gameover(int):
+	global colorized
 	if operating == "Linux":
 		os.system("clear")
 	elif operating == "Windows":
@@ -641,30 +647,62 @@ def gameover(int):
 		os.system("clear")
 	else:
 		print("ERROR: Unknown Operating System!")
-	print("******************************\n\n")
-	if bankroll == 0:
-		print("       You are broke!\n\n")
-	else:
-		print("      Come back soon!!\n\n")
-	if bankroll == 0:
-		print("******************************\n")
-		print("     G A M E  O V E R!!!\n\n")
+	if colorized == 0:
 		print("******************************\n\n")
 	else:
-		#graphics.cactus()
-		graphics.color_cactus()
-	print("**** Terminal Craps Game ****")
-	print("** written by Matthew Page **")
-	print("**** me@matthewjpage.com ****\n\n")
-	print("******************************\n")
+		print(f"{ansifmt.HIYELLOW}******************************\n\n{ansifmt.RESET}")
 	if bankroll == 0:
-		print("To play again, choose New User")
-		print("and use the same name to reset")
-		print("your bankroll.                \n")
+		if colorized == 0:
+			print("       You are broke!\n\n")
+		else:
+			print(f"{ansifmt.HIWHITE}       You are broke!\n\n{ansifmt.RESET}")
 	else:
-		print("To play again, choose Returning")
-		print("User and use the same name to  ")
-		print("use your saved bankroll.       \n")
+		if colorized == 0:
+			print("      Come back soon!!\n\n")
+		else:
+			print(f"{ansifmt.HIWHITE}      Come back soon!!\n\n{ansifmt.RESET}")
+	if bankroll == 0:
+		if colorized == 0:
+			print("******************************\n")
+			print("     G A M E  O V E R!!!\n\n")
+			print("******************************\n\n")
+		else:
+			print(f"{ansifmt.HIYELLOW}******************************\n{ansifmt.RESET}")
+			print(f"{ansifmt.HIBLUE}     G A M E  O V E R!!!\n\n{ansifmt.RESET}")
+			print(f"{ansifmt.HIYELLOW}******************************\n\n{ansifmt.RESET}")
+	else:
+		if colorized == 0:
+			graphics.cactus()
+		else:
+			graphics.color_cactus()
+	if colorized == 0:
+		print("**** Terminal Craps Game ****")
+		print("** written by Matthew Page **")
+		print("**** me@matthewjpage.com ****\n\n")
+		print("******************************\n")
+	else:
+		print(f"{ansifmt.HIYELLOW}**** {ansifmt.RESET}" + f"{ansifmt.HIBLUE}Terminal Craps Game {ansifmt.RESET}" + f"{ansifmt.HIYELLOW}****{ansifmt.RESET}")
+		print(f"{ansifmt.HIYELLOW}** {ansifmt.RESET}" + f"{ansifmt.HIBLUE}written by Matthew Page {ansifmt.RESET}" + f"{ansifmt.HIYELLOW}**{ansifmt.RESET}")
+		print(f"{ansifmt.HIBLUE}" + f"{ansifmt.HIYELLOW}**** {ansifmt.HIBLUE}me@matthewjpage.com {ansifmt.RESET}" + f"{ansifmt.HIYELLOW}****\n\n{ansifmt.RESET}")
+		print(f"{ansifmt.HIYELLOW}******************************\n{ansifmt.RESET}")
+	if bankroll == 0:
+		if colorized == 0:
+			print("To play again, choose New User")
+			print("and use the same name to reset")
+			print("your bankroll.                \n")
+		else:
+			print(f"{ansifmt.HIWHITE}To play again, choose New User{ansifmt.RESET}")
+			print(f"{ansifmt.HIWHITE}and use the same name to reset{ansifmt.RESET}")
+			print(f"{ansifmt.HIWHITE}your bankroll.                \n{ansifmt.RESET}")
+	else:
+		if colorized == 0:
+			print("To play again, choose Returning")
+			print("User and use the same name to  ")
+			print("use your saved bankroll.       \n")
+		else:
+			print(f"{ansifmt.HIWHITE}To play again, choose Returning{ansifmt.RESET}")
+			print(f"{ansifmt.HIWHITE}User and use the same name to  {ansifmt.RESET}")
+			print(f"{ansifmt.HIWHITE}use your saved bankroll.       \n{ansifmt.RESET}")
 	if int == 0:
 		save(users_dict)
 	input()

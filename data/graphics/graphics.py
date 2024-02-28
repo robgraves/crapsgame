@@ -9,7 +9,7 @@
 ##############################################
 
 
-#Ansi codes set up for colors by nullist
+#Ansi codes set up for colors
 class ansifmt:
 	LGREEN		= '\033[38;5;119m'
 	HIGREEN		= '\033[1;92m'
