@@ -606,6 +606,7 @@ def table():
 #money if you go broke, only works if you chose M-rated
 #at the start of game.
 def shady():
+	global colorized
 	if operating == "Linux":
 		os.system("clear")
 	elif operating == "Windows":
@@ -614,15 +615,26 @@ def shady():
 		os.system("clear")
 	else:
 		print("ERROR: Unknown Operating System!")
-	print("A shady looking middle-aged man approaches")
-	print('you and he says, "I notice you are broke."')
-	print("                                          ")
-	print("You are a little unsure if you can trust  ")
-	print("him. But you let him continue.            ")
-	print("                                          ")
-	print('He goes on, "...I have a way for you to   ')
-	print('make some money if you follow me          ')
-	print('out back."                                ')
+	if colorized == 0:
+		print("A shady looking middle-aged man approaches")
+		print('you and he says, "I notice you are broke."')
+		print("                                          ")
+		print("You are a little unsure if you can trust  ")
+		print("him. But you let him continue.            ")
+		print("                                          ")
+		print('He goes on, "...I have a way for you to   ')
+		print('make some money if you follow me          ')
+		print('out back."                                ')
+	else:
+		print(f"{ansifmt.HIWHITE}A shady looking middle-aged man approaches{ansifmt.RESET}")
+		print(f'{ansifmt.HIWHITE}you and he says, "I notice you are broke."{ansifmt.RESET}')
+		print("                                          ")
+		print(f"{ansifmt.HIWHITE}You are a little unsure if you can trust  {ansifmt.RESET}")
+		print(f"{ansifmt.HIWHITE}him. But you let him continue.            {ansifmt.RESET}")
+		print("                                          ")
+		print(f'{ansifmt.HIWHITE}He goes on, "...I have a way for you to   {ansifmt.RESET}')
+		print(f'{ansifmt.HIWHITE}make some money if you follow me          {ansifmt.RESET}')
+		print(f'{ansifmt.HIWHITE}out back."                                {ansifmt.RESET}')
 	choice = "0"
 	global bankroll
 	while choice not in ("1","2"):
@@ -633,8 +645,12 @@ def shady():
 		if choice not in ("1","2"):
 			print("ERROR: Bad choice! Invalid entry!")
 	if choice == "1":
-		print("The man has you go behind the dumpster")
-		print("with him and he drops his pants...    ")
+		if colorized == 0:
+			print("The man has you go behind the dumpster")
+			print("with him and he drops his pants...    ")
+		else:
+			print(f"{ansifmt.HIWHITE}The man has you go behind the dumpster{ansifmt.RESET}")
+			print(f"{ansifmt.HIWHITE}with him and he drops his pants...    {ansifmt.RESET}")
 		if operating == "Linux":
 			os.system("aplay -q " + gruntsound + " > /dev/null 2>&1")
 		elif operating == "Windows":
@@ -644,8 +660,12 @@ def shady():
 		else:
 			print("ERROR: Unknown Operating System!")
 		input()
-		print("...15 minutes later")
-		print("You have made 20 dollars")
+		if colorized == 0:
+			print("...15 minutes later")
+			print("You have made 20 dollars")
+		else:
+			print(f"{ansifmt.HIWHITE}...15 minutes later{ansifmt.RESET}")
+			print(f"{ansifmt.HIWHITE}You have made 20 dollars{ansifmt.RESET}")
 		bankroll = 20
 		input()
 		if operating == "Linux":
@@ -658,7 +678,10 @@ def shady():
 			print("ERROR: Unknown Operating System!")
 		return bankroll
 	if choice == "2":
-		print("You decide not to follow the man.")
+		if colorized == 0:
+			print("You decide not to follow the man.")
+		else:
+			print(f"{ansifmt.HIWHITE}You decide not to follow the man.{ansifmt.RESET}")
 	return bankroll
 
 
@@ -2527,7 +2550,10 @@ while quitflag == False:
 		if mature == 1:
 			shady()
 			print("Your current bankroll is: $" + str(bankroll))
-			graphics.crapstable()
+			if colorized == 0:
+				graphics.crapstable()
+			else:
+				graphics.color_crapstable()
 	if bankroll == 0:
 		gameover(0)
 		break
