@@ -45,6 +45,14 @@ data/sounds/winsound.wav - sound effect for any other bet winning
 data/sounds/chips.wav - sound effect for any other bet winning
 
 
+02/28/2024
+
+Implemented color to the game, now switchable with the colorized variable.
+Plans to implement sound on or off with the soundfx variable,
+these two combined with the mature variable will be combined into a settings
+file loaded on startup and saved back to on quitting like the user data does now.
+
+
 02/24/2024
 
 My coding partner from college, nullist (Tyler Mosgrove), contributed color to the bankroll,
