@@ -427,26 +427,50 @@ def table():
 		os.system("clear")
 	else:
 		print("ERROR: Unknown Operating System!")
-   
-	#Code snippet added and modified by nullist to colorize the bankroll 
-	bankrollcolor = ansifmt.LGREEN  if bankroll > 0 else ansifmt.LRED
-	bankrollfmtstr = bankrollcolor + f'${str(bankroll)}' + ansifmt.RESET
-	print(f'Your current bankroll is: {bankrollfmtstr}')
-    
-	if point == 0:
-		graphics.crapstable()
-	elif point == 4:
-		graphics.crapstable4()
-	elif point == 5:
-		graphics.crapstable5()
-	elif point == 6:
-		graphics.crapstable6()
-	elif point == 8:
-		graphics.crapstable8()
-	elif point == 9:
-		graphics.crapstable9()
-	elif point == 10:
-		graphics.crapstable10()
+
+
+	if colorized == 0:
+		print("Your current bankroll is: $" + str(bankroll)) 
+	else:  
+		#Code snippet added and modified by nullist to colorize the bankroll 
+		bankrollcolor = ansifmt.LGREEN  if bankroll > 0 else ansifmt.LRED
+		bankrollfmtstr = bankrollcolor + f'${str(bankroll)}' + ansifmt.RESET
+		print(f'Your current bankroll is: {bankrollfmtstr}')
+  
+ 
+	if colorized == 0: 
+		#GRAYSCALE
+		if point == 0:
+			graphics.crapstable()
+		elif point == 4:
+			graphics.crapstable4()
+		elif point == 5:
+			graphics.crapstable5()
+		elif point == 6:
+			graphics.crapstable6()
+		elif point == 8:
+			graphics.crapstable8()
+		elif point == 9:
+			graphics.crapstable9()
+		elif point == 10:
+			graphics.crapstable10()
+	else:
+		#COLORIZED
+		if point == 0:
+			graphics.color_crapstable()
+		elif point == 4:
+			graphics.color_crapstable4()
+		elif point == 5:
+			graphics.color_crapstable5()
+		elif point == 6:
+			graphics.color_crapstable6()
+		elif point == 8:
+			graphics.color_crapstable8()
+		elif point == 9:
+			graphics.color_crapstable9()
+		elif point == 10:
+			graphics.color_crapstable10()
+
 
 	#Display current Pass or Don't Pass bet
 	if bet_location == "1":
@@ -2403,10 +2427,6 @@ if colorized == 0:
 	graphics.intro()
 else:
 	graphics.color_intro()
-
-#TESTING
-graphics.color_crapstable()
-#END TESTING
 
 #Result of two d6 dice being thrown
 #global result
