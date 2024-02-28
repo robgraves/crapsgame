@@ -98,38 +98,71 @@ pickle.dump(users_dict, open(userdata,"wb"))
 
 #Function for animating dice rolling
 def animatedice():
+	global colorized
 	i = 0
 	rng = random.SystemRandom()
 	while i < 5:
 		table()
 		animatedie1 		= rng.randint(1,6)
 		animatedie2 		= rng.randint(1,6)
-		#Display proper ASCII art for each dieface for die 1
-		if animatedie1 == 1:
-			graphics.die1face1()
-		elif animatedie1 == 2:
-			graphics.die1face2()
-		elif animatedie1 == 3:
-			graphics.die1face3()
-		elif animatedie1 == 4:
-			graphics.die1face4()
-		elif animatedie1 == 5:
-			graphics.die1face5()
-		elif animatedie1 == 6:
-			graphics.die1face6()
-		#Display proper ASCII art for each dieface for die 2
-		if animatedie2 == 1:
-			graphics.die2face1()
-		elif animatedie2 == 2:
-			graphics.die2face2()
-		elif animatedie2 == 3:
-			graphics.die2face3()
-		elif animatedie2 == 4:
-			graphics.die2face4()
-		elif animatedie2 == 5:
-			graphics.die2face5()
-		elif animatedie2 == 6:
-			graphics.die2face6()
+
+		if colorized == 0:
+			#GREYSCALE
+			#Display proper ASCII art for each dieface for die 1
+			if animatedie1 == 1:
+				graphics.die1face1()
+			elif animatedie1 == 2:
+				graphics.die1face2()
+			elif animatedie1 == 3:
+				graphics.die1face3()
+			elif animatedie1 == 4:
+				graphics.die1face4()
+			elif animatedie1 == 5:
+				graphics.die1face5()
+			elif animatedie1 == 6:
+				graphics.die1face6()
+			#Display proper ASCII art for each dieface for die 2
+			if animatedie2 == 1:
+				graphics.die2face1()
+			elif animatedie2 == 2:
+				graphics.die2face2()
+			elif animatedie2 == 3:
+				graphics.die2face3()
+			elif animatedie2 == 4:
+				graphics.die2face4()
+			elif animatedie2 == 5:
+				graphics.die2face5()
+			elif animatedie2 == 6:
+				graphics.die2face6()
+		else:
+			#COLORIZED
+			#Display proper ASCII art for each dieface for die 1
+			if animatedie1 == 1:
+				graphics.color_die1face1()
+			elif animatedie1 == 2:
+				graphics.color_die1face2()
+			elif animatedie1 == 3:
+				graphics.color_die1face3()
+			elif animatedie1 == 4:
+				graphics.color_die1face4()
+			elif animatedie1 == 5:
+				graphics.color_die1face5()
+			elif animatedie1 == 6:
+				graphics.color_die1face6()
+			#Display proper ASCII art for each dieface for die 2
+			if animatedie2 == 1:
+				graphics.color_die2face1()
+			elif animatedie2 == 2:
+				graphics.color_die2face2()
+			elif animatedie2 == 3:
+				graphics.color_die2face3()
+			elif animatedie2 == 4:
+				graphics.color_die2face4()
+			elif animatedie2 == 5:
+				graphics.color_die2face5()
+			elif animatedie2 == 6:
+				graphics.color_die2face6()
+
 		time.sleep(0.2)
 		graphics.die1blank()
 		graphics.die2blank()
@@ -137,6 +170,7 @@ def animatedice():
 
 #Function that rolls two dice
 def dice():
+	global coloried
 	#setup for hardway check
 	global hardway
 	hardway = 0
@@ -178,32 +212,63 @@ def dice():
 	#animatedice()
 	#table()
 
-	#Display proper ASCII art for each dieface for die 1
-	if die1 == 1:
-		graphics.die1face1()
-	elif die1 == 2:
-		graphics.die1face2()
-	elif die1 == 3:
-		graphics.die1face3()
-	elif die1 == 4:
-		graphics.die1face4()
-	elif die1 == 5:
-		graphics.die1face5()
-	elif die1 == 6:
-		graphics.die1face6()
-	#Display proper ASCII art for each dieface for die 2
-	if die2 == 1:
-		graphics.die2face1()
-	elif die2 == 2:
-		graphics.die2face2()
-	elif die2 == 3:
-		graphics.die2face3()
-	elif die2 == 4:
-		graphics.die2face4()
-	elif die2 == 5:
-		graphics.die2face5()
-	elif die2 == 6:
-		graphics.die2face6()
+	if colorized == 0:
+		#GRAYSCALE
+		#Display proper ASCII art for each dieface for die 1
+		if die1 == 1:
+			graphics.die1face1()
+		elif die1 == 2:
+			graphics.die1face2()
+		elif die1 == 3:
+			graphics.die1face3()
+		elif die1 == 4:
+			graphics.die1face4()
+		elif die1 == 5:
+			graphics.die1face5()
+		elif die1 == 6:
+			graphics.die1face6()
+		#Display proper ASCII art for each dieface for die 2
+		if die2 == 1:
+			graphics.die2face1()
+		elif die2 == 2:
+			graphics.die2face2()
+		elif die2 == 3:
+			graphics.die2face3()
+		elif die2 == 4:
+			graphics.die2face4()
+		elif die2 == 5:
+			graphics.die2face5()
+		elif die2 == 6:
+			graphics.die2face6()
+	else:
+		#COLORIZED
+		#Display proper ASCII art for each dieface for die 1
+		if die1 == 1:
+			graphics.color_die1face1()
+		elif die1 == 2:
+			graphics.color_die1face2()
+		elif die1 == 3:
+			graphics.color_die1face3()
+		elif die1 == 4:
+			graphics.color_die1face4()
+		elif die1 == 5:
+			graphics.color_die1face5()
+		elif die1 == 6:
+			graphics.color_die1face6()
+		#Display proper ASCII art for each dieface for die 2
+		if die2 == 1:
+			graphics.color_die2face1()
+		elif die2 == 2:
+			graphics.color_die2face2()
+		elif die2 == 3:
+			graphics.color_die2face3()
+		elif die2 == 4:
+			graphics.color_die2face4()
+		elif die2 == 5:
+			graphics.color_die2face5()
+		elif die2 == 6:
+			graphics.color_die2face6()
+
 	print(str(die1) + " " + str(die2))
 	print("You rolled : ", diceresult)
 	
@@ -586,7 +651,8 @@ def gameover(int):
 		print("     G A M E  O V E R!!!\n\n")
 		print("******************************\n\n")
 	else:
-		graphics.cactus()
+		#graphics.cactus()
+		graphics.color_cactus()
 	print("**** Terminal Craps Game ****")
 	print("** written by Matthew Page **")
 	print("**** me@matthewjpage.com ****\n\n")
@@ -2278,10 +2344,24 @@ elif operating == "Darwin":
 	os.system("clear")
 else:
 	print("ERROR: Unknown Operating System!")
-graphics.intro()
+
+
+#color on or off, 1 for on, 0 for off
+global colorized
+colorized = 1
+
+#sound effects on or off
+global soundfx 
+soundfx = 1 
 
 #mature content is off by default
 mature = 0
+
+#Intro screen
+if colorized == 0:
+	graphics.intro()
+else:
+	graphics.color_intro()
 
 #Result of two d6 dice being thrown
 #global result

@@ -9,6 +9,18 @@
 ##############################################
 
 
+#Ansi codes set up for colors by nullist
+class ansifmt:
+	LGREEN		= '\033[38;5;119m'
+	HIGREEN		= '\033[1;92m'
+	HIYELLOW	= '\033[1;93m'
+	HIRED		= '\033[1;91m'
+	HIWHITE		= '\033[1;97m'
+	HIBLUE		= '\033[1;94m'
+	LRED		= '\033[38;5;203m'
+	BOLD		= '\033[1m'
+	RESET		= '\033[0m'
+
 
 ##############################################
 #
@@ -32,8 +44,25 @@ def intro():
 	print("     '-------'     \/____o/      ")
 	print("                                 ")
 	print("   Created by Matthew J. Page    ")
-	print("         robgraves  2022         ")
+	print("         robgraves  2024         ")
 	print("       me@matthewjpage.com       ")
+	print("                                 ")
+
+
+def color_intro():
+	'''Function that displays Color Intro screen'''
+	print(f"{ansifmt.HIYELLOW}Welcome to Terminal Craps Game!!!{ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}       .-------.    ______       {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}      /{ansifmt.RESET}" + f"{ansifmt.HIWHITE}   o{ansifmt.RESET}" + f"{ansifmt.HIRED}   /|   /\     \      {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}     /_______/{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}|  /{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o {ansifmt.RESET}" + f"{ansifmt.HIRED}\  {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}  \     {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}     | {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}     | | /   {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}\_____\    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}     |   {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}   |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}/ \{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}   /{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" f"{ansifmt.HIRED}    /    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}     |     {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED} |/   \ {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}/  {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}  /     {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}     '-------'     \/____{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}/      {ansifmt.RESET}")
+	print("                                 ")
+	print(f"{ansifmt.HIBLUE}   Created by Matthew J. Page    {ansifmt.RESET}")
+	print(f"{ansifmt.HIBLUE}         robgraves  2024         {ansifmt.RESET}")
+	print(f"{ansifmt.HIBLUE}       me@matthewjpage.com       {ansifmt.RESET}")
 	print("                                 ")
 
 
@@ -295,6 +324,112 @@ def die2blank():
 	print("                   ")
 
 
+def color_die1face1():
+	'''Function to display a one on a die1 in ASCII'''
+	print(f"{ansifmt.HIRED}     ___     {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    |   |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    | {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED} |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    |___|    {ansifmt.RESET}")
+	print("             ")
+
+def color_die1face2():
+	'''Function to display a two on a die1 in ASCII'''
+	print(f"{ansifmt.HIRED}     ___     {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}  |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    |   |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    |__{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print("             ")
+
+
+def color_die1face3():
+	'''Function to display a three on a die1 in ASCII'''
+	print(f"{ansifmt.HIRED}     ___     {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}  |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    | {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED} |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    |__{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print("             ")
+
+
+def color_die1face4():
+	'''Function to display a four on a die1 in ASCII'''
+	print(f"{ansifmt.HIRED}     ___     {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    |   |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}_{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print("             ")
+
+
+def color_die1face5():
+	'''Function to display a five on a die1 in ASCII'''
+	print(f"{ansifmt.HIRED}     ___     {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    | {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED} |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}_{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print("             ")
+
+
+def color_die1face6():
+	'''Function to display a six on a die1 in ASCII'''
+	print(f"{ansifmt.HIRED}     ___     {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}_{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print("             ")
+
+
+def color_die2face1():
+	'''Function to display a one on a die1 in ASCII'''
+	print(f"{ansifmt.HIRED}           ___     {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          |   |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          | {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED} |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          |___|    {ansifmt.RESET}")
+	print("                   ")
+
+def color_die2face2():
+	'''Function to display a two on a die1 in ASCII'''
+	print(f"{ansifmt.HIRED}           ___     {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}  |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          |   |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          |__{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print("                   ")
+
+
+def color_die2face3():
+	'''Function to display a three on a die1 in ASCII'''
+	print(f"{ansifmt.HIRED}           ___     {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}  |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          | {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED} |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          |__{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print("                   ")
+
+
+def color_die2face4():
+	'''Function to display a four on a die1 in ASCII'''
+	print(f"{ansifmt.HIRED}           ___     {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          |   |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}_{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print("                   ")
+
+
+def color_die2face5():
+	'''Function to display a five on a die1 in ASCII'''
+	print(f"{ansifmt.HIRED}           ___     {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          | {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED} |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}_{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print("                   ")
+
+
+def color_die2face6():
+	'''Function to display a six on a die1 in ASCII'''
+	print(f"{ansifmt.HIRED}           ___     {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}_{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print("                   ")
+
+
 def cactus():
 	'''Function to display a cactus'''
 	print("                              ")
@@ -313,6 +448,24 @@ def cactus():
 	print("            |||||             ")
 	print("                              ")
 
+
+def color_cactus():
+	'''Function to display a green cactus'''
+	print(f"{ansifmt.HIGREEN}                               {ansifmt.RESET}")
+	print(f"{ansifmt.HIGREEN}              /|\              {ansifmt.RESET}")
+	print(f"{ansifmt.HIGREEN}             |||||             {ansifmt.RESET}")
+	print(f"{ansifmt.HIGREEN}             |||||             {ansifmt.RESET}")
+	print(f"{ansifmt.HIGREEN}         /\  |||||             {ansifmt.RESET}")
+	print(f"{ansifmt.HIGREEN}        |||| |||||             {ansifmt.RESET}")
+	print(f"{ansifmt.HIGREEN}        |||| |||||  /\         {ansifmt.RESET}")
+	print(f"{ansifmt.HIGREEN}        |||| ||||| ||||        {ansifmt.RESET}")
+	print(f"{ansifmt.HIGREEN}         \|`-'|||| ||||        {ansifmt.RESET}")
+	print(f"{ansifmt.HIGREEN}          \__ |||| ||||        {ansifmt.RESET}")
+	print(f"{ansifmt.HIGREEN}             ||||`-'|||        {ansifmt.RESET}")
+	print(f"{ansifmt.HIGREEN}             |||| ___/         {ansifmt.RESET}")
+	print(f"{ansifmt.HIGREEN}             |||||             {ansifmt.RESET}")
+	print(f"{ansifmt.HIGREEN}             |||||             {ansifmt.RESET}")
+	print(f"{ansifmt.HIGREEN}                               {ansifmt.RESET}")
 
 ############################################
 #
