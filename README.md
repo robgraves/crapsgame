@@ -1,6 +1,8 @@
 # crapsgame
 
 ![2023-07-20-084726_1366x768_scrot](https://github.com/robgraves/crapsgame/assets/1985693/6fc0c105-e675-4b1d-8bd4-537d3ea10d84)
+![2024-02-28-221057_1366x768_scrot](https://github.com/robgraves/crapsgame/assets/1985693/1629b464-3f58-4d74-ae9c-f5c6749ac562)
+![2024-02-28-221407_1366x768_scrot](https://github.com/robgraves/crapsgame/assets/1985693/2de5d4de-4b95-4dea-8166-97dd630c7aa9)
 
 ![2023-07-20-084649_1366x768_scrot](https://github.com/robgraves/crapsgame/assets/1985693/3a79b7bc-a767-45a5-b01d-c1b8b3778c3c)
 
