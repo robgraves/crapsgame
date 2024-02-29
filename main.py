@@ -372,7 +372,9 @@ def settings(username):
 	global colorized
 	global soundfx
 	global mature
-	#username = player()
+
+	#Settings function
+
 	return username
 
 

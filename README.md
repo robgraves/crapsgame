@@ -30,6 +30,8 @@ README.md   -  this file
 
 data/save/userdata.p  -  user data is stored here
 
+data/save/config.p - config settings for game
+
 data/graphics/graphics.py - ASCII art for game
 
 data/sounds/diceroll.wav - sound effect for dice rolls
