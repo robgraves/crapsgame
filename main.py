@@ -142,7 +142,7 @@ pickle.dump(users_dict, open(userdata,"wb"))
 #
 ################################################
 global config_dump
-config_dump = [1,1,0]
+#config_dump = [1,1,0]
 if os.path.exists(config):
 	config_dump = pickle.load(open(config,"rb"))
 else:
@@ -156,6 +156,9 @@ else:
 		print("ERROR: Unknown Operating System!")
 	config_dump = [1,1,0]
 pickle.dump(config_dump, open(config,"wb"))
+colorized = config_dump[0]
+soundfx = config_dump[1]
+mature = config_dump[2]
 #print(config_dump)
 #input()
 #config_dump[2] = 0
@@ -374,6 +377,66 @@ def settings(username):
 	global mature
 
 	#Settings function
+	choice = "0"
+	#while choice not in ("B","b"):
+	while choice != "B" or choice != "b": 
+		if operating == "Linux":
+			os.system("clear")
+		elif operating == "Windows":
+			os.system("cls")
+		elif operating == "Darwin":
+			os.system("clear")
+		else:
+			print("ERROR: Unknown Operating System!")
+		print("********************")
+		print("   SETTINGS MENU")
+		print("********************")
+		if colorized == 0:
+			print("COLOR: OFF")
+		else:
+			print(f"{ansifmt.HIRED}COL{ansifmt.RESET}" + f"{ansifmt.HIYELLOW}OR:{ansifmt.RESET}" + f"{ansifmt.HIBLUE} ON{ansifmt.RESET}")
+		print("********************")
+		if soundfx == 0:
+			print("SOUND: OFF")
+		else:
+			print("SOUND: ON")
+		print("********************")
+		if mature == 0:
+			print("MATURE CONTENT: OFF")
+		else:
+			print("MATURE CONTENT: ON")
+		print("********************")
+		print("                    ")
+		#input()
+
+		print("Choose a letter to toggle")
+		print("settings, then press ENTER: ")
+		print("                            ")
+		print("C  - Color")
+		print("S  - Sound")
+		print("M  - Mature")
+		print("B  - Back")
+		choice = input()
+		if choice in ("B","b"):
+			break
+		else:
+			print("Invalid entry!")
+		print("You chose " + choice)
+		if choice == "C" or choice == "c":
+			if colorized == 1:
+				colorized = 0
+			else:	
+				colorized = 1
+		if choice == "S" or choice == "s":
+			if soundfx == 1:
+				soundfx = 0
+			else:	
+				soundfx = 1
+		if choice == "M" or choice == "m":
+			if mature == 1:
+				mature = 0
+			else:	
+				mature = 1
 
 	return username
 
@@ -479,7 +542,7 @@ def player(username):
 			username = settings(username)
 			choice = "0"
 		if choice == "4":
-			gameover(1)
+			gameover(0)
 	return username
 
 
@@ -495,6 +558,10 @@ def save(users_dict):
 
 #Saving config settings
 def save_config(config_dump):
+	config_dump[0] = colorized	
+	config_dump[1] = soundfx	
+	config_dump[2] = mature	
+	
 	pickle.dump(config_dump, open(config,"wb"))
 
 

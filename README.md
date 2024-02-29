@@ -47,6 +47,13 @@ data/sounds/winsound.wav - sound effect for any other bet winning
 data/sounds/chips.wav - sound effect for any other bet winning
 
 
+02/29/2024
+
+Finished settings menu, with options for color, sound, and mature content.
+All seems to work and save settings in data/save/config.p and reload on
+game start.  Creates the file if it doesn't exist.
+
+
 02/28/2024
 
 Implemented color to the game, now switchable with the colorized variable.
