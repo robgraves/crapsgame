@@ -46,10 +46,33 @@ class ansifmt:
 	BOLD		= '\033[1m'
 	RESET		= '\033[0m'
 
+
 #Check for OS type
 operating = platform.system()
 #print(operating)
 #input()
+
+
+
+############################################
+#
+#
+# Default settings menu initializations
+#
+#
+############################################
+#color on or off, 1 for on, 0 for off
+global colorized
+colorized = 1
+
+#sound effects on or off
+global soundfx 
+soundfx = 1 
+
+#mature content is off by default
+mature = 0
+############################################
+
 
 #path for files used
 if operating == "Linux":
@@ -2437,15 +2460,18 @@ else:
 
 
 #color on or off, 1 for on, 0 for off
-global colorized
-colorized = 1
+#global colorized
+#colorized = 1
+#Handled in settings now
 
 #sound effects on or off
-global soundfx 
-soundfx = 1 
+#global soundfx 
+#soundfx = 1 
+#Handled in settings now
 
 #mature content is off by default
-mature = 0
+#mature = 0
+#Handled in settings now
 
 #Intro screen
 if colorized == 0:
@@ -2511,7 +2537,8 @@ bets = bets_init()
 winflag = 0
 
 #Check for mature content
-mature = maturecheck(mature)
+#mature = maturecheck(mature)
+#Handled in settings now
 
 #Set up user, whether new or loading old user
 username = player()
