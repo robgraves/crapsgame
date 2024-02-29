@@ -71,6 +71,7 @@ global soundfx
 soundfx = 1 
 
 #mature content is off by default
+global mature
 mature = 0
 ############################################
 
@@ -78,6 +79,7 @@ mature = 0
 #path for files used
 if operating == "Linux":
 	userdata             = "data/save/userdata.p"
+	config				= "data/save/config.p"
 	dicesound           = "data/sounds/diceroll.wav"
 	awwsound          = "data/sounds/aww.wav"
 	applausesound   = "data/sounds/claps.wav"
@@ -85,6 +87,7 @@ if operating == "Linux":
 	gruntsound        = "data/sounds/grunt.wav"
 elif operating == "Windows":
 	userdata           = "data\\save\\userdata.p"
+	config				= "data\\save\\config.p"
 	dicesound         = "data\\sounds\\diceroll.wav"
 	awwsound         = "data\\sounds\\aww.wav"
 	applausesound  = "data\\sounds\\claps.wav"
@@ -92,6 +95,7 @@ elif operating == "Windows":
 	gruntsound       = "data\\sounds\\grunt.wav"
 elif operating == "Darwin":
 	userdata             = "data/save/userdata.p"
+	config				= "data/save/config.p"
 	dicesound           = "data/sounds/diceroll.wav"
 	awwsound          = "data/sounds/aww.wav"
 	applausesound   = "data/sounds/claps.wav"
@@ -100,9 +104,14 @@ elif operating == "Darwin":
 else:
 	print("ERROR: Unrecognized Operating System!")	
 
-#Initializing the user database and loading if it exists,
-#forcing creation of file if it doesn't exist to solve
-#some issues encountered later
+
+#########################################################
+#
+# Initializing the user database and loading if it exists,
+# forcing creation of file if it doesn't exist to solve
+# some issues encountered later
+#
+#########################################################
 users_dict = {}
 if os.path.exists(userdata):
 	users_dict = pickle.load(open(userdata,"rb"))
@@ -117,6 +126,43 @@ else:
 		print("ERROR: Unknown Operating System!")
 	users_dict = {"dealer":1000000000}
 pickle.dump(users_dict, open(userdata,"wb"))
+
+
+
+################################################
+#
+#     Loading config file if it exists, forcing
+# creation of file if it doesn't exist
+# config_dump is a list variable with 3 single
+# digit numbers in it, being either a 0 for off
+# or a 1 for on. [colorized,soundfx,mature]
+#     For example: [1,1,0] is laid out to have 
+# colorization on, sound effects on, and mature
+# content off.
+#
+################################################
+global config_dump
+config_dump = [1,1,0]
+if os.path.exists(config):
+	config_dump = pickle.load(open(config,"rb"))
+else:
+	if operating == "Linux":
+		os.system("mkdir -p data/save")
+	elif operating == "Windows":
+		os.system("mkdir data\\save")
+	elif operating == "Darwin":
+		os.system("mkdir -p data/save")
+	else:
+		print("ERROR: Unknown Operating System!")
+	config_dump = [1,1,0]
+pickle.dump(config_dump, open(config,"wb"))
+#print(config_dump)
+#input()
+#config_dump[2] = 0
+#print(config_dump)
+#input()
+#pickle.dump(config_dump, open(config,"wb"))
+
 
 
 ############################################
@@ -321,85 +367,117 @@ def dice():
 
 	return diceresult
 
+def settings(username):
+	global config_dump
+	global colorized
+	global soundfx
+	global mature
+	#username = player()
+	return username
+
 
 #Function for creating or loading user and their bankroll
-def player():
+def player(username):
 	choice = "0"
 	saveduser = None
 	global bankroll
-	while choice not in ("1","2"):
-		print("Are you a new or returning player?")
-		print("1 - New Player")
-		print("2 - Returning Player")
-		choice = input()
-		if choice not in ("1","2"):
-			print("ERROR: Bad choice! Invalid entry!")
-	#Create new player
-	if choice == "1":
-		print("Please enter your name:")
-		username = input()
-		try:
-			saveduser = pickle.load(open(userdata,"rb"))
-			bankroll = saveduser.get(username)
-			#if former player who busted, rebankroll
-			if bankroll == 0 or bankroll == None:
-				bankroll = 1000
-				return username
-			else:
-				choice2 = "0"
-				#Preventing overwriting of existing player
-				while choice2 not in ("Y","y","N","n"):
-					print("This player already exists.") 
-					print("Would you like to overwrite the existing player?")
-					choice2 = input("Y/N?")
-					if choice2 == "N" or choice2 == "n":
-						choice3 = "0"
-						#If player exist, give option to load player
-						while choice3 not in ("Y","y","N","n"):
-							print("Would you like to load this player?")
-							choice3 = input("Y/N?")
-							#Quits out of game if player doesn't want to load
-							#existing player, sending 1 signal to gameover()
-							#doesn't save in the gameover() function
-							if choice3 == "N" or choice3 == "n":
-								gameover(1)
-							elif choice3 == "Y" or choice3 == "y":
-								return username
-							if choice3 not in ("Y","y","N","n"):
-								print("ERROR: Bad choice! Invalid entry!")
-						return username
-					#Allows user to overwrite existing player for whatever reason
-					elif choice2 == "Y" or choice2 == "y":
-						bankroll = 1000
-						return username
-					if choice2 not in ("Y","y","N","n"):
-						print("ERROR: Bad choice! Invalid entry!")
-		except FileNotFoundError:
-			print("Error: File does not exist. Please create a New Player.")
-		#Allows you to play with no name but warns you that you won't
-		#be able to load the player in future gaming sessions
-		if username == "" or None:
-			print("WARNING: By not entering a name,")
-			print("you may not be able to load your")
-			print("saved game in the future.")
-			input()
-		bankroll = 1000
-		return username
-	#Loading existing user and their bankroll
-	if choice == "2":
-		print("Please enter your name:")
-		username = input()
-		try:
-			saveduser = pickle.load(open(userdata,"rb"))
-			bankroll = saveduser.get(username)
-		except FileNotFoundError:
-			print("Error: File does not exist. Please create a New Player.")
-		while saveduser.get(username) == None:
-			print("This user doesn't exist.")
-			print("Please select New Player.")
-			input()
-			username = player()
+	global colorized
+	
+
+	while username == "dealer":
+		if operating == "Linux":
+			os.system("clear")
+		elif operating == "Windows":
+			os.system("cls")
+		elif operating == "Darwin":
+			os.system("clear")
+		else:
+			print("ERROR: Unknown Operating System!")
+		#Intro screen
+		if colorized == 0:
+			graphics.intro()
+		else:
+			graphics.color_intro()
+		while choice not in ("1","2","3","4"):
+			print("Are you a new or returning player?")
+			print("1 - New Player")
+			print("2 - Returning Player")
+			print("3 - Settings")
+			print("4 - Quit")
+			choice = input()
+			if choice not in ("1","2","3","4"):
+				print("ERROR: Bad choice! Invalid entry!")
+		#Create new player
+		if choice == "1":
+			print("Please enter your name:")
+			username = input()
+			try:
+				saveduser = pickle.load(open(userdata,"rb"))
+				bankroll = saveduser.get(username)
+				#if former player who busted, rebankroll
+				if bankroll == 0 or bankroll == None:
+					bankroll = 1000
+					return username
+				else:
+					choice2 = "0"
+					#Preventing overwriting of existing player
+					while choice2 not in ("Y","y","N","n"):
+						print("This player already exists.") 
+						print("Would you like to overwrite the existing player?")
+						choice2 = input("Y/N?")
+						if choice2 == "N" or choice2 == "n":
+							choice3 = "0"
+							#If player exist, give option to load player
+							while choice3 not in ("Y","y","N","n"):
+								print("Would you like to load this player?")
+								choice3 = input("Y/N?")
+								#Quits out of game if player doesn't want to load
+								#existing player, sending 1 signal to gameover()
+								#doesn't save in the gameover() function
+								if choice3 == "N" or choice3 == "n":
+									gameover(1)
+								elif choice3 == "Y" or choice3 == "y":
+									return username
+								if choice3 not in ("Y","y","N","n"):
+									print("ERROR: Bad choice! Invalid entry!")
+							return username
+						#Allows user to overwrite existing player for whatever reason
+						elif choice2 == "Y" or choice2 == "y":
+							bankroll = 1000
+							return username
+						if choice2 not in ("Y","y","N","n"):
+							print("ERROR: Bad choice! Invalid entry!")
+			except FileNotFoundError:
+				print("Error: File does not exist. Please create a New Player.")
+			#Allows you to play with no name but warns you that you won't
+			#be able to load the player in future gaming sessions
+			if username == "" or None:
+				print("WARNING: By not entering a name,")
+				print("you may not be able to load your")
+				print("saved game in the future.")
+				input()
+			bankroll = 1000
 			return username
+		#Loading existing user and their bankroll
+		if choice == "2":
+			print("Please enter your name:")
+			username = input()
+			try:
+				saveduser = pickle.load(open(userdata,"rb"))
+				bankroll = saveduser.get(username)
+			except FileNotFoundError:
+				print("Error: File does not exist. Please create a New Player.")
+			while saveduser.get(username) == None:
+				print("This user doesn't exist.")
+				print("Please select New Player.")
+				input()
+				username = player()
+				return username
+		if choice == "3":
+			username = settings(username)
+			choice = "0"
+		if choice == "4":
+			gameover(1)
 	return username
 
 
@@ -411,6 +489,12 @@ def save(users_dict):
 	global bankroll
 	users_dict[username] = bankroll
 	pickle.dump(users_dict, open(userdata,"wb"))
+
+
+#Saving config settings
+def save_config(config_dump):
+	pickle.dump(config_dump, open(config,"wb"))
+
 
 #Function to check if player wants mature content
 def maturecheck(mature):
@@ -714,6 +798,7 @@ def shady():
 #Function for endgame/gameover if bankroll hits 0
 #0 to save, 1 to not save as input to function
 def gameover(int):
+	global config_dump
 	global colorized
 	if operating == "Linux":
 		os.system("clear")
@@ -781,6 +866,7 @@ def gameover(int):
 			print(f"{ansifmt.HIWHITE}use your saved bankroll.       \n{ansifmt.RESET}")
 	if int == 0:
 		save(users_dict)
+		save_config(config_dump)
 	input()
 	sys.exit()
 	quitflag = True
@@ -2475,10 +2561,10 @@ else:
 #Handled in settings now
 
 #Intro screen
-if colorized == 0:
-	graphics.intro()
-else:
-	graphics.color_intro()
+#if colorized == 0:
+#	graphics.intro()
+#else:
+#	graphics.color_intro()
 
 #Result of two d6 dice being thrown
 #global result
@@ -2541,8 +2627,12 @@ winflag = 0
 #mature = maturecheck(mature)
 #Handled in settings now
 
+#Initializing username for settings loop in 
+#player() function
+username = "dealer"
+
 #Set up user, whether new or loading old user
-username = player()
+username = player(username)
 print("Welcome " + username + "!!!")
 print("Your bankroll is: $" + str(bankroll))
 
