@@ -8,6 +8,7 @@
 #
 ##############################################
 
+import re
 
 #Ansi codes set up for colors
 class ansifmt:
@@ -33,40 +34,35 @@ class ansifmt:
 #
 ##############################################
 
+_intro_header = "Welcome to Terminal Craps Game!!!"
 
+_ascii_dice = """
+       .-------.    ______       
+      /   o   /|   /\     \      
+     /_______/o|  /o \  o  \     
+     | o     | | /   o\_____\    
+     |   o   |o/ \o   /o    /    
+     |     o |/   \ o/  o  /     
+     '-------'     \/____o/      
+                                 """
+
+
+_intro_footer = """
+   Created by Matthew J. Page    
+         robgraves  2024         
+       me@matthewjpage.com       
+                                 """
 
 def intro():
 	'''Function that displays Intro screen'''
-	print("Welcome to Terminal Craps Game!!!")
-	print("       .-------.    ______       ")
-	print("      /   o   /|   /\     \      ")
-	print("     /_______/o|  /o \  o  \     ")
-	print("     | o     | | /   o\_____\    ")
-	print("     |   o   |o/ \o   /o    /    ")
-	print("     |     o |/   \ o/  o  /     ")
-	print("     '-------'     \/____o/      ")
-	print("                                 ")
-	print("   Created by Matthew J. Page    ")
-	print("         robgraves  2024         ")
-	print("       me@matthewjpage.com       ")
-	print("                                 ")
-
+	print(_intro_header + _ascii_dice + _intro_footer)
 
 def color_intro():
-	'''Function that displays Color Intro screen'''
-	print(f"{ansifmt.HIYELLOW}Welcome to Terminal Craps Game!!!{ansifmt.RESET}")
-	print(f"{ansifmt.HIRED}       .-------.    ______       {ansifmt.RESET}")
-	print(f"{ansifmt.HIRED}      /{ansifmt.RESET}" + f"{ansifmt.HIWHITE}   o{ansifmt.RESET}" + f"{ansifmt.HIRED}   /|   /\     \      {ansifmt.RESET}")
-	print(f"{ansifmt.HIRED}     /_______/{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}|  /{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o {ansifmt.RESET}" + f"{ansifmt.HIRED}\  {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}  \     {ansifmt.RESET}")
-	print(f"{ansifmt.HIRED}     | {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}     | | /   {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}\_____\    {ansifmt.RESET}")
-	print(f"{ansifmt.HIRED}     |   {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}   |{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}/ \{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}   /{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" f"{ansifmt.HIRED}    /    {ansifmt.RESET}")
-	print(f"{ansifmt.HIRED}     |     {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED} |/   \ {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}/  {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}  /     {ansifmt.RESET}")
-	print(f"{ansifmt.HIRED}     '-------'     \/____{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}/      {ansifmt.RESET}")
-	print("                                 ")
-	print(f"{ansifmt.HIBLUE}   Created by Matthew J. Page    {ansifmt.RESET}")
-	print(f"{ansifmt.HIBLUE}         robgraves  2024         {ansifmt.RESET}")
-	print(f"{ansifmt.HIBLUE}       me@matthewjpage.com       {ansifmt.RESET}")
-	print("                                 ")
+	cdice_1 = re.compile(r"([^o])").sub(f"{ansifmt.HIRED}\\1{ansifmt.RESET}", _ascii_dice)
+	cdice_2 = re.compile(r"(o)").sub(f"{ansifmt.HIWHITE}\\1{ansifmt.RESET}", cdice_1)
+	color_header = ansifmt.HIYELLOW + _intro_header + ansifmt.RESET
+	color_footer = ansifmt.HIBLUE + _intro_footer + ansifmt.RESET
+	print(color_header + cdice_2 + color_footer)
 
 
 def crapstable():
