@@ -1,20 +1,35 @@
 # crapsgame
 
-![2023-07-20-084726_1366x768_scrot](https://github.com/robgraves/crapsgame/assets/1985693/6fc0c105-e675-4b1d-8bd4-537d3ea10d84)
-
-![2024-02-28-221057_1366x768_scrot](https://github.com/robgraves/crapsgame/assets/1985693/1629b464-3f58-4d74-ae9c-f5c6749ac562)
-
-![2024-02-28-221407_1366x768_scrot](https://github.com/robgraves/crapsgame/assets/1985693/2de5d4de-4b95-4dea-8166-97dd630c7aa9)
-
-![2023-07-20-084649_1366x768_scrot](https://github.com/robgraves/crapsgame/assets/1985693/3a79b7bc-a767-45a5-b01d-c1b8b3778c3c)
-
-![2023-07-20-084358_1366x768_scrot](https://github.com/robgraves/crapsgame/assets/1985693/767fe2e5-9c76-4c2c-9eed-6dc846a7db9c)
-
-
 <img src="data/images/craps1.png"
 raw = true
 alt="Craps Table, Grayscale"
 />
+
+<img src="data/images/craps2.png"
+raw = true
+alt="Intro Screen"
+/>
+
+<img src="data/images/craps3.png"
+raw = true
+alt="Craps Table, Color"
+/>
+
+<img src="data/images/craps4.png"
+raw = true
+alt="Mid-Game Bet Menu"
+/>
+
+<img src="data/images/craps5.png"
+raw = true
+alt="Settings Menu"
+/>
+
+<img src="data/images/craps6.png"
+raw = true
+alt="Quit Screen"
+/>
+
 
 Matthew Page
 
