@@ -10,6 +10,12 @@
 
 ![2023-07-20-084358_1366x768_scrot](https://github.com/robgraves/crapsgame/assets/1985693/767fe2e5-9c76-4c2c-9eed-6dc846a7db9c)
 
+
+<img src="data/images/craps1.png"
+raw = true
+alt="Craps Table, Grayscale"
+/>
+
 Matthew Page
 
 me@matthewjpage.com
