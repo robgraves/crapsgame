@@ -54,6 +54,8 @@ data/sounds/chips.wav - sound effect for any other bet winning
 Finished settings menu, with options for color, sound, and mature content.
 All seems to work and save settings in data/save/config.p and reload on
 game start.  Creates the file if it doesn't exist.
+nullist did some refactoring to the graphics.py file to make it easier to
+change colors.
 
 
 02/28/2024
