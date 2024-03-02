@@ -463,14 +463,14 @@ def player(username):
 			graphics.intro()
 		else:
 			graphics.color_intro()
-		while choice not in ("1","2","3","4"):
+		while choice not in ("1","2","3","Q","q"):
 			print("Are you a new or returning player?")
 			print("1 - New Player")
 			print("2 - Returning Player")
 			print("3 - Settings")
-			print("4 - Quit")
+			print("Q - Quit")
 			choice = input()
-			if choice not in ("1","2","3","4"):
+			if choice not in ("1","2","3","Q","q"):
 				print("ERROR: Bad choice! Invalid entry!")
 		#Create new player
 		if choice == "1":
@@ -545,7 +545,7 @@ def player(username):
 		if choice == "3":
 			username = settings(username)
 			choice = "0"
-		if choice == "4":
+		if choice == "Q" or choice == "q":
 			gameover(0)
 	return username
 
@@ -2537,15 +2537,15 @@ def midgamebet(bets):
 			print("6 - Place, Buy, and Lay Bets")
 			print("7 - Proposition Bets")
 			print("8 - Miscellaneous Bets")
-			print("9 - Quit Game")
+			print("Q - Quit Game")
 			midbet_location = input()
-			if midbet_location in ("1","2","3","4","5","6","7","8","9",""):
+			if midbet_location in ("1","2","3","4","5","6","7","8","Q","q",""):
 				break
 			else:
 				print("Invalid entry!")
 		#Allow for quitting game at every menu but warning player that there are still
 		#live bets on the table and quitting now would surrender those bets to the house
-		if midbet_location == "9":
+		if midbet_location == "Q" or midbet_location == "q":
 			confirm = "0"
 			while confirm not in ("Y","N","y","n"):
 				print("Are you sure? (Y/N) All bets on the table will be lost.")
@@ -2556,6 +2556,22 @@ def midgamebet(bets):
 					 print("Invalid entry!")
 			if confirm == "Y" or confirm == "y":
 				gameover(0)
+
+				#These next several lines were me 
+				#experimenting with jumping back to
+				#intro (main) menu, handled by player()
+				#function. Resulted in keeping current
+				#user however, even if choosing diffent 
+				#player, also depending on what enabled
+				#resulting in either a crash or continuing
+				#with original user.
+
+				#save(users_dict)
+				#save_config(config_dump)
+				#username = "dealer"
+				#username = player(username)
+				#return username
+
 			elif confirm == "N" or confirm == "n":
 				print("Returning to game")
 				return(bets)

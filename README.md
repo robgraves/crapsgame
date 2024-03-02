@@ -76,7 +76,9 @@ data/images - screenshots for README
 
 Added showing username at the top of the screen.
 Fixed bug where player chooses returning player but enters invalid
-player causes game to crash.
+player causes game to crash.  Also changed all instances of Quit key
+to Q or q as the inconsistency was driving me mad.  Looks more uniform
+now.
 
 
 02/29/2024
