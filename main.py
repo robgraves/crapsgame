@@ -535,9 +535,13 @@ def player(username):
 			while saveduser.get(username) == None:
 				print("This user doesn't exist.")
 				print("Please select New Player.")
-				input()
-				username = player()
-				return username
+				try:
+					username = player()
+					return username
+				except TypeError:
+					input()
+					choice = "0"
+					username = "dealer"
 		if choice == "3":
 			username = settings(username)
 			choice = "0"
@@ -607,12 +611,17 @@ def table():
 		print("ERROR: Unknown Operating System!")
 
 
+	#check for color setting, colorize username and bankroll
 	if colorized == 0:
+		print("Player: " + username)
 		print("Your current bankroll is: $" + str(bankroll)) 
 	else:  
 		#Code snippet added and modified by nullist to colorize the bankroll 
 		bankrollcolor = ansifmt.LGREEN  if bankroll > 0 else ansifmt.LRED
 		bankrollfmtstr = bankrollcolor + f'${str(bankroll)}' + ansifmt.RESET
+		color_username = ansifmt.HIYELLOW + f'{str(username)}' + ansifmt.RESET
+		playa = "Player: "
+		print(playa + color_username)
 		print(f'Your current bankroll is: {bankrollfmtstr}')
   
  

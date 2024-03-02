@@ -69,6 +69,15 @@ data/sounds/winsound.wav - sound effect for any other bet winning
 
 data/sounds/chips.wav - sound effect for any other bet winning
 
+data/images - screenshots for README
+
+
+03/01/2024
+
+Added showing username at the top of the screen.
+Fixed bug where player chooses returning player but enters invalid
+player causes game to crash.
+
 
 02/29/2024
 
