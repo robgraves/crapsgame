@@ -9,7 +9,7 @@
 
 import random
 
-i=1000000
+i=10000000
 x = i
 
 two = 0

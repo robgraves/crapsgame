@@ -80,6 +80,7 @@ mature = 0
 if operating == "Linux":
 	userdata             = "data/save/userdata.p"
 	config				= "data/save/config.p"
+	introsound		= "data/sounds/tonight.wav"
 	dicesound           = "data/sounds/diceroll.wav"
 	awwsound          = "data/sounds/aww.wav"
 	applausesound   = "data/sounds/claps.wav"
@@ -88,6 +89,7 @@ if operating == "Linux":
 elif operating == "Windows":
 	userdata           = "data\\save\\userdata.p"
 	config				= "data\\save\\config.p"
+	introsound		= "data\\sounds\\tonight.wav"
 	dicesound         = "data\\sounds\\diceroll.wav"
 	awwsound         = "data\\sounds\\aww.wav"
 	applausesound  = "data\\sounds\\claps.wav"
@@ -96,6 +98,7 @@ elif operating == "Windows":
 elif operating == "Darwin":
 	userdata             = "data/save/userdata.p"
 	config				= "data/save/config.p"
+	introsound		= "data/sounds/tonight.wav"
 	dicesound           = "data/sounds/diceroll.wav"
 	awwsound          = "data/sounds/aww.wav"
 	applausesound   = "data/sounds/claps.wav"
@@ -447,7 +450,6 @@ def player(username):
 	saveduser = None
 	global bankroll
 	global colorized
-	
 
 	while username == "dealer":
 		if operating == "Linux":
@@ -2724,6 +2726,17 @@ winflag = 0
 #Initializing username for settings loop in 
 #player() function
 username = "dealer"
+
+#Testing intro sound on main menu
+if soundfx == 1:
+	if operating == "Linux":
+		os.system("aplay -q " + introsound + " > /dev/null 2>&1 &")
+	elif operating == "Windows":
+		os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\tonight.wav').PlaySync();")
+	elif operating == "Darwin":
+		os.system("afplay " + introsound + " > /dev/null 2>&1 &")
+	else:
+		print("ERROR: Unknown Operating System!")
 
 #Set up user, whether new or loading old user
 username = player(username)

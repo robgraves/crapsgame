@@ -57,6 +57,8 @@ data/save/config.p - config settings for game
 
 data/graphics/graphics.py - ASCII art for game
 
+data/sounds/tonight.wav - intro sound when game starts
+
 data/sounds/diceroll.wav - sound effect for dice rolls
 
 data/sounds/aww.wav - sound effect for shooter losing
@@ -70,6 +72,11 @@ data/sounds/winsound.wav - sound effect for any other bet winning
 data/sounds/chips.wav - sound effect for any other bet winning
 
 data/images - screenshots for README
+
+
+03/02/2024
+
+Added an intro sound when game starts.
 
 
 03/01/2024
