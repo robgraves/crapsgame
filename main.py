@@ -70,6 +70,10 @@ colorized = 1
 global soundfx 
 soundfx = 1 
 
+#music on or off
+global music
+music = 1
+
 #mature content is off by default
 global mature
 mature = 0
@@ -136,16 +140,16 @@ pickle.dump(users_dict, open(userdata,"wb"))
 #
 #     Loading config file if it exists, forcing
 # creation of file if it doesn't exist
-# config_dump is a list variable with 3 single
+# config_dump is a list variable with 4 single
 # digit numbers in it, being either a 0 for off
 # or a 1 for on. [colorized,soundfx,mature]
-#     For example: [1,1,0] is laid out to have 
+#     For example: [1,1,1,0] is laid out to have 
 # colorization on, sound effects on, and mature
 # content off.
 #
 ################################################
 global config_dump
-#config_dump = [1,1,0]
+#config_dump = [1,1,1,0]
 if os.path.exists(config):
 	config_dump = pickle.load(open(config,"rb"))
 else:
@@ -157,11 +161,12 @@ else:
 		os.system("mkdir -p data/save")
 	else:
 		print("ERROR: Unknown Operating System!")
-	config_dump = [1,1,0]
+	config_dump = [1,1,1,0]
 pickle.dump(config_dump, open(config,"wb"))
 colorized = config_dump[0]
 soundfx = config_dump[1]
-mature = config_dump[2]
+music = config_dump[2]
+mature = config_dump[3]
 #print(config_dump)
 #input()
 #config_dump[2] = 0
@@ -377,6 +382,7 @@ def settings(username):
 	global config_dump
 	global colorized
 	global soundfx
+	global music
 	global mature
 
 	#Settings function
@@ -404,6 +410,11 @@ def settings(username):
 		else:
 			print("SOUND: ON")
 		print("********************")
+		if music == 0:
+			print("MUSIC: OFF")
+		else:
+			print("MUSIC: ON")
+		print("********************")
 		if mature == 0:
 			print("MATURE CONTENT: OFF")
 		else:
@@ -417,7 +428,8 @@ def settings(username):
 		print("                            ")
 		print("C  - Color")
 		print("S  - Sound")
-		print("M  - Mature")
+		print("M  - Music")
+		print("X  - Mature")
 		print("B  - Back")
 		choice = input()
 		if choice in ("B","b"):
@@ -436,6 +448,11 @@ def settings(username):
 			else:	
 				soundfx = 1
 		if choice == "M" or choice == "m":
+			if music == 1:
+				music = 0
+			else:	
+				music = 1
+		if choice == "X" or choice == "x":
 			if mature == 1:
 				mature = 0
 			else:	
@@ -566,7 +583,8 @@ def save(users_dict):
 def save_config(config_dump):
 	config_dump[0] = colorized	
 	config_dump[1] = soundfx	
-	config_dump[2] = mature	
+	config_dump[2] = music	
+	config_dump[3] = mature	
 	
 	pickle.dump(config_dump, open(config,"wb"))
 
@@ -795,6 +813,7 @@ def table():
 #money if you go broke, only works if you chose M-rated
 #at the start of game.
 def shady():
+	global bankroll
 	global colorized
 	if operating == "Linux":
 		os.system("clear")
@@ -825,7 +844,6 @@ def shady():
 		print(f'{ansifmt.HIWHITE}make some money if you follow me          {ansifmt.RESET}')
 		print(f'{ansifmt.HIWHITE}out back."                                {ansifmt.RESET}')
 	choice = "0"
-	global bankroll
 	while choice not in ("1","2"):
 		print("Do you follow the shady man out back?     ")
 		print("1 - Yes")
@@ -2728,7 +2746,7 @@ winflag = 0
 username = "dealer"
 
 #Testing intro sound on main menu
-if soundfx == 1:
+if music == 1:
 	if operating == "Linux":
 		os.system("aplay -q " + introsound + " > /dev/null 2>&1 &")
 	elif operating == "Windows":
@@ -2744,6 +2762,7 @@ print("Welcome " + username + "!!!")
 print("Your bankroll is: $" + str(bankroll))
 
 save(users_dict)
+save_config(config_dump)
 if operating == "Linux":
 	os.system("clear")
 elif operating == "Windows":
@@ -2776,7 +2795,19 @@ while quitflag == False:
 	if bankroll == 0:
 		if mature == 1:
 			shady()
-			print("Your current bankroll is: $" + str(bankroll))
+			#check for color setting, colorize username and bankroll
+			if colorized == 0:
+				print("Player: " + username)
+				print("Your current bankroll is: $" + str(bankroll)) 
+			else:  
+				#Code snippet added and modified by nullist to colorize the bankroll 
+				bankrollcolor = ansifmt.LGREEN  if bankroll > 0 else ansifmt.LRED
+				bankrollfmtstr = bankrollcolor + f'${str(bankroll)}' + ansifmt.RESET
+				color_username = ansifmt.HIYELLOW + f'{str(username)}' + ansifmt.RESET
+				playa = "Player: "
+				print(playa + color_username)
+				print(f'Your current bankroll is: {bankrollfmtstr}')
+			#print("Your current bankroll is: $" + str(bankroll))
 			if colorized == 0:
 				graphics.crapstable()
 			else:

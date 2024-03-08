@@ -74,6 +74,14 @@ data/sounds/chips.wav - sound effect for any other bet winning
 data/images - screenshots for README
 
 
+03/08/2024
+
+Added seperate variable to control music, fixed bug with bankroll not
+colorized after returning from mature content.
+NOTE: Updated changes to settings require deleting old settings file at:
+ data/save/config.p  OR data\save\config.p
+
+
 03/02/2024
 
 Added an intro sound when game starts.
