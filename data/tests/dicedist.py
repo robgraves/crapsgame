@@ -60,7 +60,7 @@ while i > 0:
 	###NEW DICE RANDOMNESS METHOD
 	### Always results in all rolls
 	### being same number BROKEN
-	rng = random.seed(seedcomposite)
+	random.seed(seedcomposite)
 	die1 = random.randint(1,6)
 	die2 = random.randint(1,6)
 	
