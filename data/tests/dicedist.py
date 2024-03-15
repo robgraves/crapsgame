@@ -8,8 +8,34 @@
 ############################
 
 import random
+#import os
+import math
+import datetime
 
-i=10000000
+print("Enter name: ")
+name = input()
+nameint = 0
+for n in name:
+	nameint = ord(n)
+print("Your name is: " + name)
+print("Enter bankroll: ")
+bankroll = input()
+print("Your bankroll is: " + str(bankroll))
+dateint = math.floor(datetime.datetime.now().timestamp())
+#dateint = os.system('date +%s\n')
+print("Date Integer is: " + str(dateint))
+print("Enter number of times to roll the dice: ")
+i = input()
+print("You chose " + i)
+i = int(i)
+
+seedcomposite = nameint + int(bankroll) + dateint
+print("Seed Composite: ", str(seedcomposite))
+int(seedcomposite)
+input()
+
+
+#i=10000000
 x = i
 
 two = 0
@@ -25,9 +51,19 @@ eleven = 0
 twelve = 0
 
 while i > 0:
-	rng = random.SystemRandom()
-	die1 = rng.randint(1,6)
-	die2 = rng.randint(1,6)
+	###ORIGINAL DICE RANDOMNESS METHOD
+	### Works
+	#rng = random.SystemRandom()
+	#die1 = rng.randint(1,6)
+	#die2 = rng.randint(1,6)
+
+	###NEW DICE RANDOMNESS METHOD
+	### Always results in all rolls
+	### being same number BROKEN
+	rng = random.seed(seedcomposite)
+	die1 = random.randint(1,6)
+	die2 = random.randint(1,6)
+	
 	diceresult = die1 + die2
 	print(diceresult)
 	if diceresult == 2:
