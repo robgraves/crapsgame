@@ -11,6 +11,9 @@ import random
 #import os
 import math
 import datetime
+#import time
+
+diceresult = 0
 
 print("Enter name: ")
 name = input()
@@ -29,9 +32,9 @@ i = input()
 print("You chose " + i)
 i = int(i)
 
-seedcomposite = nameint + int(bankroll) + dateint
+seedcomposite = int(nameint) + int(bankroll) + int(dateint) + int(diceresult)
 print("Seed Composite: ", str(seedcomposite))
-int(seedcomposite)
+seedcomposite = int(seedcomposite)
 input()
 
 
@@ -60,6 +63,23 @@ while i > 0:
 	###NEW DICE RANDOMNESS METHOD
 	### Always results in all rolls
 	### being same number BROKEN
+	
+	rng = random.SystemRandom()
+	rng_num = rng.randint(1,10000)
+
+	#time.sleep(0.2)
+	dateint = math.floor(datetime.datetime.now().timestamp())
+	seedcomposite = int(nameint) + int(bankroll) + int(dateint) + int(diceresult) + rng_num
+	seedcomposite = int(seedcomposite)
+	#
+	# TESTS
+	#print(nameint)
+	#print(bankroll)
+	#print(dateint)
+	#print(diceresult)
+	#print(seedcomposite)
+	#input()
+	#
 	random.seed(seedcomposite)
 	die1 = random.randint(1,6)
 	die2 = random.randint(1,6)
