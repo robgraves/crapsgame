@@ -19,7 +19,7 @@ print("Enter name: ")
 name = input()
 nameint = 0
 for n in name:
-	nameint = ord(n)
+	nameint = nameint + ord(n)
 print("Your name is: " + name)
 print("Enter bankroll: ")
 bankroll = input()

@@ -25,6 +25,7 @@ import sys
 import os
 import platform
 import time
+import datetime
 import math
 import random
 import pickle
@@ -258,7 +259,7 @@ def animatedice():
 		i=i+1	
 
 #Function that rolls two dice
-def dice():
+def dice(diceresult):
 	global coloried
 	#setup for hardway check
 	global hardway
@@ -271,8 +272,59 @@ def dice():
 
 	print("Rolling the dice...")
 	rng = random.SystemRandom()
-	die1 		= rng.randint(1,6)
-	die2 		= rng.randint(1,6)
+
+	### NEW SEGMENT START
+	#implementing seed composite
+	#comprised of name in ascii added together,
+	#bankroll, timestamp, previous diceroll,
+	#and random integer using old method
+
+	#nameint is username, each
+	#character converted to ASCII code and
+	#added together
+	nameint = 0
+	for n in username:
+		nameint = nameint + ord(n)
+
+	#bankroll is bankroll
+
+	#dateint is current timestamp at time of dice roll
+	dateint = math.floor(datetime.datetime.now().timestamp())
+
+	#diceresult is initialized to 0 at beginning of game,
+	#but uses previous rolls outcome to add to next seed 
+	#composite
+
+	#random number generated using old method to keep some
+	#of the other method involved in this new method
+	rng_num = rng.randint(1,10000)
+
+	#Accumulated seed composite saved as an integer
+	#made up of nameint + bankroll + dateint + 
+	#diceresult + rng_num
+	seedcomposite = nameint + bankroll + dateint + diceresult + rng_num
+
+	#TESTING
+	#print(username)
+	#print(nameint)	
+	#print(bankroll)
+	#print(dateint)
+	#print(diceresult)
+	#print(rng_num)
+	#print(seedcomposite)
+	#input()
+
+	random.seed(seedcomposite)
+
+	### NEW SEGMENT END
+
+	#old method
+	#die1 		= rng.randint(1,6)
+	#die2 		= rng.randint(1,6)
+
+	#new method
+	die1 		= random.randint(1,6)
+	die2 		= random.randint(1,6)
 	diceresult 	= die1 + die2
 
     #Play dice rolling sound
@@ -2744,6 +2796,7 @@ winflag = 0
 #Initializing username for settings loop in 
 #player() function
 username = "dealer"
+result = 0
 
 #Testing intro sound on main menu
 if music == 1:
@@ -2878,7 +2931,7 @@ while quitflag == False:
 		table()
 		print("Press Enter to roll.")
 		input()
-		result = dice()
+		result = dice(result)
 		#If 7 or 11 Pass bettors win, Don't Pass loses
 		if result == 7 or result == 11:
 			print("Shooter Wins!!!")
@@ -3418,7 +3471,7 @@ while quitflag == False:
 			#THAT EXTRA PAUSE IN THE GAME, next 2 lines
 			#print("Press Enter to roll again.")
 			#input()
-			result = dice()
+			result = dice(result)
 
 			#Payouts if dice result matches come point	
 			#Losses for don't come points
