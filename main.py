@@ -2803,7 +2803,7 @@ if music == 1:
 	if operating == "Linux":
 		os.system("aplay -q " + introsound + " > /dev/null 2>&1 &")
 	elif operating == "Windows":
-		os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\tonight.wav').PlaySync();")
+		os.system("bg powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\tonight.wav').PlaySync();")
 	elif operating == "Darwin":
 		os.system("afplay " + introsound + " > /dev/null 2>&1 &")
 	else:
