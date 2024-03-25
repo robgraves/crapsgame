@@ -473,6 +473,8 @@ def settings(username):
 			print("MATURE CONTENT: ON")
 		print("********************")
 		print("                    ")
+		print("NOTE: Music is not currently working in Windows")
+		print("                    ")
 		#input()
 
 		print("Choose a letter to toggle")
@@ -2803,7 +2805,8 @@ if music == 1:
 	if operating == "Linux":
 		os.system("aplay -q " + introsound + " > /dev/null 2>&1 &")
 	elif operating == "Windows":
-		os.system("bg powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\tonight.wav').PlaySync();")
+		#os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\tonight.wav').PlaySync();")
+		pass
 	elif operating == "Darwin":
 		os.system("afplay " + introsound + " > /dev/null 2>&1 &")
 	else:
