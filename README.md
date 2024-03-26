@@ -55,6 +55,8 @@ data/save/userdata.p  -  user data is stored here
 
 data/save/config.p - config settings for game
 
+data/save/default_config.p - default settings for recovery
+
 data/graphics/graphics.py - ASCII art for game
 
 data/sounds/tonight.wav - intro sound when game starts
@@ -72,6 +74,22 @@ data/sounds/winsound.wav - sound effect for any other bet winning
 data/sounds/chips.wav - sound effect for any other bet winning
 
 data/images - screenshots for README
+
+
+03/25/2024
+
+Been working on trying to fix music bug in Windows to no avail.  Been trying 
+multiple powershell commands Start-Job, Start-Process, etc to try to run the 
+menu music in the background.  As it stand this works in Linux without a hitch
+but in Windows it will play the music in its entirety before executing the
+rest of the code which actually loads the menu.
+Also added a default config file for which to use to recover config settings
+if the system being played on does not happen to have sound or color capability
+without editing the code, just need to copy data/save/default.config.p to
+data/save/config.p this also will resolve any issues with people who may have
+an earlier version of my settings menu and get errors when starting after 
+pulling to current. (As if anyone other than my immediate family and friends
+are even playing this game, LOL :D )
 
 
 03/15/2024
