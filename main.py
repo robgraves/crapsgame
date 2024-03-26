@@ -578,7 +578,6 @@ def credits():
 	print("			                    ")
 	print("			                    ")
 	print("			                    ")
-	'''
 	time.sleep(1.0)
 	print("			 Created By:        ")
 	time.sleep(1.0)
@@ -720,7 +719,6 @@ def credits():
 	time.sleep(1.0)
 	print("			                    ")
 	time.sleep(1.0)
-	'''
 	print("			                    ")
 	time.sleep(1.0)
 	print("			  Special Thanks    ")
