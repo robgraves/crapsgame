@@ -456,6 +456,32 @@ def die2blank():
 	print("                   ")
 
 
+def diceseven():
+	'''Function to display a seven in ASCII'''
+	print("				 ___     ")
+	print("				|o  |    ")
+	print("				| o |    ")
+	print("				|__o|    ")
+	print("						             ")
+	print("					 ___     ")
+	print("					|o o|    ")
+	print("					|   |    ")
+	print("					|o_o|    ")
+	print("		  	           	        ")
+
+def color_diceseven():
+	'''Function to display a seven in ASCII in color'''
+	print(f"{ansifmt.HIRED}    				 ___     {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    				|{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}  |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    				| {ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED} |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}    				|__{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print("						             ")
+	print(f"{ansifmt.HIRED}					 ___     {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          				|{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          				|   |    {ansifmt.RESET}")
+	print(f"{ansifmt.HIRED}          				|{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}_{ansifmt.RESET}" + f"{ansifmt.HIWHITE}o{ansifmt.RESET}" + f"{ansifmt.HIRED}|    {ansifmt.RESET}")
+	print("							                   ")
+
 def color_die1face1():
 	'''Function to display a one on a die1 in ASCII'''
 	print(f"{ansifmt.HIRED}     ___     {ansifmt.RESET}")

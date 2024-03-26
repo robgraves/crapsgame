@@ -76,6 +76,13 @@ data/sounds/chips.wav - sound effect for any other bet winning
 data/images - screenshots for README
 
 
+03/26/2024
+
+Added credits option to mostly credit myself for fun, but throw in a couple of my
+friends and family for helping with this uncompleted project for testing
+and whatnot. 
+
+
 03/25/2024
 
 Been working on trying to fix music bug in Windows to no avail.  Been trying 
