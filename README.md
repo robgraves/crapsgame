@@ -60,12 +60,12 @@ data/save/default_config.p - default settings for recovery
 data/graphics/graphics.py - ASCII art for game
 
 data/sounds/tonight.wav - intro sound when game starts
-	NOTE: This file is probably copyrighted and is merely a
+    NOTE: This file is probably copyrighted and is merely a
 placeholder until I can find a substitute,
 
 data/sounds/proleter-throwitback.wav - song in credits,
 ProleteR - Throw It Back (feat. Task Rok)
-	NOTE: This file is probably copyrighted and is merely a
+    NOTE: This file is probably copyrighted and is merely a
 placeholder until I can find a substitute,
 
 data/sounds/diceroll.wav - sound effect for dice rolls
