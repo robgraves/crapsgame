@@ -533,12 +533,12 @@ def credits():
 	#Start Credits Music
 	if music == 1:
 		if operating == "Linux":
-			os.system("killall aplay")
+			os.system("killall -q aplay")
 			os.system("aplay -q " + creditsound + " > /dev/null 2>&1 &")
 		elif operating == "Windows":
 			os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\proleter-throwitback.wav').PlaySync();")
 		elif operating == "Darwin":
-			os.system("killall afplay")
+			os.system("killall -q afplay")
 			os.system("afplay " + creditsound + " > /dev/null 2>&1 &")
 		else:
 			print("ERROR: Unknown Operating System!")
