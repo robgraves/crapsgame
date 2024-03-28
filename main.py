@@ -3530,6 +3530,12 @@ while quitflag == False:
 				bets.update({"freeodds_come9":0})
 				bets.update({"freeodds_come10":0})
 
+				#Clearing hardway bets on Seven
+				bets.update({"hardway4":0})
+				bets.update({"hardway6":0})
+				bets.update({"hardway8":0})
+				bets.update({"hardway10":0})
+
 			if winflag == 1:
 				if soundfx == 1:
 					if operating == "Linux":
