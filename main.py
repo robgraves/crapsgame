@@ -86,6 +86,7 @@ if operating == "Linux":
 	userdata             = "data/save/userdata.p"
 	config				= "data/save/config.p"
 	introsound		= "data/sounds/tonight.wav"
+	creditsound		= "data/sounds/proleter-throwitback.wav"
 	dicesound           = "data/sounds/diceroll.wav"
 	awwsound          = "data/sounds/aww.wav"
 	applausesound   = "data/sounds/claps.wav"
@@ -95,6 +96,7 @@ elif operating == "Windows":
 	userdata           = "data\\save\\userdata.p"
 	config				= "data\\save\\config.p"
 	introsound		= "data\\sounds\\tonight.wav"
+	creditsound		= "data\\sounds\\proleter-throwitback.wav"
 	dicesound         = "data\\sounds\\diceroll.wav"
 	awwsound         = "data\\sounds\\aww.wav"
 	applausesound  = "data\\sounds\\claps.wav"
@@ -104,6 +106,7 @@ elif operating == "Darwin":
 	userdata             = "data/save/userdata.p"
 	config				= "data/save/config.p"
 	introsound		= "data/sounds/tonight.wav"
+	creditsound		= "data/sounds/proleter-throwitback.wav"
 	dicesound           = "data/sounds/diceroll.wav"
 	awwsound          = "data/sounds/aww.wav"
 	applausesound   = "data/sounds/claps.wav"
@@ -527,7 +530,18 @@ def credits():
 	else:
 		print("ERROR: Unknown Operating System!")
 
-	#os.system("killall aplay")
+	#Start Credits Music
+	if music == 1:
+		if operating == "Linux":
+			os.system("killall aplay")
+			os.system("aplay -q " + creditsound + " > /dev/null 2>&1 &")
+		elif operating == "Windows":
+			os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\proleter-throwitback.wav').PlaySync();")
+		elif operating == "Darwin":
+			os.system("killall afplay")
+			os.system("afplay " + creditsound + " > /dev/null 2>&1 &")
+		else:
+			print("ERROR: Unknown Operating System!")
 	
 	##############################################
 	#
@@ -742,17 +756,37 @@ def credits():
 	time.sleep(1.0)
 	print("			                    ")
 	time.sleep(1.0)
-	print("			Main Menu Music:    ")
+	print("			  Main Menu Music:    ")
 	time.sleep(1.0)
 	print("			                    ")
 	time.sleep(1.0)
-	print("		Tonight Show Theme - 'Johnny's Theme'")
+	print("		  Tonight Show Theme - 'Johnny's Theme'")
 	time.sleep(1.0)
 	print("			                    ")
 	time.sleep(1.0)
-	print("		NOTE: This is probably going     ")
+	print("		  NOTE: This is probably going     ")
 	time.sleep(1.0)
-	print("			to be changed.	             ")
+	print("			  to be changed.	             ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			  Credits Music:      ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("		  ProleteR - 'Throw It Back' featuring Task Rok")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("		  NOTE: This is probably going     ")
+	time.sleep(1.0)
+	print("			  to be changed.	             ")
 	time.sleep(1.0)
 	print("			                    ")
 	time.sleep(1.0)
@@ -788,7 +822,19 @@ def credits():
 	time.sleep(1.0)
 	print("			                    ")
 	time.sleep(1.0)
+	print("			Mike Thomas		    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
 	print("			Kylicia Heinzelman  ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			Thomas Thrower      ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			Dan Denunzio        ")
 	time.sleep(1.0)
 	print("			                    ")
 	time.sleep(1.0)
@@ -820,7 +866,7 @@ def credits():
 	time.sleep(1.0)
 	print("			                    ")
 	time.sleep(1.0)
-	print("				Terminal Craps    ")
+	print("			Terminal Craps    ")
 	time.sleep(1.0)
 	print("			                    ")
 	time.sleep(1.0)
@@ -828,9 +874,7 @@ def credits():
 	time.sleep(1.0)
 	print("			                    ")
 	time.sleep(1.0)
-	print("	       			me@matthewjpage.com  ")
-	time.sleep(1.0)
-	print("			   		2024                 ")
+	print("	       	        me@matthewjpage.com  ")
 	time.sleep(1.0)
 	print("			                    ")
 	time.sleep(1.0)
@@ -838,6 +882,67 @@ def credits():
 	time.sleep(1.0)
 	print("			                    ")
 	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			Developed in vim    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			on my Arch Linux laptop.	")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			'I use Arch btw'	")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			Originally started	")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			as a project to try to learn  ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			Python...I still don't really ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			know it.  :p		")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			2024                ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
+	time.sleep(1.0)
+	print("			                    ")
 	print(" 			A new shooter steps up to   ")
 	time.sleep(1.0)
 	print("					the table...			")
@@ -860,6 +965,10 @@ def credits():
 	time.sleep(1.0)
 	print("			                    ")
 	time.sleep(1.0)
+
+	#End target to match song end requires 25 seconds more beyond
+	#line 908, every other line creates a one second delay resulting
+	#in end target for credits to match song at approximately line 958
 		
 
 
@@ -1369,6 +1478,15 @@ def gameover(int):
 			print(f"{ansifmt.HIWHITE}User and use the same name to  {ansifmt.RESET}")
 			print(f"{ansifmt.HIWHITE}use your saved bankroll.       \n{ansifmt.RESET}")
 	if int == 0:
+		if operating == "Linux":
+			os.system("killall -q aplay")
+		elif operating == "Windows":
+			#os.system("SOMETHING")
+			pass
+		elif operating == "Darwin":
+			os.system("killall -q afplay")
+		else:
+			print("ERROR: Unknown Operating System!")
 		save(users_dict)
 		save_config(config_dump)
 	input()

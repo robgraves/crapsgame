@@ -60,6 +60,13 @@ data/save/default_config.p - default settings for recovery
 data/graphics/graphics.py - ASCII art for game
 
 data/sounds/tonight.wav - intro sound when game starts
+	NOTE: This file is probably copyrighted and is merely a
+placeholder until I can find a substitute,
+
+data/sounds/proleter-throwitback.wav - song in credits,
+ProleteR - Throw It Back (feat. Task Rok)
+	NOTE: This file is probably copyrighted and is merely a
+placeholder until I can find a substitute,
 
 data/sounds/diceroll.wav - sound effect for dice rolls
 
@@ -74,6 +81,11 @@ data/sounds/winsound.wav - sound effect for any other bet winning
 data/sounds/chips.wav - sound effect for any other bet winning
 
 data/images - screenshots for README
+
+
+03/27/2024
+
+More modification of credits and adding a song to the credits reel.
 
 
 03/26/2024
