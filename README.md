@@ -84,6 +84,13 @@ data/images - screenshots for README
 
 
 
+03/28/2024
+
+Finally fixed the issue I was having with Windows music playing
+in the background.  Resolved by using subprocess.Popen(), now game
+works virtually the same in Windows and Linux
+
+
 03/27/2024
 
 More modification of credits and adding a song to the credits reel.
