@@ -547,6 +547,8 @@ def credits():
 		elif operating == "Windows":
 			try:
 				introwinsound.terminate()
+			#this error would occur if the intro music is no longer playing 
+			#therefore the process doesn't exist.
 			except NameError:
 				pass
 			creditwinsound = subprocess.Popen("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\proleter-throwitback.wav').PlaySync();")
@@ -1499,10 +1501,14 @@ def gameover(int):
 		elif operating == "Windows":
 			try:
 				creditwinsound.terminate()
+			#this error would occur if the credits  music is no longer playing 
+			#therefore the process doesn't exist.
 			except NameError:
 				pass
 			try:
 				introwinsound.terminate()
+			#this error would occur if the intro music is no longer playing 
+			#therefore the process doesn't exist.
 			except NameError:
 				pass
 		elif operating == "Darwin":
