@@ -195,7 +195,7 @@ def animatedice():
 	i = 0
 	rng = random.SystemRandom()
 	while i < 5:
-		#table()
+		table()
 		animatedie1 		= rng.randint(1,6)
 		animatedie2 		= rng.randint(1,6)
 
@@ -3819,6 +3819,28 @@ while quitflag == False:
 				bets.update({"field":0})
 			save(users_dict)
 
+			#Hardway bet payouts
+			if (bets.get("hardway4") != 0) and (hardway == 4):
+				bankroll = (bankroll + (bets.get("hardway4") * 7) + bets.get("hardway4"))
+				winflag = 1
+				bets.update({"hardway4":0})
+				hardway = 0
+			if (bets.get("hardway6") != 0) and (hardway == 6):
+				bankroll = (bankroll + (bets.get("hardway6") * 9) + bets.get("hardway6"))
+				winflag = 1
+				bets.update({"hardway6":0})
+				hardway = 0
+			if bets.get("hardway8") != 0 and (hardway == 8):
+				bankroll = (bankroll + (bets.get("hardway8") * 9) + bets.get("hardway8"))
+				winflag = 1
+				bets.update({"hardway8":0})
+				hardway = 0
+			if bets.get("hardway10") != 0 and (hardway == 10):
+				bankroll = (bankroll + (bets.get("hardway10") * 7) + bets.get("hardway10"))
+				winflag = 1
+				bets.update({"hardway10":0})
+				hardway = 0
+			save(users_dict)
 		
 			#Non-hardway proposition bet payouts
 			#Payouts for Miscellaneous bets, C&E and World bets
