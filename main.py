@@ -23,6 +23,7 @@
 ############################################
 import sys
 import os
+import subprocess
 import platform
 import time
 import datetime
@@ -79,6 +80,12 @@ music = 1
 global mature
 mature = 0
 ############################################
+
+
+#Some needed variables for terminating music in
+# Windows OS
+global introwinsound
+global creditwinsound
 
 
 #path for files used
@@ -520,6 +527,8 @@ def settings(username):
 
 def credits():
 	global colorized
+	global introwinsound
+	global creditwinsound
 
 	if operating == "Linux":
 		os.system("clear")
@@ -536,7 +545,11 @@ def credits():
 			os.system("killall -q aplay")
 			os.system("aplay -q " + creditsound + " > /dev/null 2>&1 &")
 		elif operating == "Windows":
-			os.system("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\proleter-throwitback.wav').PlaySync();")
+			try:
+				introwinsound.terminate()
+			except NameError:
+				pass
+			creditwinsound = subprocess.Popen("powershell -c (New-Object Media.SoundPlayer 'data\\sounds\\proleter-throwitback.wav').PlaySync();")
 		elif operating == "Darwin":
 			os.system("killall -q afplay")
 			os.system("afplay " + creditsound + " > /dev/null 2>&1 &")
@@ -1413,6 +1426,9 @@ def shady():
 def gameover(int):
 	global config_dump
 	global colorized
+	global introwinsound
+	global creditwinsound	
+
 	if operating == "Linux":
 		os.system("clear")
 	elif operating == "Windows":
@@ -1481,8 +1497,14 @@ def gameover(int):
 		if operating == "Linux":
 			os.system("killall -q aplay")
 		elif operating == "Windows":
-			#os.system("SOMETHING")
-			pass
+			try:
+				creditwinsound.terminate()
+			except NameError:
+				pass
+			try:
+				introwinsound.terminate()
+			except NameError:
+				pass
 		elif operating == "Darwin":
 			os.system("killall -q afplay")
 		else:
