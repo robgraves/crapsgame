@@ -307,7 +307,8 @@ def dice(diceresult):
 
 	#random number generated using old method to keep some
 	#of the other method involved in this new method
-	rng_num = rng.randint(1,10000)
+	#chose a calculator number as upper bound
+	rng_num = rng.randint(1,5318008)
 
 	#Accumulated seed composite saved as an integer
 	#made up of nameint + bankroll + dateint + 
