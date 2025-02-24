@@ -86,7 +86,9 @@ data/images - screenshots for README
 
 02/24/2025
 
-Testing push with github token
+Testing game again to make sure everything works well, currently
+appears to work well on Linux and Windows, still untested on Mac
+as I don't own or know anyone who owns a Mac.
 
 
 03/28/2024
