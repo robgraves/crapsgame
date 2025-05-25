@@ -35,6 +35,10 @@ Matthew Page
 
 me@matthewjpage.com
 
+__________________________________________________
+
+__________________________________________________
+
 
 
 INSTRUCTIONS:
@@ -48,6 +52,12 @@ https://www.python.org/downloads/
 -To play, using python 3, run from command line:
 
 `python3 main.py`
+
+
+
+__________________________________________________
+
+__________________________________________________
 
 
 
