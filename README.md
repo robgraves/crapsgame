@@ -39,6 +39,11 @@ me@matthewjpage.com
 
 INSTRUCTIONS:
 
+-If using Windows you will need to install Python
+first from here:
+https://www.python.org/downloads/
+
+
 -To play, using python 3, run from command line:
 
 `python3 main.py`
