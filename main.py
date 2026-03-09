@@ -890,7 +890,7 @@ def credits():
 	time.sleep(1.0)
 	print("			                    ")
 	time.sleep(1.0)
-	print("	       	        me@matthewjpage.com  ")
+	print("	       	        robgravesny@gmail.com  ")
 	time.sleep(1.0)
 	print("			                    ")
 	time.sleep(1.0)
@@ -1471,12 +1471,12 @@ def gameover(int):
 	if colorized == 0:
 		print("**** Terminal Craps Game ****")
 		print("** written by Matthew Page **")
-		print("**** me@matthewjpage.com ****\n\n")
+		print("**** robgravesny@gmail.com ****\n\n")
 		print("******************************\n")
 	else:
 		print(f"{ansifmt.HIYELLOW}**** {ansifmt.RESET}" + f"{ansifmt.HIBLUE}Terminal Craps Game {ansifmt.RESET}" + f"{ansifmt.HIYELLOW}****{ansifmt.RESET}")
 		print(f"{ansifmt.HIYELLOW}** {ansifmt.RESET}" + f"{ansifmt.HIBLUE}written by Matthew Page {ansifmt.RESET}" + f"{ansifmt.HIYELLOW}**{ansifmt.RESET}")
-		print(f"{ansifmt.HIBLUE}" + f"{ansifmt.HIYELLOW}**** {ansifmt.HIBLUE}me@matthewjpage.com {ansifmt.RESET}" + f"{ansifmt.HIYELLOW}****\n\n{ansifmt.RESET}")
+		print(f"{ansifmt.HIBLUE}" + f"{ansifmt.HIYELLOW}**** {ansifmt.HIBLUE}robgravesny@gmail.com {ansifmt.RESET}" + f"{ansifmt.HIYELLOW}****\n\n{ansifmt.RESET}")
 		print(f"{ansifmt.HIYELLOW}******************************\n{ansifmt.RESET}")
 	if bankroll == 0:
 		if colorized == 0:
