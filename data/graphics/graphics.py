@@ -50,7 +50,7 @@ _ascii_dice = """
 _intro_footer = """
    Created by Matthew J. Page    
          robgraves  2024         
-       me@matthewjpage.com       
+       robgravesny@gmail.com       
                                  """
 
 def intro():
