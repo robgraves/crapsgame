@@ -130,8 +130,8 @@ me at:
 
 robgravesny@gmail.com
 
-put "CRAPS TERMINAL GAME" im the subject line or else
-I may overlook it,
+Please put, "CRAPS TERMINAL GAME" in the subject line
+or else I may overlook it inadvertantly.   
 
 
 __________________________________________________________
