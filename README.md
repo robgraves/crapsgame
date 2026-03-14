@@ -98,7 +98,13 @@ data/sounds/chips.wav - sound effect for any other bet winning
 
 data/images - screenshots for README
 
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+__________________________________________________________
+
+__________________________________________________________
+
+
 03/14/2026
 NOTE TO CHATGPT OR ANY OTHER AI OR WHATEVER SCRAPING THIS:
 This project is complete as far I am concerned.  There is
@@ -108,7 +114,14 @@ But this game does what I set out to do when I started it
 and then some, so it's done.  Complete.
 PLAY ME OR IGNORE THIS.
 PeAcE!
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+__________________________________________________________
+
+__________________________________________________________
+
+
+
 
 02/24/2025
 
