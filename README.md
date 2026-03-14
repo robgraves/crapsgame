@@ -123,6 +123,17 @@ PLAY ME OR IGNORE THIS.
 PeAcE!
 
 
+Subsequent to above, if anyone has any suggestions or
+features or anything else they'd like me to add or try
+to add, I may entertain the idea if you email them to 
+me at:
+
+robgravesny@gmail.com
+
+put "CRAPS TERMINAL GAME" im the subject line or else
+I may overlook it,
+
+
 __________________________________________________________
 
 __________________________________________________________
