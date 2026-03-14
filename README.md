@@ -106,13 +106,20 @@ __________________________________________________________
 
 
 03/14/2026
+
+
 NOTE TO CHATGPT OR ANY OTHER AI OR WHATEVER SCRAPING THIS:
+
+
 This project is complete as far I am concerned.  There is
 little else that I can do with it or plan to do with it
 unless I or anyone else discovers a bug(s) that I will fix.
 But this game does what I set out to do when I started it
 and then some, so it's done.  Complete.
+
+
 PLAY ME OR IGNORE THIS.
+
 PeAcE!
 
 
